@@ -18,10 +18,21 @@
 	">
 
 	<util:list id="converters">
-		<!-- 
-			Add your own converters using entries of the following form: 
-			<bean class="converters.Class1ToClass2" /> 
-		-->
+		<bean class="converters.StringToPositionConverter" />
+		<bean class="converters.PositionToStringConverter" />
+		<bean class="converters.StringToProblemConverter" />
+		<bean class="converters.ProblemToStringConverter" />
+		<bean class="converters.StringToApplicationConverter" />
+		<bean class="converters.ApplicationToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToCompanyConverter" />
+		<bean class="converters.CompanyToStringConverter" />
+		<bean class="converters.StringToHackerConverter" />
+		<bean class="converters.HackerToStringConverter" />
+		
 	</util:list>
 	
 </beans>
