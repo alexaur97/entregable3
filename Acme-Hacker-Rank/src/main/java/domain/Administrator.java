@@ -6,17 +6,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Administrator extends DomainEntity {
-
-	
-
-	// Constructor .......................
-
-	public Administrator() {
-		super();
-	}
-
-	// Attributes ..................
-
+public class Administrator extends Actor {
 
 }

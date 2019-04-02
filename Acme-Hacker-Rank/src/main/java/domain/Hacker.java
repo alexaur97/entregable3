@@ -6,17 +6,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Hacker extends DomainEntity {
-
-	
-
-	// Constructor .......................
-
-	public Hacker() {
-		super();
-	}
-
-	// Attributes ..................
-
+public class Hacker extends Actor {
 
 }
