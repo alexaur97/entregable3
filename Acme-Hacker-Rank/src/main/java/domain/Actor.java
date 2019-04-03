@@ -31,8 +31,8 @@ public class Actor extends DomainEntity {
 	private String		email;
 	private String		phone;
 	private String		address;
-	private boolean 	spammer;
-	private boolean		banned;
+	private Boolean 	spammer;
+	private Boolean		banned;
 
 	public UserAccount	userAccount;
 
@@ -56,6 +56,8 @@ public class Actor extends DomainEntity {
 		this.surnames = surnames;
 	}
 
+	@NotNull
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Integer getVAT() {
 		return VAT;
 	}
@@ -66,7 +68,6 @@ public class Actor extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
@@ -114,21 +115,23 @@ public class Actor extends DomainEntity {
 		this.address = address;
 	}
 
+	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public boolean isSpammer() {
+	public Boolean isSpammer() {
 		return spammer;
 	}
 
-	public void setSpammer(boolean spammer) {
+	public void setSpammer(Boolean spammer) {
 		this.spammer = spammer;
 	}
 
+	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public boolean isBanned() {
+	public Boolean isBanned() {
 		return banned;
 	}
 
-	public void setBanned(boolean banned) {
+	public void setBanned(Boolean banned) {
 		this.banned = banned;
 	}
 

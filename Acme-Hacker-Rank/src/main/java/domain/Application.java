@@ -34,6 +34,7 @@ public class Application extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@SafeHtml(whitelistType = WhiteListType.NONE)	
 	public Date getMoment() {
 		return moment;
 	}
@@ -62,12 +63,14 @@ public class Application extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@SafeHtml(whitelistType = WhiteListType.NONE)	
 	public Date getSubmitMoment() {
 		return submitMoment;
 	}
 	public void setSubmitMoment(Date submitMoment) {
 		this.submitMoment = submitMoment;
 	}
+	
 	@NotBlank
 	@Pattern(regexp = "^PENDING|APPROVED|REJECTED|PENDING$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -78,6 +81,7 @@ public class Application extends DomainEntity {
 		this.status = status;
 	}
 	
+	@NotNull
 	@ManyToOne(optional = false)
 	public Hacker getHacker() {
 		return hacker;
@@ -86,6 +90,7 @@ public class Application extends DomainEntity {
 		this.hacker = hacker;
 	}
 	
+	@NotNull
 	@ManyToOne(optional = false)
 	public Problem getProblem() {
 		return problem;
@@ -94,6 +99,7 @@ public class Application extends DomainEntity {
 		this.problem = problem;
 	}
 	
+	@NotNull
 	@ManyToOne(optional = false)
 	public Position getPosition() {
 		return position;

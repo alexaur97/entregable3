@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -33,7 +34,7 @@ public class Position extends DomainEntity {
 	private Integer salaryOffered;
 	private String ticker;
 	private String mode;
-	private String cancelled;
+	private Boolean cancelled;
 	
 	private Company company;
 	private Collection<Problem> problems;
@@ -95,6 +96,8 @@ public class Position extends DomainEntity {
 	}
 	
 	@Min(0)
+	@NotNull
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Integer getSalaryOffered() {
 		return salaryOffered;
 	}
@@ -120,14 +123,17 @@ public class Position extends DomainEntity {
 		this.mode = mode;
 	}
 	
-	
-	public String getCancelled() {
+	@NotNull
+	@SafeHtml(whitelistType = WhiteListType.NONE)	
+	public Boolean getCancelled() {
 		return cancelled;
 	}
-	public void setCancelled(String cancelled) {
+	public void setCancelled(Boolean cancelled) {
 		this.cancelled = cancelled;
 	}
 	
+	@NotNull
+	@Valid
 	@ManyToOne(optional = false)
 	public Company getCompany() {
 		return company;

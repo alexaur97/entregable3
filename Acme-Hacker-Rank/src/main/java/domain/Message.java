@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -8,7 +9,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,77 +17,76 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Problem extends DomainEntity {
+public class Message extends DomainEntity {
 
-	private String title;
-	private String statement;
-	private String hint;
+	private String subject;
+	private String body;
+	public Date moment;
 	private Collection<String> attachments;
-	private String mode;
+	public Boolean spam;
+
+	public Actor recipient;
+	public Actor sender;
 	
-	private Company company;
-
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getTitle() {
-		return title;
+	public String getSubject() {
+		return subject;
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
-
+	
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getStatement() {
-		return statement;
+	public String getBody() {
+		return body;
 	}
-
-	public void setStatement(String statement) {
-		this.statement = statement;
+	public void setBody(String body) {
+		this.body = body;
 	}
-
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getHint() {
-		return hint;
+	
+	public Date getMoment() {
+		return moment;
 	}
-
-	public void setHint(String hint) {
-		this.hint = hint;
+	public void setMoment(Date moment) {
+		this.moment = moment;
 	}
-
+	
 	@ElementCollection
 	@NotEmpty
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Collection<String> getAttachments() {
 		return attachments;
 	}
-
 	public void setAttachments(Collection<String> attachments) {
 		this.attachments = attachments;
 	}
-
-	@NotBlank
-	@Pattern(regexp = "^DRAFT|FINAL$")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getMode() {
-		return mode;
+	
+	@NotNull
+	@SafeHtml(whitelistType = WhiteListType.NONE)	
+	public Boolean getSpam() {
+		return spam;
 	}
-
-	public void setMode(String mode) {
-		this.mode = mode;
+	public void setSpam(Boolean spam) {
+		this.spam = spam;
 	}
-
+	
 	@NotNull
 	@ManyToOne(optional = false)
-	public Company getCompany() {
-		return company;
+	public Actor getRecipient() {
+		return recipient;
 	}
-
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setRecipient(Actor recipient) {
+		this.recipient = recipient;
 	}
-
-
+	
+	@NotNull
+	@ManyToOne(optional = false)
+	public Actor getSender() {
+		return sender;
+	}
+	public void setSender(Actor sender) {
+		this.sender = sender;
+	}
 }

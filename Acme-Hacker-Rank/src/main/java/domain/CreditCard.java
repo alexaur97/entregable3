@@ -15,41 +15,7 @@ public class CreditCard {
 	private String number;
 	private Integer expirationMonth;
 	private Integer expirationYear;
-	private Integer cvv;
-	
-
-	
-	//Constructor
-	public CreditCard(){
-		this.brandName  		="";
-		this.holderName 		="";
-		this.number    			="";
-		this.expirationMonth 	=12;
-		this.expirationYear  	=2016;
-		this.cvv				=100;
-	}
-	public CreditCard(String holderName,String brandName,String number, Integer expirationMonth, Integer expirationYear,Integer ccv){
-		this.holderName  		=holderName;
-		this.brandName 			=brandName;
-		this.number    			=number;
-		this.expirationMonth 	=expirationMonth;
-		this.expirationYear  	=expirationYear;
-		this.cvv				=ccv;
-	}
-	
-	public CreditCard(String creditCard){
-		String[] array = creditCard.split(",");
-		
-		this.holderName=array[0];
-		this.brandName=array[1];
-		this.number=array[2];
-		this.expirationMonth=Integer.parseInt(array[3]);
-		this.expirationYear=Integer.parseInt(array[4]);
-		this.cvv=Integer.parseInt(array[5]);
-		
-	}
-	
-	
+	private Integer cvv;	
 	
 	@NotBlank
 	public String getHolderName() {
