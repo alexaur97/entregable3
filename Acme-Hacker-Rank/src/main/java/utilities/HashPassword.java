@@ -25,7 +25,7 @@ public class HashPassword {
 		String line, hash;
 
 		try {
-			System.out.println("HashPassword 1.18.2");
+			System.out.println("HashPassword1.18.2.1");
 			System.out.println("-------------------");
 			System.out.println();
 

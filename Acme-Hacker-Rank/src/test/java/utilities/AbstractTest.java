@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.Assert;
 
 import security.LoginService;
 import utilities.internal.EclipseConsole;
@@ -122,7 +123,7 @@ public abstract class AbstractTest {
 	}
 
 	protected boolean existsEntity(final String beanName) {
-		assert beanName != null && beanName.matches("^[A-Za-z0-9\\-]+$");
+		Assert.isTrue(beanName != null && beanName.matches("^[A-Za-z0-9\\-]+$"));
 
 		boolean result;
 
@@ -132,14 +133,17 @@ public abstract class AbstractTest {
 	}
 
 	protected int getEntityId(final String beanName) {
-		assert beanName != null && beanName.matches("^[A-Za-z0-9\\-]+$");
-		assert this.existsEntity(beanName);
+		Assert.isTrue(beanName != null && beanName.matches("^[A-Za-z0-9\\-]+$"));
+		Assert.isTrue(this.existsEntity(beanName));
 
 		int result;
 		String id;
 
 		id = (String) this.entityMap.get(beanName);
-		result = Integer.valueOf(id);
+		if (id == null)
+			result = -1;
+		else
+			result = Integer.valueOf(id);
 
 		return result;
 	}

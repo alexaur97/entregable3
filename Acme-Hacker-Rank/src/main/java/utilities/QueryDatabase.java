@@ -15,7 +15,7 @@ import utilities.internal.DatabaseEnquirer;
 public class QueryDatabase {
 
 	public static void main(final String[] args) {
-		DatabaseEnquirer.run("QueryDatabase 1.18.2");
+		DatabaseEnquirer.run("QueryDatabase1.18.2.1");
 	}
 
 }

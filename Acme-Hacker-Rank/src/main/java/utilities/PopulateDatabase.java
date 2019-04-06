@@ -15,7 +15,7 @@ import utilities.internal.DatabasePopulator;
 public class PopulateDatabase {
 
 	public static void main(final String[] args) {
-		DatabasePopulator.run("PopulateDatabase 1.18.2", "classpath:PopulateDatabase.xml");
+		DatabasePopulator.run("PopulateDatabase1.18.2.1", "classpath:PopulateDatabase.xml");
 	}
 
 }
