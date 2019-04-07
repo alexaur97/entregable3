@@ -1,15 +1,18 @@
+
 package repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository; 
-import org.springframework.data.jpa.repository.Query; 
-import org.springframework.stereotype.Repository; 
+import java.util.Collection;
 
-import domain.Position; 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-@Repository 
-public interface PositionRepository extends JpaRepository<Position, Integer>{ 
+import domain.Position;
 
-	//@Query("") 
-	//Method 
+@Repository
+public interface PositionRepository extends JpaRepository<Position, Integer> {
 
-} 
+	@Query("select p from Position p where p.company.id=?1")
+	Collection<Position> findByCompany(Integer id);
+
+}
