@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -12,8 +13,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import org.hibernate.validator.constraints.URL;
 
 import security.UserAccount;
 
@@ -26,112 +27,113 @@ public class Actor extends DomainEntity {
 	private String		name;
 	private String		surnames;
 	private Integer		VAT;
-	private CreditCard creditCard;
+	private CreditCard	creditCard;
 	private String		photo;
 	private String		email;
 	private String		phone;
 	private String		address;
-	private Boolean 	spammer;
+	private Boolean		spammer;
 	private Boolean		banned;
 
 	public UserAccount	userAccount;
 
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurnames() {
-		return surnames;
+		return this.surnames;
 	}
 
-	public void setSurnames(String surnames) {
+	public void setSurnames(final String surnames) {
 		this.surnames = surnames;
 	}
 
 	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Integer getVAT() {
-		return VAT;
+		return this.VAT;
 	}
 
-	public void setVAT(Integer vAT) {
-		VAT = vAT;
+	public void setVAT(final Integer vAT) {
+		this.VAT = vAT;
 	}
 
 	@NotNull
 	@Valid
 	public CreditCard getCreditCard() {
-		return creditCard;
+		return this.creditCard;
 	}
 
-	public void setCreditCard(CreditCard creditCard) {
+	public void setCreditCard(final CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
 
 	@URL
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoto() {
-		return photo;
+		return this.photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(final String photo) {
 		this.photo = photo;
 	}
-	
+
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*\\>")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
 
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(final String address) {
 		this.address = address;
 	}
 
 	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Boolean isSpammer() {
-		return spammer;
+		return this.spammer;
 	}
 
-	public void setSpammer(Boolean spammer) {
+	public void setSpammer(final Boolean spammer) {
 		this.spammer = spammer;
 	}
 
 	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Boolean isBanned() {
-		return banned;
+		return this.banned;
 	}
 
-	public void setBanned(Boolean banned) {
+	public void setBanned(final Boolean banned) {
 		this.banned = banned;
 	}
 
@@ -139,10 +141,10 @@ public class Actor extends DomainEntity {
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public UserAccount getUserAccount() {
-		return userAccount;
+		return this.userAccount;
 	}
 
-	public void setUserAccount(UserAccount userAccount) {
+	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
 

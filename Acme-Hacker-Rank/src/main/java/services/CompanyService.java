@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Company;
+import domain.CreditCard;
+import forms.CompanyRegisterForm;
+
 
 @Service
 @Transactional
@@ -22,8 +27,12 @@ public class CompanyService {
 	@Autowired
 	private CompanyRepository	companyRepository;
 
-	//Servicios
+	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private CreditCardService	creditCardService;
+
 
 
 	//Supporting Services ------------------
@@ -84,5 +93,35 @@ public class CompanyService {
 	private Company findByUserId(final int id) {
 		final Company c = this.companyRepository.findByUserId(id);
 		return c;
+	}
+	public Company constructByForm(final CompanyRegisterForm companyRegisterForm) {
+		final Company result = this.create();
+		result.setAddress(companyRegisterForm.getAddress());
+		result.setBanned(false);
+		result.setCommercialName(companyRegisterForm.getCommercialName());
+		final CreditCard creditCard = new CreditCard();
+		creditCard.setBrandName(companyRegisterForm.getBrandName());
+		creditCard.setCvv(companyRegisterForm.getCvv());
+		creditCard.setExpirationMonth(companyRegisterForm.getExpirationMonth());
+		creditCard.setExpirationYear(companyRegisterForm.getExpirationYear());
+		creditCard.setHolderName(companyRegisterForm.getHolderName());
+		creditCard.setNumber(companyRegisterForm.getNumber());
+		result.setCreditCard(creditCard);
+		result.setEmail(companyRegisterForm.getEmail());
+		result.setName(companyRegisterForm.getName());
+		result.setPhone(companyRegisterForm.getPhone());
+		result.setPhoto(companyRegisterForm.getPhoto());
+		result.setSpammer(false);
+		result.setSurnames(companyRegisterForm.getSurnames());
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setPassword(companyRegisterForm.getPassword());
+		userAccount.setUsername(companyRegisterForm.getUsername());
+		final Collection<Authority> authorities = new ArrayList<>();
+		final Authority auth = Authority.COMPANY;
+		authorities.add(auth);
+		userAccount.setAuthorities(authorities);
+		result.setUserAccount(userAccount);
+		result.setVAT(companyRegisterForm.getVAT());
+		return result;
 	}
 }
