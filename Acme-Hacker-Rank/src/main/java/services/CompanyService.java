@@ -2,7 +2,6 @@
 package services;
 
 import java.util.ArrayList;
-
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import domain.Company;
 import domain.CreditCard;
 import forms.CompanyRegisterForm;
 
-
 @Service
 @Transactional
 public class CompanyService {
@@ -32,7 +30,6 @@ public class CompanyService {
 
 	@Autowired
 	private CreditCardService	creditCardService;
-
 
 
 	//Supporting Services ------------------
@@ -117,8 +114,8 @@ public class CompanyService {
 		userAccount.setPassword(companyRegisterForm.getPassword());
 		userAccount.setUsername(companyRegisterForm.getUsername());
 		final Collection<Authority> authorities = new ArrayList<>();
-		final Authority auth = Authority.COMPANY;
-		authorities.add(auth);
+		//		final Authority auth = Authority.COMPANY;
+		//		authorities.add(auth);
 		userAccount.setAuthorities(authorities);
 		result.setUserAccount(userAccount);
 		result.setVAT(companyRegisterForm.getVAT());

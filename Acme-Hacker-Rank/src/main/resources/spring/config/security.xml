@@ -65,6 +65,8 @@
 
 		<security:intercept-url pattern="/position/company/list.do"
 			access="hasRole('COMPANY')" />
+			<security:intercept-url pattern="/position/search.do"
+			access="permitAll"  />
 
 
 		<security:intercept-url pattern="/**"
