@@ -2,7 +2,6 @@
 package forms;
 
 import javax.persistence.Column;
-import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,37 +10,31 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
-
-import domain.CreditCard;
 
 public class CompanyRegisterForm {
 
-	private String		name;
-	private String		surnames;
-	private String		commercialName;
-	private Integer		VAT;
-	private CreditCard	creditCard;
-	private String		photo;
-	private String		email;
-	private String		phone;
-	private String		address;
-	private String		username;
-	private String		password;
-	private String		confirmPassword;
-	private String		holderName;
-	private String		brandName;
-	private String		number;
-	private Integer		expirationMonth;
-	private Integer		expirationYear;
-	private Integer		cvv;
-	private Boolean		terms;
+	private String	name;
+	private String	surnames;
+	private String	commercialName;
+	private Double	VAT;
+	private String	photo;
+	private String	email;
+	private String	phone;
+	private String	address;
+	private String	username;
+	private String	password;
+	private String	confirmPassword;
+	private String	holderName;
+	private String	brandName;
+	private String	number;
+	private Integer	expirationMonth;
+	private Integer	expirationYear;
+	private Integer	cvv;
+	private Boolean	terms;
 
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -51,7 +44,6 @@ public class CompanyRegisterForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurnames() {
 		return this.surnames;
 	}
@@ -61,7 +53,6 @@ public class CompanyRegisterForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCommercialName() {
 		return this.commercialName;
 	}
@@ -71,27 +62,16 @@ public class CompanyRegisterForm {
 	}
 
 	@NotNull
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public Integer getVAT() {
+	@Range(min = 0, max = 99)
+	public Double getVAT() {
 		return this.VAT;
 	}
 
-	public void setVAT(final Integer vAT) {
+	public void setVAT(final Double vAT) {
 		this.VAT = vAT;
 	}
 
-	@NotNull
-	@Valid
-	public CreditCard getCreditCard() {
-		return this.creditCard;
-	}
-
-	public void setCreditCard(final CreditCard creditCard) {
-		this.creditCard = creditCard;
-	}
-
 	@URL
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -101,8 +81,7 @@ public class CompanyRegisterForm {
 	}
 
 	@Column(unique = true)
-	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*\\>")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
 	public String getEmail() {
 		return this.email;
 	}
@@ -111,7 +90,6 @@ public class CompanyRegisterForm {
 		this.email = email;
 	}
 
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -120,7 +98,6 @@ public class CompanyRegisterForm {
 		this.phone = phone;
 	}
 
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;
 	}
@@ -172,8 +149,8 @@ public class CompanyRegisterForm {
 		this.brandName = brandName;
 	}
 
-	@NotBlank
 	@CreditCardNumber
+	@Pattern(regexp = "^\\d+$")
 	public String getNumber() {
 		return this.number;
 	}
@@ -182,6 +159,7 @@ public class CompanyRegisterForm {
 		this.number = number;
 	}
 
+	@NotNull
 	@Range(min = 1, max = 12)
 	public Integer getExpirationMonth() {
 		return this.expirationMonth;
@@ -191,6 +169,7 @@ public class CompanyRegisterForm {
 		this.expirationMonth = expirationMonth;
 	}
 
+	@NotNull
 	@Range(min = 16, max = 99)
 	public Integer getExpirationYear() {
 		return this.expirationYear;
@@ -200,6 +179,7 @@ public class CompanyRegisterForm {
 		this.expirationYear = expirationYear;
 	}
 
+	@NotNull
 	@Range(min = 100, max = 999)
 	public Integer getCvv() {
 		return this.cvv;

@@ -35,7 +35,7 @@ public class AdministratorService {
 	// Métodos CRUD
 
 	public Collection<Administrator> findAll() {
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.ADMIN));
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.ADMINISTRATOR));
 		Collection<Administrator> result;
 		result = this.administratorRepository.findAll();
 		Assert.notNull(result);
@@ -44,21 +44,21 @@ public class AdministratorService {
 
 	public Administrator findOne(final int administratorId) {
 		Assert.isTrue(administratorId != 0);
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.ADMIN));
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.ADMINISTRATOR));
 		Administrator result;
 		result = this.administratorRepository.findOne(administratorId);
 		return result;
 	}
 	public void delete(final Administrator administrator) {
 		Assert.notNull(administrator);
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.ADMIN));
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.ADMINISTRATOR));
 		this.administratorRepository.delete(administrator);
 	}
 
 	public void save(final Administrator administrator) {
 		if (administrator.getId() != 0) {
 			final Authority auth = new Authority();
-			auth.setAuthority(Authority.ADMIN);
+			auth.setAuthority(Authority.ADMINISTRATOR);
 			Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
 		}
 		Assert.notNull(administrator);
@@ -72,7 +72,7 @@ public class AdministratorService {
 		final UserAccount ua = new UserAccount();
 		result.setUserAccount(ua);
 		final Authority authority = new Authority();
-		authority.setAuthority(Authority.ADMIN);
+		authority.setAuthority(Authority.ADMINISTRATOR);
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		authorities.add(authority);
 		result.getUserAccount().setAuthorities(authorities);
@@ -87,7 +87,7 @@ public class AdministratorService {
 
 		final Administrator a = this.findByUserId(user.getId());
 		Assert.notNull(a);
-		this.actorService.auth(a, Authority.ADMIN);
+		this.actorService.auth(a, Authority.ADMINISTRATOR);
 		return a;
 	}
 
