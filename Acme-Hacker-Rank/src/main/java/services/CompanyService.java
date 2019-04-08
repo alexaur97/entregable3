@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -28,10 +29,6 @@ public class CompanyService {
 	@Autowired
 	private ActorService		actorService;
 
-	@Autowired
-	private CreditCardService	creditCardService;
-
-
 	//Supporting Services ------------------
 
 	//COnstructors -------------------------
@@ -42,10 +39,19 @@ public class CompanyService {
 	//Simple CRUD methods--------------------
 
 	public Company create() {
-		Company result;
+		final Company result = new Company();
+		final UserAccount ua = new UserAccount();
 
-		result = new Company();
+		result.setUserAccount(ua);
 
+		final Authority a = new Authority();
+		a.setAuthority(Authority.COMPANY);
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(a);
+		result.getUserAccount().setAuthorities(authorities);
+
+		final CreditCard creditCard = new CreditCard();
+		result.setCreditCard(creditCard);
 		return result;
 	}
 
@@ -65,10 +71,12 @@ public class CompanyService {
 		return result;
 	}
 
-	public void save(final Company company) {
+	public Company save(final Company company) {
 		Assert.notNull(company);
 
-		this.companyRepository.save(company);
+		final Company result = this.companyRepository.save(company);
+		System.out.println(result);
+		return result;
 	}
 
 	public void delete(final Company company) {
@@ -92,11 +100,29 @@ public class CompanyService {
 		return c;
 	}
 	public Company constructByForm(final CompanyRegisterForm companyRegisterForm) {
+		Assert.isTrue(companyRegisterForm.getPassword().equals(companyRegisterForm.getConfirmPassword()));
 		final Company result = this.create();
+		final Collection<String> emails = this.actorService.findAllEmails();
+		final String email = companyRegisterForm.getEmail();
+		final Boolean bEmail = !emails.contains(email);
+		Assert.isTrue(bEmail);
+
+		final Collection<String> accounts = this.actorService.findAllAccounts();
+		final UserAccount userAccount = result.getUserAccount();
+		final Boolean bAccount = !accounts.contains(companyRegisterForm.getUsername());
+		Assert.isTrue(bAccount);
+
+		final Md5PasswordEncoder pe = new Md5PasswordEncoder();
+		final String password = pe.encodePassword(companyRegisterForm.getPassword(), null);
+		userAccount.setPassword(password);
+		userAccount.setUsername(companyRegisterForm.getUsername());
+		result.setUserAccount(userAccount);
+
 		result.setAddress(companyRegisterForm.getAddress());
 		result.setBanned(false);
 		result.setCommercialName(companyRegisterForm.getCommercialName());
-		final CreditCard creditCard = new CreditCard();
+
+		final CreditCard creditCard = result.getCreditCard();
 		creditCard.setBrandName(companyRegisterForm.getBrandName());
 		creditCard.setCvv(companyRegisterForm.getCvv());
 		creditCard.setExpirationMonth(companyRegisterForm.getExpirationMonth());
@@ -110,15 +136,6 @@ public class CompanyService {
 		result.setPhoto(companyRegisterForm.getPhoto());
 		result.setSpammer(false);
 		result.setSurnames(companyRegisterForm.getSurnames());
-		final UserAccount userAccount = new UserAccount();
-		userAccount.setPassword(companyRegisterForm.getPassword());
-		userAccount.setUsername(companyRegisterForm.getUsername());
-		final Collection<Authority> authorities = new ArrayList<>();
-		//		final Authority auth = Authority.COMPANY;
-		//		authorities.add(auth);
-		userAccount.setAuthorities(authorities);
-		result.setUserAccount(userAccount);
 		result.setVAT(companyRegisterForm.getVAT());
 		return result;
-	}
 }
