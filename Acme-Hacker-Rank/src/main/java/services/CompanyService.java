@@ -139,3 +139,4 @@ public class CompanyService {
 		result.setVAT(companyRegisterForm.getVAT());
 		return result;
 }
+}
