@@ -1,10 +1,12 @@
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +30,10 @@ public class Finder extends DomainEntity {
 	
 	private Hacker hacker;
 	
+	public Date lastSearch;
+	public Collection<Position>	positions;
+
 	
-	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getKeyword() {
 		return keyword;
@@ -39,8 +43,7 @@ public class Finder extends DomainEntity {
 	}
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@SafeHtml(whitelistType = WhiteListType.NONE)	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getDeadline() {
 		return deadline;
 	}
@@ -49,7 +52,6 @@ public class Finder extends DomainEntity {
 	}
 	
 	@Min(0)
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Integer getMinSalary() {
 		return minSalary;
 	}
@@ -58,7 +60,6 @@ public class Finder extends DomainEntity {
 	}
 	
 	@Min(0)
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Integer getMaxSalary() {
 		return maxSalary;
 	}
@@ -74,6 +75,24 @@ public class Finder extends DomainEntity {
 	}
 	public void setHacker(Hacker hacker) {
 		this.hacker = hacker;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getLastSearch() {
+		return lastSearch;
+	}
+	public void setLastSearch(Date lastSearch) {
+		this.lastSearch = lastSearch;
+	}
+	
+	@NotNull
+	@ManyToMany
+	public Collection<Position> getPositions() {
+		return positions;
+	}
+	public void setPositions(Collection<Position> positions) {
+		this.positions = positions;
 	}
 	
 

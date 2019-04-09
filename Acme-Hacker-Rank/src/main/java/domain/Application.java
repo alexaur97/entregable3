@@ -33,8 +33,7 @@ public class Application extends DomainEntity {
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@SafeHtml(whitelistType = WhiteListType.NONE)	
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return moment;
 	}
@@ -42,7 +41,6 @@ public class Application extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getExplanation() {
 		return explanation;
@@ -51,7 +49,6 @@ public class Application extends DomainEntity {
 		this.explanation = explanation;
 	}
 	
-	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCodeLink() {
 		return codeLink;
@@ -60,10 +57,8 @@ public class Application extends DomainEntity {
 		this.codeLink = codeLink;
 	}
 	
-	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@SafeHtml(whitelistType = WhiteListType.NONE)	
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:ss HH:mm")
 	public Date getSubmitMoment() {
 		return submitMoment;
 	}
@@ -71,8 +66,7 @@ public class Application extends DomainEntity {
 		this.submitMoment = submitMoment;
 	}
 	
-	@NotBlank
-	@Pattern(regexp = "^PENDING|APPROVED|REJECTED|PENDING$")
+	@Pattern(regexp = "^ACCEPTED|REJECTED|SUBMITTED$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getStatus() {
 		return status;

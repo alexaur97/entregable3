@@ -104,11 +104,12 @@ public class Position extends DomainEntity {
 		this.salaryOffered = salaryOffered;
 	}
 	
-	//formatodelticker
+	@NotBlank
+	@Pattern(regexp = "[a-zA-Z]{4}-[0-9]{4}")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTicker() {
 		return ticker;
-	}
-	public void setTicker(String ticker) {
+	}	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
 	

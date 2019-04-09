@@ -16,7 +16,7 @@ public class HackerRegisterForm {
 
 	private String	name;
 	private String	surnames;
-	private Double	VAT;
+	private String	VAT;
 	private String	photo;
 	private String	email;
 	private String	phone;
@@ -52,11 +52,11 @@ public class HackerRegisterForm {
 	}
 
 	@NotNull
-	public Double getVAT() {
+	public String getVAT() {
 		return this.VAT;
 	}
 
-	public void setVAT(final Double vAT) {
+	public void setVAT(final String vAT) {
 		this.VAT = vAT;
 	}
 

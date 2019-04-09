@@ -12,7 +12,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 import security.UserAccount;
 
@@ -24,7 +27,7 @@ public class Actor extends DomainEntity {
 
 	private String		name;
 	private String		surnames;
-	private Double		VAT;
+	private String		VAT;
 	private CreditCard	creditCard;
 	private String		photo;
 	private String		email;
@@ -37,6 +40,7 @@ public class Actor extends DomainEntity {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -46,6 +50,7 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurnames() {
 		return this.surnames;
 	}
@@ -55,11 +60,12 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotNull
-	public Double getVAT() {
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getVAT() {
 		return this.VAT;
 	}
 
-	public void setVAT(final Double vAT) {
+	public void setVAT(final String vAT) {
 		this.VAT = vAT;
 	}
 
@@ -75,6 +81,7 @@ public class Actor extends DomainEntity {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -85,6 +92,7 @@ public class Actor extends DomainEntity {
 
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*\\>")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
@@ -93,6 +101,7 @@ public class Actor extends DomainEntity {
 		this.email = email;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -101,6 +110,7 @@ public class Actor extends DomainEntity {
 		this.phone = phone;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;
 	}

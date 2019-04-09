@@ -59,7 +59,6 @@ public class Problem extends DomainEntity {
 
 	@ElementCollection
 	@NotEmpty
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Collection<String> getAttachments() {
 		return attachments;
 	}

@@ -17,7 +17,7 @@ public class CompanyRegisterForm {
 	private String	name;
 	private String	surnames;
 	private String	commercialName;
-	private Double	VAT;
+	private String	VAT;
 	private String	photo;
 	private String	email;
 	private String	phone;
@@ -62,11 +62,11 @@ public class CompanyRegisterForm {
 	}
 
 	@NotNull
-	public Double getVAT() {
+	public String getVAT() {
 		return this.VAT;
 	}
 
-	public void setVAT(final Double vAT) {
+	public void setVAT(final String vAT) {
 		this.VAT = vAT;
 	}
 
