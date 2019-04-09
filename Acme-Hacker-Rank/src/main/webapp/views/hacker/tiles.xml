@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- * tiles.xml * * Copyright (C) 2017 Universidad de Sevilla * * The use 
+<!-- * tiles.xml * * Copyright (C) 2019 Universidad de Sevilla * * The use 
 	of this project is hereby constrained to the conditions of the * TDG Licence, 
 	a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
@@ -8,12 +8,11 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
-
 <tiles-definitions>
 
-	<definition name="company/show" extends="master.page">
-		<put-attribute name="title" value="Company" />
-		<put-attribute name="body" value="/views/company/show.jsp" />
+	<definition name="hacker/signup" extends="master.page">
+		<put-attribute name="title" value="Register as a hacker" />
+		<put-attribute name="body" value="/views/hacker/signup.jsp" />
 	</definition>
 
 </tiles-definitions>

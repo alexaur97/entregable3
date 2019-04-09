@@ -2,10 +2,15 @@
 package controllers.all;
 
 import java.util.Collection;
+<<<<<<< HEAD
+=======
+import java.util.Locale;
+>>>>>>> master
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.CompanyService;
 import services.PositionService;
 import domain.Company;
@@ -29,6 +35,7 @@ public class CompanyController {
 
 	@Autowired
 	private PositionService	positionService;
+	private ActorService	actorService;
 
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -51,10 +58,23 @@ public class CompanyController {
 		else
 			try {
 				final Company company = this.companyService.constructByForm(companyRegisterForm);
-				this.companyService.save(company);
+				final Company saved = this.companyService.save(company);
+				System.out.println(saved);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:/#");
+				result = this.createEditModelAndView(companyRegisterForm);
+
+				final Collection<String> accounts = this.actorService.findAllAccounts();
+				final Collection<String> emails = this.actorService.findAllEmails();
+
+				if (accounts.contains(companyRegisterForm.getUsername()))
+					result.addObject("message", "company.username.error");
+				else if (emails.contains(companyRegisterForm.getEmail()))
+					result.addObject("message", "company.email.error");
+				else if (!companyRegisterForm.getConfirmPassword().equals(companyRegisterForm.getPassword()))
+					result.addObject("message", "company.password.error");
+				else
+					result.addObject("message", "company.commit.error");
 			}
 		return result;
 	}
@@ -68,6 +88,11 @@ public class CompanyController {
 		result = new ModelAndView("company/signup");
 		result.addObject("companyRegisterForm", companyRegisterForm);
 		result.addObject("message", messageCode);
+
+		final Locale l = LocaleContextHolder.getLocale();
+		final String lang = l.getLanguage();
+		result.addObject("lang", lang);
+
 		return result;
 	}
 

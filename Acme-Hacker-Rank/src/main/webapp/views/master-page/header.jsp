@@ -16,13 +16,14 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/logo.png" alt="Acme Hacker Rank Co., Inc."
-		style="margin-bottom: 0.5em;" /></a>
+	<a href="#"><img src="images/logo.png"
+		alt="Acme Hacker Rank Co., Inc." style="margin-bottom: 0.5em;" /></a>
 </div>
 
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
+	<li><a class="fNiv" href="position/search.do"><spring:message code="master.page.searchPosition" /></a></li>
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
@@ -46,8 +47,8 @@
 								code="master.page.customer.action.2" /></a></li>
 				</ul></li>
 		</security:authorize>
-		
-			<security:authorize access="hasRole('COMPANY')">
+
+		<security:authorize access="hasRole('COMPANY')">
 			<li><a class="fNiv" href="position/company/list.do"><spring:message
 						code="master.page.position" /></a></li>
 		</security:authorize>
@@ -55,6 +56,16 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+			<ul>
+					<li class="arrow"></li>
+					<li><a href="company/signup.do"><spring:message
+								code="master.page.register.company" /></a></li>
+					<li><a href="hacker/signup.do"><spring:message
+								code="master.page.register.hacker" /></a></li>
+					
+				</ul></li>
 		</security:authorize>
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="position/list.do"><spring:message
