@@ -22,12 +22,9 @@
 		<value>/views/security/messages</value>
 		<value>/views/welcome/messages</value>
 		<value>/views/position/messages</value>
-<<<<<<< HEAD
 		<value>/views/company/messages</value>
 		
-=======
 		<value>/views/about/messages</value>
->>>>>>> master
 
 		<value>/views/administrator/messages</value>
 		<value>/views/customer/messages</value>

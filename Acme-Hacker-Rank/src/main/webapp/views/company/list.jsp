@@ -24,15 +24,14 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" name="positions" id="position"
+<display:table pagesize="5" name="companies" id="company"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="position.title"  property="title" />
-	<display:column titleKey="position.salaryOffered" property="salaryOffered" />
-	<display:column titleKey="position.showPosition">
-		<acme:cancel url="/position/show.do?positionId=${position.id}" code="position.show" />
+	<display:column titleKey="company.commercialName"  property="commercialName" />
+	<display:column titleKey="company.showCompany">
+		<acme:cancel url="/company/show.do?companyId=${company.id}" code="company.show" />
 	</display:column>
-	<display:column titleKey="position.company">
-		<acme:cancel url="/company/show.do?companyId=${position.company.id}" code="position.company" />
+	<display:column titleKey="company.positions">
+		<acme:cancel url="/position/listByCompany.do?companyId=${company.id}" code="company.positions" />
 	</display:column>
 	
 

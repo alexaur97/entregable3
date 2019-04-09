@@ -29,13 +29,9 @@ public class CompanyService {
 	@Autowired
 	private ActorService		actorService;
 
-<<<<<<< HEAD
-	@Autowired
 	private CreditCardService	creditCardService;
 
 
-=======
->>>>>>> master
 	//Supporting Services ------------------
 
 	//COnstructors -------------------------
@@ -143,9 +139,6 @@ public class CompanyService {
 		result.setPhoto(companyRegisterForm.getPhoto());
 		result.setSpammer(false);
 		result.setSurnames(companyRegisterForm.getSurnames());
-		final UserAccount userAccount = new UserAccount();
-		userAccount.setPassword(companyRegisterForm.getPassword());
-		userAccount.setUsername(companyRegisterForm.getUsername());
 		final Collection<Authority> authorities = new ArrayList<>();
 		final Authority auth = new Authority();
 		auth.setAuthority(Authority.COMPANY);
@@ -154,5 +147,5 @@ public class CompanyService {
 		result.setUserAccount(userAccount);
 		result.setVAT(companyRegisterForm.getVAT());
 		return result;
-}
+	}
 }

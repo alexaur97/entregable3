@@ -72,9 +72,14 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/company/show.do"
 			access="permitAll" />
+			<security:intercept-url pattern="/company/list.do"
+			access="permitAll" />
 			<security:intercept-url pattern="/position/search.do"
 			access="permitAll"  />
-
+		<security:intercept-url pattern="/position/listByCompany.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/position/show.do"
+			access="permitAll" />		
 		<security:intercept-url pattern="/company/signup.do"
 			access="isAnonymous()" />
 		<security:intercept-url pattern="/hacker/signup.do"

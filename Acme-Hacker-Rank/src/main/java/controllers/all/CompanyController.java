@@ -2,10 +2,7 @@
 package controllers.all;
 
 import java.util.Collection;
-<<<<<<< HEAD
-=======
 import java.util.Locale;
->>>>>>> master
 
 import javax.validation.Valid;
 
@@ -108,6 +105,23 @@ public class CompanyController {
 			result = new ModelAndView("company/show");
 			result.addObject("positions", positions);
 			result.addObject("company", company);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		try {
+			Collection<Company> companies;
+			companies = this.companyService.findAll();
+			result = new ModelAndView("company/list");
+			result.addObject("requestURI", "company/list.do");
+			result.addObject("companies", companies);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
