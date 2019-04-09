@@ -97,7 +97,6 @@ public class Position extends DomainEntity {
 	
 	@Min(0)
 	@NotNull
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Integer getSalaryOffered() {
 		return salaryOffered;
 	}
@@ -124,7 +123,6 @@ public class Position extends DomainEntity {
 	}
 	
 	@NotNull
-	@SafeHtml(whitelistType = WhiteListType.NONE)	
 	public Boolean getCancelled() {
 		return cancelled;
 	}

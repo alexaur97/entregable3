@@ -7,8 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional; 
 import org.springframework.util.Assert; 
 
+import repositories.ActorRepository;
 import repositories.HackerRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
+import domain.Company;
 import domain.Hacker; 
 
 @Service 
@@ -19,8 +24,9 @@ public class HackerService {
 	@Autowired
 	private HackerRepository hackerRepository;
 
-
 	//Supporting Services ------------------
+	@Autowired
+	private ActorService actorService;
 
 
 	//COnstructors -------------------------
@@ -67,4 +73,20 @@ public class HackerService {
 
 
 	//Other Methods--------------------
-} 
+	
+	private Hacker findByUserId(final int id) {
+		final Hacker h = this.hackerRepository.findByUserId(id);
+		return h;
+	}
+
+	public Hacker findByPrincipal() {
+		final UserAccount user = LoginService.getPrincipal();
+		Assert.notNull(user);
+
+		final Hacker h = this.findByUserId(user.getId());
+		Assert.notNull(h);
+		this.actorService.auth(h, Authority.HACKER);
+		return h;
+	}} 
+
+
