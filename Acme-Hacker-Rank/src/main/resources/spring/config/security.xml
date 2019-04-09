@@ -72,6 +72,8 @@
 
 		<security:intercept-url pattern="/company/signup.do"
 			access="isAnonymous()" />
+		<security:intercept-url pattern="/hacker/signup.do"
+			access="isAnonymous()" />
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

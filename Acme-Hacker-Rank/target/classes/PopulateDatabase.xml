@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -41,7 +35,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="hacker2" />
 		<property name="password" value="91af68b69a50a98dbc0800942540342c" />
@@ -53,7 +47,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="hacker3" />
 		<property name="password" value="c6ae6edca1ad45f42e619ec91a32b636" />
@@ -77,7 +71,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount6" class="security.UserAccount">
 		<property name="username" value="company2" />
 		<property name="password" value="d196a28097115067fefd73d25b0c0be8" />
@@ -89,7 +83,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount7" class="security.UserAccount">
 		<property name="username" value="company3" />
 		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
@@ -101,7 +95,258 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- CreditCard -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="Paolo Luna Rodríguez" />
+		<property name="brandName" value="Visa" />
+		<property name="number" value="4278959519763522" />
+		<property name="expirationMonth" value="02" />
+		<property name="expirationYear" value="22" />
+		<property name="cvv" value="194" />
+	</bean>
+
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="Leah Laird Bird" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="5505141376835436" />
+		<property name="expirationMonth" value="10" />
+		<property name="expirationYear" value="25" />
+		<property name="cvv" value="823" />
+	</bean>
+
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holderName" value="Jocelyn Finch Berry" />
+		<property name="brandName" value="American Express" />
+		<property name="number" value="372195236838403" />
+		<property name="expirationMonth" value="03" />
+		<property name="expirationYear" value="26" />
+		<property name="cvv" value="921" />
+	</bean>
+
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holderName" value="Joseph Kingsman Heiz" />
+		<property name="brandName" value="Visa" />
+		<property name="number" value="4556925425329552" />
+		<property name="expirationMonth" value="08" />
+		<property name="expirationYear" value="20" />
+		<property name="cvv" value="575" />
+	</bean>
+
+	<bean id="creditCard5" class="domain.CreditCard">
+		<property name="holderName" value="Angelina Andrews Lopez" />
+		<property name="brandName" value="Mastercard" />
+		<property name="number" value="5255259896394957" />
+		<property name="expirationMonth" value="11" />
+		<property name="expirationYear" value="22" />
+		<property name="cvv" value="437" />
+	</bean>
+
+	<bean id="creditCard6" class="domain.CreditCard">
+		<property name="holderName" value="Isaiah Farrell Lord" />
+		<property name="brandName" value="American Express" />
+		<property name="number" value="377993629160319" />
+		<property name="expirationMonth" value="03" />
+		<property name="expirationYear" value="23" />
+		<property name="cvv" value="251" />
+	</bean>
 	
-	<!-- Other domain beans come here -->	
+	<bean id="creditCard7" class="domain.CreditCard">
+		<property name="holderName" value="Pablo Parra Romulo" />
+		<property name="brandName" value="American Express" />
+		<property name="number" value="377993629160319" />
+		<property name="expirationMonth" value="09" />
+		<property name="expirationYear" value="26" />
+		<property name="cvv" value="777" />
+	</bean>
 	
+	<!-- Actors -->
+
+	<!-- Administrator -->
+
+	<bean id="actor1" class="domain.Administrator">
+		<property name="name" value="Paolo" />
+		<property name="surnames" value="Luna Rodríguez" />
+		<property name="VAT" value="7675565" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="photo"
+			value="https://img.lovepik.com/element/40025/1507.png_860.png" />
+		<property name="email" value="admin@gmail.com" />
+		<property name="phone" value="698765432" />
+		<property name="address" value="" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+	<!-- Company -->
+
+	<bean id="actor2" class="domain.Company">
+		<property name="name" value="Leah" />
+		<property name="surnames" value="Laird Bird" />
+		<property name="VAT" value="67476976" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="photo"
+			value="https://conceptodefinicion.de/wp-content/uploads/2014/10/persona.jpg" />
+		<property name="email" value="company1@gmail.com" />
+		<property name="phone" value="76759897" />
+		<property name="address" value="" />
+		<property name="commercialName" value="Hackers Anonymous" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+
+	<bean id="actor3" class="domain.Company">
+		<property name="name" value="Jocelyn" />
+		<property name="surnames" value="Finch Berry" />
+		<property name="VAT" value="4375786" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="photo"
+			value="https://static.iris.net.co/semana/upload/images/2015/10/23/447377_20029_1.jpg" />
+		<property name="email" value="company2@gmail.com" />
+		<property name="phone" value="" />
+		<property name="address" value="" />
+		<property name="commercialName" value="Hackeanders" />
+		<property name="spammer" value="true" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+
+	<bean id="actor4" class="domain.Company">
+		<property name="name" value="Joseph" />
+		<property name="surnames" value="Kingsman Heiz" />
+		<property name="VAT" value="3476486" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="photo"
+			value="https://ams.educause.edu/eweb/upload/60283746.jpg" />
+		<property name="email" value="company3@gmail.com" />
+		<property name="phone" value="" />
+		<property name="address" value="Calle Bailen, Madrid" />
+		<property name="commercialName" value="The good great hacker" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="true" />
+		<property name="userAccount" ref="userAccount4" />
+	</bean>
+
+	<bean id="actor5" class="domain.Hacker">
+		<property name="name" value="Angelina" />
+		<property name="surnames" value="Andrews Lopez" />
+		<property name="VAT" value="92785" />
+		<property name="creditCard" ref="creditCard5" />
+		<property name="photo"
+			value="https://static.vix.com/es/sites/default/files/styles/large/public/imj/otramedicina/4/4-formas-de-saber-si-una-persona-tiene-mala-vibra-3.jpg?itok=0Iith7el" />
+		<property name="email" value="hacker1@gmail.com" />
+		<property name="phone" value="548766" />
+		<property name="address" value="" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="curriculums">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="actor6" class="domain.Hacker">
+		<property name="name" value="Isaiah" />
+		<property name="surnames" value="Farrell Lord" />
+		<property name="VAT" value="864865786" />
+		<property name="creditCard" ref="creditCard6" />
+		<property name="photo"
+			value="https://s3-eu-west-1.amazonaws.com/papora/papora/wp-content/uploads/2018/05/16120658/descripcion-persona-en-ingles.jpg" />
+		<property name="email" value="hacker2@gmail.com" />
+		<property name="phone" value="4123500" />
+		<property name="address" value="" />
+		<property name="spammer" value="true" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="curriculums">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="actor7" class="domain.Hacker">
+		<property name="name" value="Pablo" />
+		<property name="surnames" value="Parra Rómulo" />
+		<property name="VAT" value="8757857" />
+		<property name="creditCard" ref="creditCard7" />
+		<property name="photo"
+			value="https://empleat.vinetconsulting.com/Imagenes/persona1.jpg" />
+		<property name="email" value="hacker3@gmail.com" />
+		<property name="phone" value="47780980" />
+		<property name="address" value="Abbey Road, Liverpool" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="true" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="curriculums">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Configuration parameters -->
+
+	<bean id="configurationParameters" class="domain.ConfigurationParameters">
+		<property name="name" value="Acme Hacker-Rank" />
+		<property name="banner" value="https://i.imgur.com/7b8lu4b.png" />
+		<property name="sysMessage"
+			value="Welcome to Acme hacker Rank! We're IT hacker's favourite job marketplace!" />
+		<property name="sysMessageEs"
+			value="¡Bienvenidos a Acme Hacker Rank! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+		<property name="countryCode" value="+34" />
+		<property name="finderCachedHours" value="1" />
+		<property name="finderMaxResults" value="10" />
+	</bean>
+	
+	<!-- Position -->
+
+	<bean id="position1" class="domain.Position">
+		<property name="title" value="Position for a very good hacker" />
+		<property name="description" value="It must be a very important hacker" />
+		<property name="deadline" value="01/04/2020 20:30" />
+		<property name="profileRequired" value="Nothing required" />
+		<property name="skillRequired" value="Nothing required" />
+		<property name="techRequired" value="Nothing required" />
+		<property name="salaryOffered" value="2000" />
+		<property name="ticker" value="4675675" />
+		<property name="mode" value="FINAL" />
+		<property name="cancelled" value="false" />
+		<property name="company" ref="actor2" />
+		<property name="problems">
+			<list>
+			</list>
+		</property>	</bean>
+
+	<!-- Spamword -->
+	
+	<bean id="spamWord1" class="domain.SpamWord">
+		<property name="word" value="sex" />
+	</bean>
+	<bean id="spamWord2" class="domain.SpamWord">
+		<property name="word" value="viagra" />
+	</bean>
+	<bean id="spamWord3" class="domain.SpamWord">
+		<property name="word" value="cialis" />
+	</bean>
+	<bean id="spamWord4" class="domain.SpamWord">
+		<property name="word" value="one million" />
+	</bean>
+	<bean id="spamWord5" class="domain.SpamWord">
+		<property name="word" value="you've been selected" />
+	</bean>
+	<bean id="spamWord6" class="domain.SpamWord">
+		<property name="word" value="Nigeria" />
+	</bean>
+	<bean id="spamWord7" class="domain.SpamWord">
+		<property name="word" value="sexo" />
+	</bean>
+	<bean id="spamWord8" class="domain.SpamWord">
+		<property name="word" value="un millon" />
+	</bean>
+	<bean id="spamWord9" class="domain.SpamWord">
+		<property name="word" value="has sido elegido" />
+	</bean>
+
 </beans>

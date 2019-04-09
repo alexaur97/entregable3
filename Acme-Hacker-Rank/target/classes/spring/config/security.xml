@@ -34,6 +34,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/styles/**"
 			access="permitAll" />
+		<security:intercept-url pattern="/about/**" 
+			access="permitAll" />
 
 		<security:intercept-url pattern="/views/misc/index.jsp"
 			access="permitAll" />
@@ -65,7 +67,12 @@
 
 		<security:intercept-url pattern="/position/company/list.do"
 			access="hasRole('COMPANY')" />
+			<security:intercept-url pattern="/position/search.do"
+			access="permitAll"  />
+
 		<security:intercept-url pattern="/company/signup.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/hacker/signup.do"
 			access="isAnonymous()" />
 
 		<security:intercept-url pattern="/**"

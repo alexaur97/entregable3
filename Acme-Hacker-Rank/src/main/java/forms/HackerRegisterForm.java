@@ -12,11 +12,10 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
-public class CompanyRegisterForm {
+public class HackerRegisterForm {
 
 	private String	name;
 	private String	surnames;
-	private String	commercialName;
 	private Double	VAT;
 	private String	photo;
 	private String	email;
@@ -50,15 +49,6 @@ public class CompanyRegisterForm {
 
 	public void setSurnames(final String surnames) {
 		this.surnames = surnames;
-	}
-
-	@NotBlank
-	public String getCommercialName() {
-		return this.commercialName;
-	}
-
-	public void setCommercialName(final String commercialName) {
-		this.commercialName = commercialName;
 	}
 
 	@NotNull
