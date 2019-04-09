@@ -1,17 +1,23 @@
 
 package controllers.all;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CompanyService;
+import services.PositionService;
 import domain.Company;
+import domain.Position;
 import forms.CompanyRegisterForm;
 
 @Controller
@@ -20,6 +26,9 @@ public class CompanyController {
 
 	@Autowired
 	private CompanyService	companyService;
+
+	@Autowired
+	private PositionService	positionService;
 
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -59,6 +68,25 @@ public class CompanyController {
 		result = new ModelAndView("company/signup");
 		result.addObject("companyRegisterForm", companyRegisterForm);
 		result.addObject("message", messageCode);
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int companyId) {
+		ModelAndView result;
+		final Company company;
+
+		try {
+			Assert.notNull(companyId);
+			final Collection<Position> positions = this.positionService.findByCompany(companyId);
+			company = this.companyService.findOne(companyId);
+			result = new ModelAndView("company/show");
+			result.addObject("positions", positions);
+			result.addObject("company", company);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
 		return result;
 	}
 }

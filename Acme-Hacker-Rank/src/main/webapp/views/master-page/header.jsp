@@ -56,6 +56,10 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
 		</security:authorize>
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="position/list.do"><spring:message
+						code="master.page.position" /></a></li>
+		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message

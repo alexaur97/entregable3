@@ -32,12 +32,11 @@
 	<display:column titleKey="position.ticker" property="ticker" />
 	<display:column titleKey="position.salaryOffered" property="salaryOffered" />
 	<display:column titleKey="position.mode" property="mode" />
+	<display:column titleKey="position.company">
+		<acme:cancel url="/company/show.do?companyId=${position.company.id}" code="position.company" />
+	</display:column>
 	
-	
-	
-	
-		
-	
+
 </display:table>
 
 <br>

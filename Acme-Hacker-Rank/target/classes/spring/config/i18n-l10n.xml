@@ -22,6 +22,7 @@
 		<value>/views/security/messages</value>
 		<value>/views/welcome/messages</value>
 		<value>/views/position/messages</value>
+		<value>/views/company/messages</value>
 		
 
 		<value>/views/administrator/messages</value>

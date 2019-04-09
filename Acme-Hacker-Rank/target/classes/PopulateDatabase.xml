@@ -102,6 +102,13 @@
 		</property>
 	</bean>
 	
+	<bean class="domain.Company" id = "Company1">
+		<property name = "commercialName" value="Company Commercial Name 1"/>
+		<property name = "name" value = "Company Name 1"/>
+		<property name = "surnames" value = "Company SurName 1"/>
+		
+	</bean>
+	
 	<!-- Other domain beans come here -->	
 	
 </beans>
