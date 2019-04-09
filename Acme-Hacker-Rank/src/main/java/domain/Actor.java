@@ -56,7 +56,6 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotNull
-	@Range(min = 0, max = 99)
 	public Double getVAT() {
 		return this.VAT;
 	}
