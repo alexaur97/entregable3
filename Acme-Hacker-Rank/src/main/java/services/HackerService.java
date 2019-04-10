@@ -139,4 +139,11 @@ public class HackerService {
 		result.setVAT(hackerRegisterForm.getVAT());
 		return result;
 	}
+
+	public Collection<Hacker> hackersHaveMadeMoreApplications() {
+		final Collection<Hacker> result = this.hackerRepository.hackersHaveMadeMoreApplications();
+		Assert.notNull(result);
+		return result;
+	}
+
 }

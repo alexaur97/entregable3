@@ -73,4 +73,28 @@ public class PositionService {
 		return this.positionRepository.searchPositionKeyWord(keyword);
 
 	}
+
+	public Collection<Double> statsPositionsPerCompany() {
+		final Collection<Double> result = this.positionRepository.statsPositionsPerCompany();
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Double> statsSalaryOfferedPerPosition() {
+		final Collection<Double> result = this.positionRepository.statsSalaryOfferedPerPosition();
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Position> bestPositionsSalary() {
+		final Collection<Position> result = this.positionRepository.bestPositionsSalary();
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Position> worstPositionsSalary() {
+		final Collection<Position> result = this.positionRepository.worstPositionsSalary();
+		Assert.notNull(result);
+		return result;
+	}
 }

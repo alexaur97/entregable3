@@ -18,4 +18,16 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p where (p.title like %?1%)or (p.description like %?1%)or (p.profileRequired like %?1%)or (p.skillRequired like %?1%)or (p.techRequired like %?1%)or (p.company.commercialName like %?1%)")
 	Collection<Position> searchPositionKeyWord(String keyword);
 
+	@Query("select avg(1.0*(select count(p) from Position p where p.company.id = c.id)),min(1.0*(select count(p) from Position p where p.company.id = c.id)),max(1.0*(select count(p) from Position p where p.company.id = c.id)),stddev(1.0*(select count(p) from Position p where p.company.id = c.id)) from Company c")
+	Collection<Double> statsPositionsPerCompany();
+
+	@Query("select avg(1.0*p.salaryOffered),min(1.0*p.salaryOffered),max(1.0*p.salaryOffered),stddev(1.0*p.salaryOffered) from Position p")
+	Collection<Double> statsSalaryOfferedPerPosition();
+
+	@Query("select p from Position p where p.salaryOffered = (select max(1.0*(1.0*pa.salaryOffered)) from Position pa)")
+	Collection<Position> bestPositionsSalary();
+
+	@Query("select p from Position p where p.salaryOffered = (select min(1.0*(1.0*pa.salaryOffered)) from Position pa)")
+	Collection<Position> worstPositionsSalary();
+
 }

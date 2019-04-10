@@ -148,4 +148,10 @@ public class CompanyService {
 		result.setVAT(companyRegisterForm.getVAT());
 		return result;
 	}
+
+	public Collection<Company> companiesHaveOfferedMorePositions() {
+		final Collection<Company> result = this.companyRepository.companiesHaveOfferedMorePositions();
+		Assert.notNull(result);
+		return result;
+	}
 }
