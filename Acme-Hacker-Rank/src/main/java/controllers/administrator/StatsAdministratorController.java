@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
 import services.CompanyService;
+import services.FinderService;
 import services.HackerService;
 import services.PositionService;
 import controllers.AbstractController;
@@ -34,6 +35,9 @@ public class StatsAdministratorController extends AbstractController {
 	@Autowired
 	private HackerService		hackerService;
 
+	@Autowired
+	private FinderService		finderService;
+
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
@@ -48,6 +52,13 @@ public class StatsAdministratorController extends AbstractController {
 			final Collection<Double> salaryOfferedPerPosition = this.positionService.statsSalaryOfferedPerPosition();
 			final Collection<Position> worstPositionsSalary = this.positionService.worstPositionsSalary();
 			final Collection<Position> bestPositionsSalary = this.positionService.bestPositionsSalary();
+			final Collection<Double> curriculaPerHacker = this.hackerService.statsCurriculaPerHacker();
+			final Collection<Double> statsResultsFinders = this.finderService.statsResultsFinders();
+			final Collection<Double> emptyVsNonEmptyFindersRatio = this.finderService.emptyVsNonEmptyFindersRatio();
+
+			result.addObject("statsResultsFinders", statsResultsFinders);
+			result.addObject("emptyVsNonEmptyFindersRatio", emptyVsNonEmptyFindersRatio);
+			result.addObject("curriculaPerHacker", curriculaPerHacker);
 			result.addObject("worstPositionsSalary", worstPositionsSalary);
 			result.addObject("bestPositionsSalary", bestPositionsSalary);
 			result.addObject("salaryOfferedPerPosition", salaryOfferedPerPosition);

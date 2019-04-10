@@ -123,3 +123,51 @@
 </ul>
 <br />
 
+<h3>
+<spring:message code="stats.curriculaPerHacker" /> :
+</h3>
+<spring:message code="stats.curriculaPerHacker.average" />
+:
+<jstl:out value="${curriculaPerHacker[0][0]}" />
+<br />
+<spring:message code="stats.curriculaPerHacker.min" />
+:
+<jstl:out value="${curriculaPerHacker[0][1]}" />
+<br />
+<spring:message code="stats.curriculaPerHacker.max" />
+:
+<jstl:out value="${curriculaPerHacker[0][2]}" />
+<br />
+<spring:message code="stats.curriculaPerHacker.stddev" />
+:
+<jstl:out value="${curriculaPerHacker[0][3]}" />
+<br />
+
+<h4><spring:message code="stats.finder" /></h4>
+
+<table>
+	<tr>
+		<th><spring:message code="stats.finder.avg" /></th>
+		<th><spring:message code="stats.finder.min" /></th>
+		<th><spring:message code="stats.finder.max" /></th>
+		<th><spring:message code="stats.finder.stddev" /></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${statsResultsFinders[0][0]}" /></td>
+		<td><jstl:out value="${statsResultsFinders[0][1]}" /></td>
+		<td><jstl:out value="${statsResultsFinders[0][2]}" /></td>
+		<td><jstl:out value="${statsResultsFinders[0][3]}" /></td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<th><spring:message code="stats.finder.empty" /></th>
+		<th><spring:message code="stats.finder.nonEmpty" /></th>
+	</tr>
+	<tr>
+			<td><jstl:out value="${emptyVsNonEmptyFindersRatio[0][0]}" /></td>
+		<td><jstl:out value="${emptyVsNonEmptyFindersRatio[0][1]}" /></td>
+	</tr>
+</table>
+

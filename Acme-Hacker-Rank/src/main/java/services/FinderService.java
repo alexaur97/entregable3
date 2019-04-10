@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
+import domain.Finder;
 
-import domain.Finder; 
-
-@Service 
-@Transactional 
-public class FinderService { 
+@Service
+@Transactional
+public class FinderService {
 
 	//Managed repository -------------------
 	@Autowired
-	private FinderRepository finderRepository;
+	private FinderRepository	finderRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public FinderService(){
+	public FinderService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public Finder create(){
+	public Finder create() {
 		Finder result;
 
 		result = new Finder();
@@ -39,32 +37,43 @@ public class FinderService {
 		return result;
 	}
 
-	public Collection<Finder> findAll(){
+	public Collection<Finder> findAll() {
 		Collection<Finder> result;
 
-		result = finderRepository.findAll();
+		result = this.finderRepository.findAll();
 
 		return result;
 	}
 
-	public Finder findOne(int finderId){
+	public Finder findOne(final int finderId) {
 		Finder result;
 
-		result = finderRepository.findOne(finderId);
+		result = this.finderRepository.findOne(finderId);
 
 		return result;
 	}
 
-	public void save(Finder finder){
+	public void save(final Finder finder) {
 		Assert.notNull(finder);
 
-		finderRepository.save(finder);
+		this.finderRepository.save(finder);
 	}
 
-	public void delete(Finder finder){
-		finderRepository.delete(finder);
+	public void delete(final Finder finder) {
+		this.finderRepository.delete(finder);
 	}
-
 
 	//Other Methods--------------------
-} 
+
+	public Collection<Double> statsResultsFinders() {
+		final Collection<Double> result = this.finderRepository.statsResultsFinders();
+		Assert.notEmpty(result);
+		return result;
+	}
+
+	public Collection<Double> emptyVsNonEmptyFindersRatio() {
+		final Collection<Double> result = this.finderRepository.emptyVsNonEmptyFindersRatio();
+		Assert.notEmpty(result);
+		return result;
+	}
+}

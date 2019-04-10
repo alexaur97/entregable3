@@ -146,4 +146,10 @@ public class HackerService {
 		return result;
 	}
 
+	public Collection<Double> statsCurriculaPerHacker() {
+		final Collection<Double> result = this.hackerRepository.statsCurriculaPerHacker();
+		Assert.notNull(result);
+		return result;
+	}
+
 }
