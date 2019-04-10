@@ -29,7 +29,6 @@ public class MiscellaniusData extends DomainEntity {
 	}
 	
 	@ElementCollection
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Collection<String> getAttachments() {
 		return attachments;
 	}

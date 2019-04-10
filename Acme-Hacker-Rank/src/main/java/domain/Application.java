@@ -30,6 +30,7 @@ public class Application extends DomainEntity {
 	private Hacker hacker;
 	private Problem problem;
 	private Position position;	
+	private Curriculum curriculum;	
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
@@ -100,6 +101,15 @@ public class Application extends DomainEntity {
 	}
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+	
+	@NotNull
+	@ManyToOne(optional = false)
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
 	}
 
 }

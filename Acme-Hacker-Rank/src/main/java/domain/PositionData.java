@@ -43,7 +43,6 @@ public class PositionData extends DomainEntity {
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@SafeHtml(whitelistType = WhiteListType.NONE)		
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -54,7 +53,6 @@ public class PositionData extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@SafeHtml(whitelistType = WhiteListType.NONE)	
 	public Date getStartDate() {
 		return startDate;
 	}
