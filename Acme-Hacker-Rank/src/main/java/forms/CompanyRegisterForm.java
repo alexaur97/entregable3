@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 public class CompanyRegisterForm {
@@ -35,6 +37,7 @@ public class CompanyRegisterForm {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -44,6 +47,7 @@ public class CompanyRegisterForm {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurnames() {
 		return this.surnames;
 	}
@@ -53,6 +57,7 @@ public class CompanyRegisterForm {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCommercialName() {
 		return this.commercialName;
 	}
@@ -62,6 +67,8 @@ public class CompanyRegisterForm {
 	}
 
 	@NotNull
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@Pattern(regexp = "^[0-9A-Za-z][0-9]{7}[0-9A-Za-z]$")
 	public String getVAT() {
 		return this.VAT;
 	}
@@ -71,6 +78,7 @@ public class CompanyRegisterForm {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -81,6 +89,7 @@ public class CompanyRegisterForm {
 
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
@@ -89,6 +98,7 @@ public class CompanyRegisterForm {
 		this.email = email;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -97,6 +107,7 @@ public class CompanyRegisterForm {
 		this.phone = phone;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;
 	}
@@ -107,6 +118,7 @@ public class CompanyRegisterForm {
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getUsername() {
 		return this.username;
 	}
@@ -116,6 +128,7 @@ public class CompanyRegisterForm {
 	}
 
 	@Size(min = 5, max = 32)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPassword() {
 		return this.password;
 	}
@@ -124,6 +137,7 @@ public class CompanyRegisterForm {
 		this.password = password;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getConfirmPassword() {
 		return this.confirmPassword;
 	}
@@ -132,6 +146,7 @@ public class CompanyRegisterForm {
 		this.confirmPassword = confirmPassword;
 	}
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getHolderName() {
 		return this.holderName;
 	}
@@ -140,6 +155,7 @@ public class CompanyRegisterForm {
 		this.holderName = holderName;
 	}
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBrandName() {
 		return this.brandName;
 	}
@@ -150,6 +166,8 @@ public class CompanyRegisterForm {
 
 	@CreditCardNumber
 	@Pattern(regexp = "^\\d+$")
+	@Size(min = 13, max = 18)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNumber() {
 		return this.number;
 	}

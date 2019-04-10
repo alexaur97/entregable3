@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -65,12 +67,13 @@ public class HackerController {
 					result.addObject("message", "hacker.email.error");
 				else if (!hackerRegisterForm.getConfirmPassword().equals(hackerRegisterForm.getPassword()))
 					result.addObject("message", "hacker.password.error");
+				else if (Utils.creditCardIsExpired(hackerRegisterForm.getExpirationMonth(), hackerRegisterForm.getExpirationYear()))
+					result.addObject("message", "company.expired.card.error");
 				else
 					result.addObject("message", "hacker.commit.error");
 			}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(final HackerRegisterForm hackerRegisterForm) {
 		return this.createEditModelAndView(hackerRegisterForm, null);
 	}

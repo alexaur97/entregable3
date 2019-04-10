@@ -4,6 +4,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -129,14 +131,19 @@ public class HackerService {
 		creditCard.setExpirationYear(hackerRegisterForm.getExpirationYear());
 		creditCard.setHolderName(hackerRegisterForm.getHolderName());
 		creditCard.setNumber(hackerRegisterForm.getNumber());
+		final Boolean b = Utils.creditCardIsExpired(creditCard);
+		Assert.isTrue(!b);
 		result.setCreditCard(creditCard);
+
 		result.setEmail(hackerRegisterForm.getEmail());
 		result.setName(hackerRegisterForm.getName());
 		result.setPhone(hackerRegisterForm.getPhone());
 		result.setPhoto(hackerRegisterForm.getPhoto());
 		result.setSpammer(false);
 		result.setSurnames(hackerRegisterForm.getSurnames());
-		result.setVAT(hackerRegisterForm.getVAT());
+
+		final String vat = hackerRegisterForm.getVAT();
+		result.setVAT(vat.toUpperCase());
 		return result;
 	}
 }

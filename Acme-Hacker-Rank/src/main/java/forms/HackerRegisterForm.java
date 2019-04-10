@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 public class HackerRegisterForm {
@@ -34,6 +36,7 @@ public class HackerRegisterForm {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -43,6 +46,7 @@ public class HackerRegisterForm {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurnames() {
 		return this.surnames;
 	}
@@ -52,6 +56,8 @@ public class HackerRegisterForm {
 	}
 
 	@NotNull
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@Pattern(regexp = "^[0-9A-Za-z][0-9]{7}[0-9A-Za-z]$")
 	public String getVAT() {
 		return this.VAT;
 	}
@@ -61,6 +67,7 @@ public class HackerRegisterForm {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -71,6 +78,7 @@ public class HackerRegisterForm {
 
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
@@ -79,6 +87,7 @@ public class HackerRegisterForm {
 		this.email = email;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -87,6 +96,7 @@ public class HackerRegisterForm {
 		this.phone = phone;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;
 	}
@@ -97,6 +107,7 @@ public class HackerRegisterForm {
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getUsername() {
 		return this.username;
 	}
@@ -106,6 +117,7 @@ public class HackerRegisterForm {
 	}
 
 	@Size(min = 5, max = 32)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPassword() {
 		return this.password;
 	}
@@ -114,6 +126,7 @@ public class HackerRegisterForm {
 		this.password = password;
 	}
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getConfirmPassword() {
 		return this.confirmPassword;
 	}
@@ -122,6 +135,7 @@ public class HackerRegisterForm {
 		this.confirmPassword = confirmPassword;
 	}
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getHolderName() {
 		return this.holderName;
 	}
@@ -130,6 +144,7 @@ public class HackerRegisterForm {
 		this.holderName = holderName;
 	}
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBrandName() {
 		return this.brandName;
 	}
@@ -140,6 +155,8 @@ public class HackerRegisterForm {
 
 	@CreditCardNumber
 	@Pattern(regexp = "^\\d+$")
+	@Size(min = 13, max = 18)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNumber() {
 		return this.number;
 	}
