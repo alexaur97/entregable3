@@ -78,7 +78,6 @@ public class HackerRegisterForm {
 
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
@@ -176,7 +175,7 @@ public class HackerRegisterForm {
 	}
 
 	@NotNull
-	@Range(min = 16, max = 99)
+	@Range(min = 19, max = 99)
 	public Integer getExpirationYear() {
 		return this.expirationYear;
 	}

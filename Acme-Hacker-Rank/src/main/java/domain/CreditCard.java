@@ -67,7 +67,7 @@ public class CreditCard extends DomainEntity {
 		this.expirationMonth = expirationMonth;
 	}
 	@NotNull
-	@Range(min = 18, max = 99)
+	@Range(min = 19, max = 99)
 	public Integer getExpirationYear() {
 		return this.expirationYear;
 	}

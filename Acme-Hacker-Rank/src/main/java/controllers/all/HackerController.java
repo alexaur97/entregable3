@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.FinderService;
 import services.HackerService;
 import domain.Hacker;
 import forms.HackerRegisterForm;
@@ -31,6 +32,8 @@ public class HackerController {
 	@Autowired
 	private ActorService	actorService;
 
+	@Autowired
+	private FinderService	finderService;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -53,6 +56,7 @@ public class HackerController {
 			try {
 				final Hacker hacker = this.hackerService.constructByForm(hackerRegisterForm);
 				final Hacker saved = this.hackerService.save(hacker);
+				this.finderService.createFinder(saved);
 				System.out.println(saved);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (final Throwable oops) {
