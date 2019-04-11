@@ -95,8 +95,20 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="company4" />
+		<property name="password" value="856dfd9045541fa727ef6ad392835eb0" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
-	<!-- CreditCard -->
+	<!-- CreditCards -->
 	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holderName" value="Paolo Luna Rodríguez" />
 		<property name="brandName" value="Visa" />
@@ -158,6 +170,15 @@
 		<property name="expirationMonth" value="09" />
 		<property name="expirationYear" value="26" />
 		<property name="cvv" value="777" />
+	</bean>
+	
+	<bean id="creditCard8" class="domain.CreditCard">
+		<property name="holderName" value="Pilar Valdes Tolón" />
+		<property name="brandName" value="American Express" />
+		<property name="number" value="5105105105105100" />
+		<property name="expirationMonth" value="02" />
+		<property name="expirationYear" value="24" />
+		<property name="cvv" value="195" />
 	</bean>
 	
 	<!-- Curriculums -->
@@ -453,7 +474,7 @@
 
 	<!-- Actors -->
 
-	<!-- Administrator -->
+	<!-- Administrators -->
 
 	<bean id="actor1" class="domain.Administrator">
 		<property name="name" value="Paolo" />
@@ -470,7 +491,7 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 
-	<!-- Company -->
+	<!-- Companies -->
 
 	<bean id="actor2" class="domain.Company">
 		<property name="name" value="Leah" />
@@ -516,8 +537,24 @@
 		<property name="address" value="Calle Bailen, Madrid" />
 		<property name="commercialName" value="The good great hacker" />
 		<property name="spammer" value="false" />
-		<property name="banned" value="true" />
+		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount7" />
+	</bean>
+	
+	<bean id="actor8" class="domain.Company">
+		<property name="name" value="Pilar" />
+		<property name="surnames" value="Valdes Tolón" />
+		<property name="VAT" value="U12345678" />
+		<property name="creditCard" ref="creditCard8" />
+		<property name="photo"
+			value="" />
+		<property name="email" value="company8@gmail.com" />
+		<property name="phone" value="" />
+		<property name="address" value="Calle Rojo Red, Murcia" />
+		<property name="commercialName" value="The banned hacker" />
+		<property name="spammer" value="true" />
+		<property name="banned" value="true" />
+		<property name="userAccount" ref="userAccount8" />
 	</bean>
 
 	<bean id="actor5" class="domain.Hacker">
@@ -575,18 +612,17 @@
 		<property name="phone" value="47780980" />
 		<property name="address" value="Abbey Road, Liverpool" />
 		<property name="spammer" value="false" />
-		<property name="banned" value="true" />
+		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="curriculums">
 			<list>
 			</list>
 		</property>
 	</bean>
-	<!-- Finder -->
+	<!-- Finders -->
 	
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="" />
-		<property name="deadline" value="01/04/2020" />
 		<property name="minSalary" value="" />
 		<property name="maxSalary" value="" />
 		<property name="hacker" ref="actor5" />
@@ -599,7 +635,6 @@
 	
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="" />
-		<property name="deadline" value="01/04/2020" />
 		<property name="minSalary" value="" />
 		<property name="maxSalary" value="" />
 		<property name="hacker" ref="actor6" />
@@ -612,7 +647,6 @@
 	
 	<bean id="finder3" class="domain.Finder">
 		<property name="keyword" value="" />
-		<property name="deadline" value="01/04/2023" />
 		<property name="minSalary" value="" />
 		<property name="maxSalary" value="" />
 		<property name="hacker" ref="actor7" />
@@ -637,7 +671,7 @@
 		<property name="finderMaxResults" value="10" />
 	</bean>
 	
-	<!-- SocialProfile -->
+	<!-- SocialProfiles -->
 	
 	<bean id="socialProfile1" class="domain.SocialProfile">
 		<property name="nick" value="actor_1_fcbk" />
@@ -716,7 +750,7 @@
 		<property name="actor" ref="actor7" />
 	</bean>	
 	
-	<!-- Position -->
+	<!-- Positions -->
 
 	<bean id="position1" class="domain.Position">
 		<property name="title" value="Position for a very good hacker" />
@@ -846,8 +880,28 @@
 			</list>
 		</property>	
 	</bean>
+	
+	<bean id="position8" class="domain.Position">
+		<property name="title" value="Position for a place in The banned company" />
+		<property name="description" value="No description available" />
+		<property name="deadline" value="11/08/2025 00:59" />
+		<property name="profileRequired" value="Spammer" />
+		<property name="skillRequired" value="You mus be really good with spam" />
+		<property name="techRequired" value="-" />
+		<property name="salaryOffered" value="13000" />
+		<property name="ticker" value="THEB-8889" />
+		<property name="mode" value="FINAL" />
+		<property name="cancelled" value="false" />
+		<property name="company" ref="actor8" />
+		<property name="problems">
+			<list>
+				<ref bean="problem7"/>
+				<ref bean="problem8"/>
+			</list>
+		</property>	
+	</bean>
 
-	<!-- Problem -->
+	<!-- Problems -->
 
 	<bean id="problem1" class="domain.Problem">
 		<property name="title" value="Very hard to resolve problem" />
@@ -903,7 +957,25 @@
 		<property name="company" ref="actor4" />
 	</bean>
 	
-	<!-- Application -->
+	<bean id="problem7" class="domain.Problem">
+		<property name="title" value="Problem for spam people" />
+		<property name="statement" value="Problem not defined yet"/>
+		<property name="hint" value="Just be spammer" />
+		<property name="attachments" value=""/>	
+		<property name="mode" value="FINAL" />
+		<property name="company" ref="actor8" />
+	</bean>
+	
+	<bean id="problem8" class="domain.Problem">
+		<property name="title" value="Problem for ban people" />
+		<property name="statement" value="-"/>
+		<property name="hint" value="-" />
+		<property name="attachments" value=""/>	
+		<property name="mode" value="FINAL" />
+		<property name="company" ref="actor8" />
+	</bean>
+	
+	<!-- Applications -->
 	
 	<bean id="application1" class="domain.Application">
 		<property name="moment" value="01/04/2023 20:20" />
@@ -993,7 +1065,27 @@
 		<property name="sender" ref="actor1" />
 	</bean>
 	
-	<!-- Spamword -->
+	<bean id="message5" class="domain.Message">
+		<property name="subject" value="Message with a big viagra" />
+		<property name="body" value="has sido elegido enhorabuena! eres el mejor" />
+		<property name="moment" value="09/15/2016 10:11" />
+		<property name="attachments" value="" />
+		<property name="spam" value="true" />
+		<property name="recipient" ref="actor6" />
+		<property name="sender" ref="actor8" />
+	</bean>
+	
+	<bean id="message6" class="domain.Message">
+		<property name="subject" value="Message 4 sex" />
+		<property name="body" value="cialis cialis cialis" />
+		<property name="moment" value="03/12/2018 18:11" />
+		<property name="attachments" value="" />
+		<property name="spam" value="true" />
+		<property name="recipient" ref="actor3" />
+		<property name="sender" ref="actor8" />
+	</bean>
+	
+	<!-- Spamwords -->
 	
 	<bean id="spamWord1" class="domain.SpamWord">
 		<property name="word" value="sex" />
