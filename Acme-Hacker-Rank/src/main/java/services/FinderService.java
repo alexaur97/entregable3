@@ -1,12 +1,8 @@
 
-<<<<<<< HEAD
 package services;
-=======
 import java.util.ArrayList;
 import java.util.Collection; 
 import java.util.Date;
->>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
-
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
