@@ -485,7 +485,7 @@
 		<property name="commercialName" value="4Hackers Anonymous" />
 		<property name="spammer" value="false" />
 		<property name="banned" value="false" />
-		<property name="userAccount" ref="userAccount2" />
+		<property name="userAccount" ref="userAccount5" />
 	</bean>
 
 	<bean id="actor3" class="domain.Company">

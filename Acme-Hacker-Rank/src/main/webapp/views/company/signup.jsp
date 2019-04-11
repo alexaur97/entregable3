@@ -29,7 +29,7 @@
 		<acme:textbox code="company.name" path="name" />
 		<acme:textbox code="company.surnames" path="surnames" />
 		<acme:textbox code="company.commercialName" path="commercialName" />
-		<acme:textbox code="company.vat" path="VAT" placeholder="ANNNNNNNA" comment="company.vat.pattern"/>
+		<acme:textbox code="company.vat" path="VAT" placeholder="ESANNNNNNNA" comment="company.vat.pattern"/>
 		<acme:textbox code="company.photo" path="photo" />
 		<acme:textbox code="company.email" path="email" />
 		<acme:textbox code="company.phone" path="phone" />
