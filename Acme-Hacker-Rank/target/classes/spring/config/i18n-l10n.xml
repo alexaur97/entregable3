@@ -31,11 +31,8 @@
 		<value>/views/profile/messages</value>
 		<value>/views/company/messages</value>
 		<value>/views/hacker/messages</value>
-<<<<<<< HEAD
 		<value>/views/stats/messages</value>
-=======
 		<value>/views/problem/messages</value>
->>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
 	</util:list>
 
 </beans>

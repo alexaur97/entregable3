@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.SocialProfileRepository;
+import domain.SocialProfile;
 
-import domain.SocialProfile; 
-
-@Service 
-@Transactional 
-public class SocialProfileService { 
+@Service
+@Transactional
+public class SocialProfileService {
 
 	//Managed repository -------------------
 	@Autowired
-	private SocialProfileRepository socialProfileRepository;
+	private SocialProfileRepository	socialProfileRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public SocialProfileService(){
+	public SocialProfileService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public SocialProfile create(){
+	public SocialProfile create() {
 		SocialProfile result;
 
 		result = new SocialProfile();
@@ -39,32 +37,31 @@ public class SocialProfileService {
 		return result;
 	}
 
-	public Collection<SocialProfile> findAll(){
+	public Collection<SocialProfile> findAll() {
 		Collection<SocialProfile> result;
 
-		result = socialProfileRepository.findAll();
+		result = this.socialProfileRepository.findAll();
 
 		return result;
 	}
 
-	public SocialProfile findOne(int socialProfileId){
+	public SocialProfile findOne(final int socialProfileId) {
 		SocialProfile result;
 
-		result = socialProfileRepository.findOne(socialProfileId);
+		result = this.socialProfileRepository.findOne(socialProfileId);
 
 		return result;
 	}
 
-	public void save(SocialProfile socialProfile){
+	public void save(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
 
-		socialProfileRepository.save(socialProfile);
+		this.socialProfileRepository.save(socialProfile);
 	}
 
-	public void delete(SocialProfile socialProfile){
-		socialProfileRepository.delete(socialProfile);
+	public void delete(final SocialProfile socialProfile) {
+		this.socialProfileRepository.delete(socialProfile);
 	}
-
 
 	//Other Methods--------------------
-} 
+}

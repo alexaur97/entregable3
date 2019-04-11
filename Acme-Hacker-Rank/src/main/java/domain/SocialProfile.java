@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -16,29 +17,30 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class SocialProfile extends DomainEntity {
 
-	private String nick;
-	private String socialNetwork;
-	private String link;
-	
-	private Actor actor;
+	private String	nick;
+	private String	socialNetwork;
+	private String	link;
+
+	private Actor	actor;
+
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNick() {
-		return nick;
+		return this.nick;
 	}
 
-	public void setNick(String nick) {
+	public void setNick(final String nick) {
 		this.nick = nick;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSocialNetwork() {
-		return socialNetwork;
+		return this.socialNetwork;
 	}
 
-	public void setSocialNetwork(String socialNetwork) {
+	public void setSocialNetwork(final String socialNetwork) {
 		this.socialNetwork = socialNetwork;
 	}
 
@@ -46,10 +48,10 @@ public class SocialProfile extends DomainEntity {
 	@URL
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
@@ -57,12 +59,11 @@ public class SocialProfile extends DomainEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	public Actor getActor() {
-		return actor;
+		return this.actor;
 	}
 
-	public void setActor(Actor actor) {
+	public void setActor(final Actor actor) {
 		this.actor = actor;
 	}
-
 
 }

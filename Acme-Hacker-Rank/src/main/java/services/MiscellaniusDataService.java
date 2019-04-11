@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.MiscellaniusDataRepository;
+import domain.MiscellaniusData;
 
-import domain.MiscellaniusData; 
-
-@Service 
-@Transactional 
-public class MiscellaniusDataService { 
+@Service
+@Transactional
+public class MiscellaniusDataService {
 
 	//Managed repository -------------------
 	@Autowired
-	private MiscellaniusDataRepository miscellaniusDataRepository;
+	private MiscellaniusDataRepository	miscellaniusDataRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public MiscellaniusDataService(){
+	public MiscellaniusDataService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public MiscellaniusData create(){
+	public MiscellaniusData create() {
 		MiscellaniusData result;
 
 		result = new MiscellaniusData();
@@ -39,32 +37,31 @@ public class MiscellaniusDataService {
 		return result;
 	}
 
-	public Collection<MiscellaniusData> findAll(){
+	public Collection<MiscellaniusData> findAll() {
 		Collection<MiscellaniusData> result;
 
-		result = miscellaniusDataRepository.findAll();
+		result = this.miscellaniusDataRepository.findAll();
 
 		return result;
 	}
 
-	public MiscellaniusData findOne(int miscellaniusDataId){
+	public MiscellaniusData findOne(final int miscellaniusDataId) {
 		MiscellaniusData result;
 
-		result = miscellaniusDataRepository.findOne(miscellaniusDataId);
+		result = this.miscellaniusDataRepository.findOne(miscellaniusDataId);
 
 		return result;
 	}
 
-	public void save(MiscellaniusData miscellaniusData){
+	public void save(final MiscellaniusData miscellaniusData) {
 		Assert.notNull(miscellaniusData);
 
-		miscellaniusDataRepository.save(miscellaniusData);
+		this.miscellaniusDataRepository.save(miscellaniusData);
 	}
 
-	public void delete(MiscellaniusData miscellaniusData){
-		miscellaniusDataRepository.delete(miscellaniusData);
+	public void delete(final MiscellaniusData miscellaniusData) {
+		this.miscellaniusDataRepository.delete(miscellaniusData);
 	}
-
 
 	//Other Methods--------------------
-} 
+}

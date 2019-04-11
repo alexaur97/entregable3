@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.CurriculumRepository;
+import domain.Curriculum;
 
-import domain.Curriculum; 
-
-@Service 
-@Transactional 
-public class CurriculumService { 
+@Service
+@Transactional
+public class CurriculumService {
 
 	//Managed repository -------------------
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepository	curriculumRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public CurriculumService(){
+	public CurriculumService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public Curriculum create(){
+	public Curriculum create() {
 		Curriculum result;
 
 		result = new Curriculum();
@@ -39,32 +37,31 @@ public class CurriculumService {
 		return result;
 	}
 
-	public Collection<Curriculum> findAll(){
+	public Collection<Curriculum> findAll() {
 		Collection<Curriculum> result;
 
-		result = curriculumRepository.findAll();
+		result = this.curriculumRepository.findAll();
 
 		return result;
 	}
 
-	public Curriculum findOne(int curriculumId){
+	public Curriculum findOne(final int curriculumId) {
 		Curriculum result;
 
-		result = curriculumRepository.findOne(curriculumId);
+		result = this.curriculumRepository.findOne(curriculumId);
 
 		return result;
 	}
 
-	public void save(Curriculum curriculum){
+	public void save(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 
-		curriculumRepository.save(curriculum);
+		this.curriculumRepository.save(curriculum);
 	}
 
-	public void delete(Curriculum curriculum){
-		curriculumRepository.delete(curriculum);
+	public void delete(final Curriculum curriculum) {
+		this.curriculumRepository.delete(curriculum);
 	}
-
 
 	//Other Methods--------------------
-} 
+}

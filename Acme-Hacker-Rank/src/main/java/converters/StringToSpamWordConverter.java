@@ -1,3 +1,4 @@
+
 package converters;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +12,25 @@ import domain.SpamWord;
 
 @Component
 @Transactional
-public class StringToSpamWordConverter implements Converter<String, SpamWord>{
-	
+public class StringToSpamWordConverter implements Converter<String, SpamWord> {
+
 	@Autowired
-	SpamWordRepository SpamWordRepository;
-	
+	SpamWordRepository	SpamWordRepository;
+
+
 	@Override
-	public SpamWord convert(String text){
+	public SpamWord convert(final String text) {
 		SpamWord result;
 		int id;
-		
-		try{
-			if(StringUtils.isEmpty(text))
+
+		try {
+			if (StringUtils.isEmpty(text))
 				result = null;
-			else{
+			else {
 				id = Integer.valueOf(text);
-				result = SpamWordRepository.findOne(id);
+				result = this.SpamWordRepository.findOne(id);
 			}
-		}catch (Throwable oops){
+		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
 		return result;

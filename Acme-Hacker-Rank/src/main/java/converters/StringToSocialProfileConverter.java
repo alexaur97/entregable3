@@ -1,38 +1,40 @@
-package converters; 
 
-import org.apache.commons.lang.StringUtils; 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.core.convert.converter.Converter; 
-import org.springframework.stereotype.Component; 
-import org.springframework.transaction.annotation.Transactional; 
+package converters;
 
-import repositories.SocialProfileRepository; 
-import domain.SocialProfile; 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component 
-@Transactional 
-public class StringToSocialProfileConverter implements Converter<String, SocialProfile>{ 
+import repositories.SocialProfileRepository;
+import domain.SocialProfile;
 
-	@Autowired 
-	SocialProfileRepository socialProfileRepository; 
+@Component
+@Transactional
+public class StringToSocialProfileConverter implements Converter<String, SocialProfile> {
 
-	@Override 
-	public SocialProfile convert(String text){ 
-		SocialProfile result; 
-		int id; 
+	@Autowired
+	SocialProfileRepository	socialProfileRepository;
 
-		try{ 
-			if(StringUtils.isEmpty(text)){ 
-				result = null; 
-			}else{ 
-				id = Integer.valueOf(text); 
-				result = socialProfileRepository.findOne(id); 
-			} 
-		}catch (Throwable oops) { 
-			throw new IllegalArgumentException(oops); 
-		} 
 
-		return result; 
-	} 
+	@Override
+	public SocialProfile convert(final String text) {
+		SocialProfile result;
+		int id;
 
-} 
+		try {
+			if (StringUtils.isEmpty(text))
+				result = null;
+			else {
+				id = Integer.valueOf(text);
+				result = this.socialProfileRepository.findOne(id);
+			}
+		} catch (final Throwable oops) {
+			throw new IllegalArgumentException(oops);
+		}
+
+		return result;
+	}
+
+}

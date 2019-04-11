@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -18,45 +19,46 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class PositionData extends DomainEntity {
 
-	private String title;
-	private String description;
-	private Date endDate;
-	private Date startDate;
-	
+	private String	title;
+	private String	description;
+	private Date	endDate;
+	private Date	startDate;
+
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
-	
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
-	
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEndDate() {
-		return endDate;
+		return this.endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(final Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getStartDate() {
-		return startDate;
+		return this.startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(final Date startDate) {
 		this.startDate = startDate;
 	}
 

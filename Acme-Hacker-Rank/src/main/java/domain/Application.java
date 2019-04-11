@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -9,10 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,95 +19,96 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Access(AccessType.PROPERTY)
 public class Application extends DomainEntity {
-	
-	private Date moment;
-	private String explanation;
-	private String codeLink;
-	private Date submitMoment;
-	private String status;
-	
-	private Hacker hacker;
-	private Problem problem;
-	private Position position;	
-	private Curriculum curriculum;	
-	
+
+	private Date		moment;
+	private String		explanation;
+	private String		codeLink;
+	private Date		submitMoment;
+	private String		status;
+
+	private Hacker		hacker;
+	private Problem		problem;
+	private Position	position;
+	private Curriculum	curriculum;
+
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getExplanation() {
-		return explanation;
+		return this.explanation;
 	}
-	public void setExplanation(String explanation) {
+	public void setExplanation(final String explanation) {
 		this.explanation = explanation;
 	}
-	
+
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCodeLink() {
-		return codeLink;
+		return this.codeLink;
 	}
-	public void setCodeLink(String codeLink) {
+	public void setCodeLink(final String codeLink) {
 		this.codeLink = codeLink;
 	}
-	
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:ss HH:mm")
 	public Date getSubmitMoment() {
-		return submitMoment;
+		return this.submitMoment;
 	}
-	public void setSubmitMoment(Date submitMoment) {
+	public void setSubmitMoment(final Date submitMoment) {
 		this.submitMoment = submitMoment;
 	}
-	
+
 	@Pattern(regexp = "^ACCEPTED|REJECTED|SUBMITTED$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getStatus() {
-		return status;
+		return this.status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	public Hacker getHacker() {
-		return hacker;
+		return this.hacker;
 	}
-	public void setHacker(Hacker hacker) {
+	public void setHacker(final Hacker hacker) {
 		this.hacker = hacker;
 	}
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	public Problem getProblem() {
-		return problem;
+		return this.problem;
 	}
-	public void setProblem(Problem problem) {
+	public void setProblem(final Problem problem) {
 		this.problem = problem;
 	}
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	public Position getPosition() {
-		return position;
+		return this.position;
 	}
-	public void setPosition(Position position) {
+	public void setPosition(final Position position) {
 		this.position = position;
 	}
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	public Curriculum getCurriculum() {
-		return curriculum;
+		return this.curriculum;
 	}
-	public void setCurriculum(Curriculum curriculum) {
+	public void setCurriculum(final Curriculum curriculum) {
 		this.curriculum = curriculum;
 	}
 

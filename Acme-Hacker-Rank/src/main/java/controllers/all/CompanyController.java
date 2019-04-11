@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import security.LoginService;
 import services.ActorService;
 import services.CompanyService;
 import services.PositionService;
@@ -106,8 +108,13 @@ public class CompanyController {
 
 		try {
 			Assert.notNull(companyId);
-			final Collection<Position> positions = this.positionService.findByCompany(companyId);
+			final Collection<Position> positions = this.positionService.findByCompanyFinal(companyId);
 			company = this.companyService.findOne(companyId);
+			if (company.isBanned()) {
+				final Authority auth = new Authority();
+				auth.setAuthority(Authority.ADMINISTRATOR);
+				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
+			}
 			result = new ModelAndView("company/show");
 			result.addObject("positions", positions);
 			result.addObject("company", company);
@@ -117,13 +124,12 @@ public class CompanyController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		try {
 			Collection<Company> companies;
-			companies = this.companyService.findAll();
+			companies = this.companyService.companiesNotBanned();
 			result = new ModelAndView("company/list");
 			result.addObject("requestURI", "company/list.do");
 			result.addObject("companies", companies);

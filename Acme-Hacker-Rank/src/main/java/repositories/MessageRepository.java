@@ -1,15 +1,15 @@
+
 package repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository; 
-import org.springframework.data.jpa.repository.Query; 
-import org.springframework.stereotype.Repository; 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import domain.Message; 
+import domain.Message;
 
-@Repository 
-public interface MessageRepository extends JpaRepository<Message, Integer>{ 
+@Repository
+public interface MessageRepository extends JpaRepository<Message, Integer> {
 
 	//@Query("") 
 	//Method 
 
-} 
+}

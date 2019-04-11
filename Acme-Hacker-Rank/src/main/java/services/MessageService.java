@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
+import domain.Message;
 
-import domain.Message; 
-
-@Service 
-@Transactional 
-public class MessageService { 
+@Service
+@Transactional
+public class MessageService {
 
 	//Managed repository -------------------
 	@Autowired
-	private MessageRepository messageRepository;
+	private MessageRepository	messageRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public MessageService(){
+	public MessageService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public Message create(){
+	public Message create() {
 		Message result;
 
 		result = new Message();
@@ -39,32 +37,31 @@ public class MessageService {
 		return result;
 	}
 
-	public Collection<Message> findAll(){
+	public Collection<Message> findAll() {
 		Collection<Message> result;
 
-		result = messageRepository.findAll();
+		result = this.messageRepository.findAll();
 
 		return result;
 	}
 
-	public Message findOne(int messageId){
+	public Message findOne(final int messageId) {
 		Message result;
 
-		result = messageRepository.findOne(messageId);
+		result = this.messageRepository.findOne(messageId);
 
 		return result;
 	}
 
-	public void save(Message message){
+	public void save(final Message message) {
 		Assert.notNull(message);
 
-		messageRepository.save(message);
+		this.messageRepository.save(message);
 	}
 
-	public void delete(Message message){
-		messageRepository.delete(message);
+	public void delete(final Message message) {
+		this.messageRepository.delete(message);
 	}
-
 
 	//Other Methods--------------------
-} 
+}

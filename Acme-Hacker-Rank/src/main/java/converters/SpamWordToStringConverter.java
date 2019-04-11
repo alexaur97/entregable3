@@ -1,3 +1,4 @@
+
 package converters;
 
 import org.springframework.core.convert.converter.Converter;
@@ -8,18 +9,18 @@ import domain.SpamWord;
 
 @Component
 @Transactional
-public class SpamWordToStringConverter implements Converter<SpamWord, String>{
-	
+public class SpamWordToStringConverter implements Converter<SpamWord, String> {
+
 	@Override
-	public String convert(SpamWord SpamWord){
+	public String convert(final SpamWord SpamWord) {
 		String result;
-		
-		if(SpamWord == null)
+
+		if (SpamWord == null)
 			result = null;
-		
+
 		else
 			result = String.valueOf(SpamWord.getId());
-		
+
 		return result;
 	}
 

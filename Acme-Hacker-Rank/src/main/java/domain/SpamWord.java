@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -10,19 +11,20 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class SpamWord extends DomainEntity{
+public class SpamWord extends DomainEntity {
 
 	// Attributes ----------------------------
 
-	private String word;
+	private String	word;
+
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getWord() {
-		return word;
+		return this.word;
 	}
 
-	public void setWord(String word) {
+	public void setWord(final String word) {
 		this.word = word;
 	}
 }

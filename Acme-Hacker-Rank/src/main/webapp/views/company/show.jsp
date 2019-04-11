@@ -29,7 +29,11 @@
 <br/>
 <spring:message code="company.VAT"/>: <jstl:out value="${company.VAT}"></jstl:out>
 <br/>
-<spring:message code="company.photo"/>: <jstl:out value="${company.photo}"></jstl:out>
+<spring:message code="company.photo"/>:
+ <br/>
+ <ul>
+<img src="${company.photo}" width="280" height="250"></img>
+</ul>
 <br/>
 <spring:message code="company.email"/>: <jstl:out value="${company.email}"></jstl:out>
 <br/>

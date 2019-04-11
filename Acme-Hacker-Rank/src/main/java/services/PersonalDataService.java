@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.PersonalDataRepository;
+import domain.PersonalData;
 
-import domain.PersonalData; 
-
-@Service 
-@Transactional 
-public class PersonalDataService { 
+@Service
+@Transactional
+public class PersonalDataService {
 
 	//Managed repository -------------------
 	@Autowired
-	private PersonalDataRepository personalDataRepository;
+	private PersonalDataRepository	personalDataRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public PersonalDataService(){
+	public PersonalDataService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public PersonalData create(){
+	public PersonalData create() {
 		PersonalData result;
 
 		result = new PersonalData();
@@ -39,32 +37,31 @@ public class PersonalDataService {
 		return result;
 	}
 
-	public Collection<PersonalData> findAll(){
+	public Collection<PersonalData> findAll() {
 		Collection<PersonalData> result;
 
-		result = personalDataRepository.findAll();
+		result = this.personalDataRepository.findAll();
 
 		return result;
 	}
 
-	public PersonalData findOne(int personalDataId){
+	public PersonalData findOne(final int personalDataId) {
 		PersonalData result;
 
-		result = personalDataRepository.findOne(personalDataId);
+		result = this.personalDataRepository.findOne(personalDataId);
 
 		return result;
 	}
 
-	public void save(PersonalData personalData){
+	public void save(final PersonalData personalData) {
 		Assert.notNull(personalData);
 
-		personalDataRepository.save(personalData);
+		this.personalDataRepository.save(personalData);
 	}
 
-	public void delete(PersonalData personalData){
-		personalDataRepository.delete(personalData);
+	public void delete(final PersonalData personalData) {
+		this.personalDataRepository.delete(personalData);
 	}
-
 
 	//Other Methods--------------------
-} 
+}

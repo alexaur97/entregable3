@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -18,55 +19,56 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class EducationData extends DomainEntity {
 
-	private String degree;
-	private String institution;
-	private String mark;
-	private Date endDate;
-	private Date startDate;
-	
+	private String	degree;
+	private String	institution;
+	private String	mark;
+	private Date	endDate;
+	private Date	startDate;
+
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getDegree() {
-		return degree;
+		return this.degree;
 	}
-	public void setDegree(String degree) {
+	public void setDegree(final String degree) {
 		this.degree = degree;
 	}
-	
+
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)	
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getInstitution() {
-		return institution;
+		return this.institution;
 	}
-	public void setInstitution(String institution) {
+	public void setInstitution(final String institution) {
 		this.institution = institution;
 	}
-	
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getMark() {
-		return mark;
+		return this.mark;
 	}
-	public void setMark(String mark) {
+	public void setMark(final String mark) {
 		this.mark = mark;
 	}
-	
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEndDate() {
-		return endDate;
+		return this.endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(final Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getStartDate() {
-		return startDate;
+		return this.startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(final Date startDate) {
 		this.startDate = startDate;
 	}
 

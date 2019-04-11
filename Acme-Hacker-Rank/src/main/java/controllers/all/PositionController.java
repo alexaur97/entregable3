@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import security.LoginService;
 import services.PositionService;
 import domain.Position;
 
@@ -53,7 +55,7 @@ public class PositionController {
 		ModelAndView result;
 		try {
 			Collection<Position> positions;
-			positions = this.positionService.findAll();
+			positions = this.positionService.findFinalNotBanned();
 			result = new ModelAndView("position/list");
 			result.addObject("requestURI", "position/list.do");
 			result.addObject("positions", positions);
@@ -70,7 +72,7 @@ public class PositionController {
 		ModelAndView result;
 		try {
 			Collection<Position> positions;
-			positions = this.positionService.findByCompany(companyId);
+			positions = this.positionService.findByCompanyFinal(companyId);
 			result = new ModelAndView("position/list");
 			result.addObject("requestURI", "position/list.do");
 			result.addObject("positions", positions);
@@ -90,6 +92,11 @@ public class PositionController {
 		try {
 			Assert.notNull(positionId);
 			position = this.positionService.findOne(positionId);
+			if (position.getCompany().isBanned()) {
+				final Authority auth = new Authority();
+				auth.setAuthority(Authority.ADMINISTRATOR);
+				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
+			}
 			result = new ModelAndView("position/show");
 			result.addObject("position", position);
 		} catch (final Exception e) {

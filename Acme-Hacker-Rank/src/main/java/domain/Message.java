@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -23,75 +24,76 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Message extends DomainEntity {
 
-	private String subject;
-	private String body;
-	public Date moment;
-	private Collection<String> attachments;
-	public Boolean spam;
+	private String				subject;
+	private String				body;
+	public Date					moment;
+	private Collection<String>	attachments;
+	public Boolean				spam;
 
-	public Actor recipient;
-	public Actor sender;
-	
+	public Actor				recipient;
+	public Actor				sender;
+
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSubject() {
-		return subject;
+		return this.subject;
 	}
-	public void setSubject(String subject) {
+	public void setSubject(final String subject) {
 		this.subject = subject;
 	}
-	
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBody() {
-		return body;
+		return this.body;
 	}
-	public void setBody(String body) {
+	public void setBody(final String body) {
 		this.body = body;
 	}
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
+
 	@ElementCollection
 	@NotEmpty
 	public Collection<String> getAttachments() {
-		return attachments;
+		return this.attachments;
 	}
-	public void setAttachments(Collection<String> attachments) {
+	public void setAttachments(final Collection<String> attachments) {
 		this.attachments = attachments;
 	}
-	
+
 	@NotNull
 	public Boolean getSpam() {
-		return spam;
+		return this.spam;
 	}
-	public void setSpam(Boolean spam) {
+	public void setSpam(final Boolean spam) {
 		this.spam = spam;
 	}
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	public Actor getRecipient() {
-		return recipient;
+		return this.recipient;
 	}
-	public void setRecipient(Actor recipient) {
+	public void setRecipient(final Actor recipient) {
 		this.recipient = recipient;
 	}
-	
+
 	@NotNull
 	@ManyToOne(optional = false)
 	public Actor getSender() {
-		return sender;
+		return this.sender;
 	}
-	public void setSender(Actor sender) {
+	public void setSender(final Actor sender) {
 		this.sender = sender;
 	}
 }

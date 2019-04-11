@@ -1,9 +1,9 @@
 
 package services;
+
 import java.util.ArrayList;
-import java.util.Collection; 
-import java.util.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +33,9 @@ public class FinderService {
 
 	//Simple CRUD methods--------------------
 
-	public void createFinder(Hacker hackerCreated) {
-		Finder finder = new Finder();
-		Collection<Position> positions = new ArrayList<Position>();
+	public void createFinder(final Hacker hackerCreated) {
+		final Finder finder = new Finder();
+		final Collection<Position> positions = new ArrayList<Position>();
 		finder.setKeyword("");
 		finder.setHacker(hackerCreated);
 		finder.setLastSearch(new Date());

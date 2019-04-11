@@ -18,4 +18,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	@Query("select c from Company c where (select count(p) from Position p where p.company.id = c.id) = (select max(1.0*(select count(p) from Position p where p.company.id = co.id)) from Company co)")
 	Collection<Company> companiesHaveOfferedMorePositions();
 
+	@Query("select c from Company c where c.banned=false")
+	Collection<Company> companiesNotBanned();
 }

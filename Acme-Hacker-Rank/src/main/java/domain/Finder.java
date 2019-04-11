@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -14,7 +15,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,78 +23,76 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
 
-	private String keyword;
-	private Date deadline;
-	private Integer minSalary;
-	private Integer maxSalary;
-	
-	private Hacker hacker;
-	
-	public Date lastSearch;
+	private String				keyword;
+	private Date				deadline;
+	private Integer				minSalary;
+	private Integer				maxSalary;
+
+	private Hacker				hacker;
+
+	public Date					lastSearch;
 	public Collection<Position>	positions;
 
-	
+
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getKeyword() {
-		return keyword;
+		return this.keyword;
 	}
-	public void setKeyword(String keyword) {
+	public void setKeyword(final String keyword) {
 		this.keyword = keyword;
 	}
-	
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date getDeadline() {
-		return deadline;
+		return this.deadline;
 	}
-	public void setDeadline(Date deadline) {
+	public void setDeadline(final Date deadline) {
 		this.deadline = deadline;
 	}
-	
+
 	@Min(0)
 	public Integer getMinSalary() {
-		return minSalary;
+		return this.minSalary;
 	}
-	public void setMinSalary(Integer minSalary) {
+	public void setMinSalary(final Integer minSalary) {
 		this.minSalary = minSalary;
 	}
-	
+
 	@Min(0)
 	public Integer getMaxSalary() {
-		return maxSalary;
+		return this.maxSalary;
 	}
-	public void setMaxSalary(Integer maxSalary) {
+	public void setMaxSalary(final Integer maxSalary) {
 		this.maxSalary = maxSalary;
 	}
-	
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Hacker getHacker() {
-		return hacker;
+		return this.hacker;
 	}
-	public void setHacker(Hacker hacker) {
+	public void setHacker(final Hacker hacker) {
 		this.hacker = hacker;
 	}
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getLastSearch() {
-		return lastSearch;
+		return this.lastSearch;
 	}
-	public void setLastSearch(Date lastSearch) {
+	public void setLastSearch(final Date lastSearch) {
 		this.lastSearch = lastSearch;
 	}
-	
+
 	@NotNull
 	@ManyToMany
 	public Collection<Position> getPositions() {
-		return positions;
+		return this.positions;
 	}
-	public void setPositions(Collection<Position> positions) {
+	public void setPositions(final Collection<Position> positions) {
 		this.positions = positions;
 	}
-	
-
 
 }

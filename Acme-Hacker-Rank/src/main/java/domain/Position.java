@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -13,7 +14,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,128 +25,129 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Position extends DomainEntity {
 
-	private String title;
-	private String description;
-	private Date deadline;
-	private String profileRequired;
-	private String skillRequired;
-	private String techRequired;
-	private Integer salaryOffered;
-	private String ticker;
-	private String mode;
-	private Boolean cancelled;
-	
-	private Company company;
-	private Collection<Problem> problems;
-	
-	
+	private String				title;
+	private String				description;
+	private Date				deadline;
+	private String				profileRequired;
+	private String				skillRequired;
+	private String				techRequired;
+	private Integer				salaryOffered;
+	private String				ticker;
+	private String				mode;
+	private Boolean				cancelled;
+
+	private Company				company;
+	private Collection<Problem>	problems;
+
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy hh:ss")
 	public Date getDeadline() {
-		return deadline;
+		return this.deadline;
 	}
-	public void setDeadline(Date deadline) {
+	public void setDeadline(final Date deadline) {
 		this.deadline = deadline;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getProfileRequired() {
-		return profileRequired;
+		return this.profileRequired;
 	}
-	public void setProfileRequired(String profileRequired) {
+	public void setProfileRequired(final String profileRequired) {
 		this.profileRequired = profileRequired;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSkillRequired() {
-		return skillRequired;
+		return this.skillRequired;
 	}
-	public void setSkillRequired(String skillRequired) {
+	public void setSkillRequired(final String skillRequired) {
 		this.skillRequired = skillRequired;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTechRequired() {
-		return techRequired;
+		return this.techRequired;
 	}
-	public void setTechRequired(String techRequired) {
+	public void setTechRequired(final String techRequired) {
 		this.techRequired = techRequired;
 	}
-	
+
 	@Min(0)
 	@NotNull
 	public Integer getSalaryOffered() {
-		return salaryOffered;
+		return this.salaryOffered;
 	}
-	public void setSalaryOffered(Integer salaryOffered) {
+	public void setSalaryOffered(final Integer salaryOffered) {
 		this.salaryOffered = salaryOffered;
 	}
-	
+
 	@NotBlank
 	@Pattern(regexp = "[a-zA-Z]{4}-[0-9]{4}")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTicker() {
-		return ticker;
-	}	public void setTicker(String ticker) {
+		return this.ticker;
+	}
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
-	
+
 	@NotBlank
 	@Pattern(regexp = "^DRAFT|FINAL$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getMode() {
-		return mode;
+		return this.mode;
 	}
-	public void setMode(String mode) {
+	public void setMode(final String mode) {
 		this.mode = mode;
 	}
-	
+
 	@NotNull
 	public Boolean getCancelled() {
-		return cancelled;
+		return this.cancelled;
 	}
-	public void setCancelled(Boolean cancelled) {
+	public void setCancelled(final Boolean cancelled) {
 		this.cancelled = cancelled;
 	}
-	
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Company getCompany() {
-		return company;
+		return this.company;
 	}
-	public void setCompany(Company company) {
+	public void setCompany(final Company company) {
 		this.company = company;
 	}
-	
+
 	@NotNull
 	@ManyToMany
 	public Collection<Problem> getProblems() {
-		return problems;
+		return this.problems;
 	}
-	public void setProblems(Collection<Problem> problems) {
+	public void setProblems(final Collection<Problem> problems) {
 		this.problems = problems;
 	}
 

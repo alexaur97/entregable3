@@ -18,15 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CompanyService;
 import services.ConfigurationParametersService;
-import services.FinderService;
 import services.HackerService;
-
 import domain.Company;
 import domain.ConfigurationParameters;
 import domain.Hacker;
@@ -46,11 +43,11 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	HackerService							hackerService;
-	
+
 	@Autowired
 	CompanyService							companyService;
 
-	
+
 	// Constructors -----------------------------------------------------------
 
 	public WelcomeController() {

@@ -30,4 +30,13 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p where p.salaryOffered = (select min(1.0*(1.0*pa.salaryOffered)) from Position pa)")
 	Collection<Position> worstPositionsSalary();
 
+	@Query("select p from Position p where p.company.id=?1 and p.mode='FINAL'")
+	Collection<Position> findByCompanyFinal(Integer id);
+
+	@Query("select p from Position p where p.mode='FINAL'")
+	Collection<Position> findFinal();
+
+	@Query("select p from Position p where p.mode='FINAL' AND p.company.banned=false")
+	Collection<Position> findFinalNotBanned();
+
 }

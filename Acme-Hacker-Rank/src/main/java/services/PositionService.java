@@ -97,4 +97,22 @@ public class PositionService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public Collection<Position> findByCompanyFinal(final Integer companyId) {
+		Assert.notNull(companyId);
+		final Collection<Position> res = this.positionRepository.findByCompanyFinal(companyId);
+		return res;
+	}
+
+	public Collection<Position> findFinal() {
+		final Collection<Position> result = this.positionRepository.findFinal();
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Position> findFinalNotBanned() {
+		final Collection<Position> result = this.positionRepository.findFinalNotBanned();
+		Assert.notNull(result);
+		return result;
+	}
 }

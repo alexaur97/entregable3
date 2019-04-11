@@ -153,4 +153,10 @@ public class CompanyService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public Collection<Company> companiesNotBanned() {
+		final Collection<Company> result = this.companyRepository.companiesNotBanned();
+		Assert.notNull(result);
+		return result;
+	}
 }

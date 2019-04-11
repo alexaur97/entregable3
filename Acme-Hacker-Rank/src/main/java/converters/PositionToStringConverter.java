@@ -1,24 +1,24 @@
-package converters; 
 
-import org.springframework.core.convert.converter.Converter; 
-import org.springframework.stereotype.Component; 
-import org.springframework.transaction.annotation.Transactional; 
+package converters;
 
-import domain.Position; 
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component 
-@Transactional 
-public class PositionToStringConverter implements Converter<Position, String>{ 
+import domain.Position;
 
-	@Override 
-	public String convert(Position position){ 
-		String result; 
-		if(position == null){ 
-			result = null; 
-		}else{ 
-			result = String.valueOf(position.getId()); 
-		} 
-		return result; 
-	} 
+@Component
+@Transactional
+public class PositionToStringConverter implements Converter<Position, String> {
 
-} 
+	@Override
+	public String convert(final Position position) {
+		String result;
+		if (position == null)
+			result = null;
+		else
+			result = String.valueOf(position.getId());
+		return result;
+	}
+
+}

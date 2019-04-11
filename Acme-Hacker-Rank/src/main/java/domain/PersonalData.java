@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -13,54 +14,55 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class PersonalData extends DomainEntity {
 
-	private String fullname;
-	private String statement;
-	private String phone;
-	private String github;
-	private String linkedin;
-	
+	private String	fullname;
+	private String	statement;
+	private String	phone;
+	private String	github;
+	private String	linkedin;
+
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getFullname() {
-		return fullname;
+		return this.fullname;
 	}
-	public void setFullname(String fullname) {
+	public void setFullname(final String fullname) {
 		this.fullname = fullname;
 	}
 	public String getStatement() {
-		return statement;
+		return this.statement;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public void setStatement(String statement) {
+	public void setStatement(final String statement) {
 		this.statement = statement;
 	}
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
-	
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public void setPhone(String phone) {
+	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
 	public String getGithub() {
-		return github;
+		return this.github;
 	}
 
 	@URL
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public void setGithub(String github) {
+	public void setGithub(final String github) {
 		this.github = github;
 	}
-	
+
 	@URL
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLinkedin() {
-		return linkedin;
+		return this.linkedin;
 	}
-	public void setLinkedin(String linkedin) {
+	public void setLinkedin(final String linkedin) {
 		this.linkedin = linkedin;
 	}
 
