@@ -51,25 +51,17 @@
 						code="master.page.myPositions" /></a></li>
 		</security:authorize>
 
+
+		<li><a class="fNiv" href="position/list.do"><spring:message
+					code="master.page.positions" /></a></li>
+
+
+		<li><a class="fNiv" href="company/list.do"><spring:message
+					code="master.page.companies" /></a></li>
 		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="position/list.do"><spring:message
-						code="master.page.positions" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="company/list.do"><spring:message
-						code="master.page.companies" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv" href="position/list.do"><spring:message
-						code="master.page.positions" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv" href="company/list.do"><spring:message
-						code="master.page.companies" /></a></li>
+		<security:authorize access="hasRole('COMPANY')">
+		<li><a class="fNiv" href="problem/company/list.do"><spring:message
+					code="master.page.company.list" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
@@ -79,29 +71,23 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message
-								code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message
-								code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message
-								code="master.page.profile.action.3" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
 		</security:authorize>
-		
+
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
-			<ul>
+				<ul>
 					<li class="arrow"></li>
 					<li><a href="company/signup.do"><spring:message
 								code="master.page.register.company" /></a></li>
 					<li><a href="hacker/signup.do"><spring:message
 								code="master.page.register.hacker" /></a></li>
-					
+
 				</ul></li>
 		</security:authorize>
 	</ul>

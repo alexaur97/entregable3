@@ -26,7 +26,6 @@ public class Curriculum extends DomainEntity {
 	private Collection<PositionData> positionData;
 
 	@NotNull
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public Boolean getCopy() {
 		return copy;
 	}

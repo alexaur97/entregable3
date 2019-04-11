@@ -1,5 +1,11 @@
 
+<<<<<<< HEAD
 package services;
+=======
+import java.util.ArrayList;
+import java.util.Collection; 
+import java.util.Date;
+>>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
 
 import java.util.Collection;
 
@@ -10,6 +16,8 @@ import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
 import domain.Finder;
+import domain.Hacker;
+import domain.Position;
 
 @Service
 @Transactional
@@ -29,12 +37,14 @@ public class FinderService {
 
 	//Simple CRUD methods--------------------
 
-	public Finder create() {
-		Finder result;
-
-		result = new Finder();
-
-		return result;
+	public void createFinder(Hacker hackerCreated) {
+		Finder finder = new Finder();
+		Collection<Position> positions = new ArrayList<Position>();
+		finder.setKeyword("");
+		finder.setHacker(hackerCreated);
+		finder.setLastSearch(new Date());
+		finder.setPositions(positions);
+		this.finderRepository.save(finder);
 	}
 
 	public Collection<Finder> findAll() {

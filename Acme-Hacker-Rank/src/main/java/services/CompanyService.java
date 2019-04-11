@@ -4,6 +4,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,8 +30,6 @@ public class CompanyService {
 
 	@Autowired
 	private ActorService		actorService;
-
-	private CreditCardService	creditCardService;
 
 
 	//Supporting Services ------------------
@@ -107,7 +107,7 @@ public class CompanyService {
 		final Company result = this.create();
 		final Collection<String> emails = this.actorService.findAllEmails();
 		final String email = companyRegisterForm.getEmail();
-		final Boolean bEmail = !emails.contains(email);
+		final boolean bEmail = !emails.contains(email);
 		Assert.isTrue(bEmail);
 
 		final Collection<String> accounts = this.actorService.findAllAccounts();
@@ -132,20 +132,19 @@ public class CompanyService {
 		creditCard.setExpirationYear(companyRegisterForm.getExpirationYear());
 		creditCard.setHolderName(companyRegisterForm.getHolderName());
 		creditCard.setNumber(companyRegisterForm.getNumber());
+		final Boolean b = Utils.creditCardIsExpired(creditCard);
+		Assert.isTrue(!b);
 		result.setCreditCard(creditCard);
+
 		result.setEmail(companyRegisterForm.getEmail());
 		result.setName(companyRegisterForm.getName());
 		result.setPhone(companyRegisterForm.getPhone());
 		result.setPhoto(companyRegisterForm.getPhoto());
 		result.setSpammer(false);
 		result.setSurnames(companyRegisterForm.getSurnames());
-		final Collection<Authority> authorities = new ArrayList<>();
-		final Authority auth = new Authority();
-		auth.setAuthority(Authority.COMPANY);
-		authorities.add(auth);
-		userAccount.setAuthorities(authorities);
-		result.setUserAccount(userAccount);
-		result.setVAT(companyRegisterForm.getVAT());
+
+		final String vat = companyRegisterForm.getVAT();
+		result.setVAT(vat.toUpperCase());
 		return result;
 	}
 

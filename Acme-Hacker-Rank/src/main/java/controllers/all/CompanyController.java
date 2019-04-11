@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,8 @@ public class CompanyController {
 
 	@Autowired
 	private PositionService	positionService;
+
+	@Autowired
 	private ActorService	actorService;
 
 
@@ -70,6 +74,8 @@ public class CompanyController {
 					result.addObject("message", "company.email.error");
 				else if (!companyRegisterForm.getConfirmPassword().equals(companyRegisterForm.getPassword()))
 					result.addObject("message", "company.password.error");
+				else if (Utils.creditCardIsExpired(companyRegisterForm.getExpirationMonth(), companyRegisterForm.getExpirationYear()))
+					result.addObject("message", "company.expired.card.error");
 				else
 					result.addObject("message", "company.commit.error");
 			}

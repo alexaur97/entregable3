@@ -28,7 +28,7 @@
 		</legend>
 		<acme:textbox code="hacker.name" path="name" />
 		<acme:textbox code="hacker.surnames" path="surnames" />
-		<acme:textbox code="hacker.vat" path="VAT" />
+		<acme:textbox code="hacker.vat" path="VAT" placeholder="ESANNNNNNNA" comment="hacker.vat.pattern"/>
 		<acme:textbox code="hacker.photo" path="photo" />
 		<acme:textbox code="hacker.email" path="email" />
 		<acme:textbox code="hacker.phone" path="phone" />

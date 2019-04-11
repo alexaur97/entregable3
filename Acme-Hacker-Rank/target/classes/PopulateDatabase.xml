@@ -160,6 +160,297 @@
 		<property name="cvv" value="777" />
 	</bean>
 	
+	<!-- Curriculums -->
+	
+	<bean id="curriculum1" class="domain.Curriculum">
+		<property name="copy" value="false" />
+		<property name="personalData" ref="personalData1" />
+		<property name="educationData">
+			<list>
+				<ref bean="educationData1"/>
+			</list>
+		</property>	
+		<property name="miscellaniusData">
+			<list>
+				<ref bean="miscellaniusData1"/>
+			</list>
+		</property>	
+		<property name="positionData">
+			<list>
+				<ref bean="positionData1"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="personalData1" class="domain.PersonalData">
+		<property name="fullname" value="-" />
+		<property name="statement" value="-" />
+		<property name="phone" value="-"/>
+		<property name="github" value="https://github.com/kghiuy6d/" />
+		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
+	</bean>
+	
+	<bean id="educationData1" class="domain.EducationData">
+		<property name="degree" value="-" />
+		<property name="institution" value="-" />
+		<property name="mark" value="-"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData1" class="domain.MiscellaniusData">
+		<property name="text" value="-" />
+		<property name="attachments" value="" />
+	</bean>
+	
+	<bean id="positionData1" class="domain.PositionData">
+		<property name="title" value="-" />
+		<property name="description" value="-" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="curriculum2" class="domain.Curriculum">
+		<property name="copy" value="true" />
+		<property name="personalData" ref="personalData2" />
+		<property name="educationData">
+			<list>
+				<ref bean="educationData2"/>
+			</list>
+		</property>	
+		<property name="miscellaniusData">
+			<list>
+				<ref bean="miscellaniusData2"/>
+			</list>
+		</property>	
+		<property name="positionData">
+			<list>
+				<ref bean="positionData2"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="personalData2" class="domain.PersonalData">
+		<property name="fullname" value="-" />
+		<property name="statement" value="-" />
+		<property name="phone" value="-"/>
+		<property name="github" value="https://github.com/kghiuy6d/" />
+		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
+	</bean>
+	
+	<bean id="educationData2" class="domain.EducationData">
+		<property name="degree" value="-" />
+		<property name="institution" value="-" />
+		<property name="mark" value="-"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData2" class="domain.MiscellaniusData">
+		<property name="text" value="-" />
+		<property name="attachments" value="" />
+	</bean>
+	
+	<bean id="positionData2" class="domain.PositionData">
+		<property name="title" value="-" />
+		<property name="description" value="-" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="curriculum3" class="domain.Curriculum">
+		<property name="copy" value="true" />
+		<property name="personalData" ref="personalData3" />
+		<property name="educationData">
+			<list>
+				<ref bean="educationData3"/>
+			</list>
+		</property>	
+		<property name="miscellaniusData">
+			<list>
+				<ref bean="miscellaniusData3"/>
+			</list>
+		</property>	
+		<property name="positionData">
+			<list>
+				<ref bean="positionData3"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="personalData3" class="domain.PersonalData">
+		<property name="fullname" value="-" />
+		<property name="statement" value="-" />
+		<property name="phone" value="-"/>
+		<property name="github" value="https://github.com/kghiuy6d/" />
+		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
+	</bean>
+	
+	<bean id="educationData3" class="domain.EducationData">
+		<property name="degree" value="-" />
+		<property name="institution" value="-" />
+		<property name="mark" value="-"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData3" class="domain.MiscellaniusData">
+		<property name="text" value="-" />
+		<property name="attachments" value="" />
+	</bean>
+	
+	<bean id="positionData3" class="domain.PositionData">
+		<property name="title" value="-" />
+		<property name="description" value="-" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="curriculum4" class="domain.Curriculum">
+		<property name="copy" value="false" />
+		<property name="personalData" ref="personalData4" />
+		<property name="educationData">
+			<list>
+				<ref bean="educationData4"/>
+			</list>
+		</property>	
+		<property name="miscellaniusData">
+			<list>
+				<ref bean="miscellaniusData4"/>
+			</list>
+		</property>	
+		<property name="positionData">
+			<list>
+				<ref bean="positionData4"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="personalData4" class="domain.PersonalData">
+		<property name="fullname" value="-" />
+		<property name="statement" value="-" />
+		<property name="phone" value="-"/>
+		<property name="github" value="https://github.com/kghiuy6d/" />
+		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
+	</bean>
+	
+	<bean id="educationData4" class="domain.EducationData">
+		<property name="degree" value="-" />
+		<property name="institution" value="-" />
+		<property name="mark" value="-"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData4" class="domain.MiscellaniusData">
+		<property name="text" value="-" />
+		<property name="attachments" value="" />
+	</bean>
+	
+	<bean id="positionData4" class="domain.PositionData">
+		<property name="title" value="-" />
+		<property name="description" value="-" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="curriculum5" class="domain.Curriculum">
+		<property name="copy" value="true" />
+		<property name="personalData" ref="personalData5" />
+		<property name="educationData">
+			<list>
+				<ref bean="educationData5"/>
+			</list>
+		</property>	
+		<property name="miscellaniusData">
+			<list>
+				<ref bean="miscellaniusData5"/>
+			</list>
+		</property>	
+		<property name="positionData">
+			<list>
+				<ref bean="positionData5"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="personalData5" class="domain.PersonalData">
+		<property name="fullname" value="-" />
+		<property name="statement" value="-" />
+		<property name="phone" value="-"/>
+		<property name="github" value="https://github.com/kghiuy6d/" />
+		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
+	</bean>
+	
+	<bean id="educationData5" class="domain.EducationData">
+		<property name="degree" value="-" />
+		<property name="institution" value="-" />
+		<property name="mark" value="-"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData5" class="domain.MiscellaniusData">
+		<property name="text" value="-" />
+		<property name="attachments" value="" />
+	</bean>
+	
+	<bean id="positionData5" class="domain.PositionData">
+		<property name="title" value="-" />
+		<property name="description" value="-" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+
+	<bean id="curriculum6" class="domain.Curriculum">
+		<property name="copy" value="true" />
+		<property name="personalData" ref="personalData5" />
+		<property name="educationData">
+			<list>
+				<ref bean="educationData6"/>
+			</list>
+		</property>	
+		<property name="miscellaniusData">
+			<list>
+				<ref bean="miscellaniusData6"/>
+			</list>
+		</property>	
+		<property name="positionData">
+			<list>
+				<ref bean="positionData6"/>
+			</list>
+		</property>	
+	</bean>
+	
+	<bean id="personalData6" class="domain.PersonalData">
+		<property name="fullname" value="-" />
+		<property name="statement" value="-" />
+		<property name="phone" value="-"/>
+		<property name="github" value="https://github.com/kghiuy6d/" />
+		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
+	</bean>
+	
+	<bean id="educationData6" class="domain.EducationData">
+		<property name="degree" value="-" />
+		<property name="institution" value="-" />
+		<property name="mark" value="-"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData6" class="domain.MiscellaniusData">
+		<property name="text" value="-" />
+		<property name="attachments" value="" />
+	</bean>
+	
+	<bean id="positionData6" class="domain.PositionData">
+		<property name="title" value="-" />
+		<property name="description" value="-" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+
+
 	<!-- Actors -->
 
 	<!-- Administrator -->
@@ -194,7 +485,7 @@
 		<property name="commercialName" value="4Hackers Anonymous" />
 		<property name="spammer" value="false" />
 		<property name="banned" value="false" />
-		<property name="userAccount" ref="userAccount2" />
+		<property name="userAccount" ref="userAccount5" />
 	</bean>
 
 	<bean id="actor3" class="domain.Company">
@@ -244,6 +535,9 @@
 		<property name="userAccount" ref="userAccount5" />
 		<property name="curriculums">
 			<list>
+				<ref bean="curriculum1"/>
+				<ref bean="curriculum2"/>
+				<ref bean="curriculum3"/>
 			</list>
 		</property>
 	</bean>
@@ -263,6 +557,9 @@
 		<property name="userAccount" ref="userAccount6" />
 		<property name="curriculums">
 			<list>
+				<ref bean="curriculum4"/>
+				<ref bean="curriculum5"/>
+				<ref bean="curriculum6"/>
 			</list>
 		</property>
 	</bean>
@@ -339,6 +636,85 @@
 		<property name="finderCachedHours" value="1" />
 		<property name="finderMaxResults" value="10" />
 	</bean>
+	
+	<!-- SocialProfile -->
+	
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="actor_1_fcbk" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="link" value="https://www.facebook.com/profile.php?id=1465464" />
+		<property name="actor" ref="actor1" />
+	</bean>
+
+	<bean id="socialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="actor_1_linkelin" />
+		<property name="socialNetwork" value="LinkedIn" />
+		<property name="link" value="https://www.linkedin.com/in/actor1/" />
+		<property name="actor" ref="actor1" />
+	</bean>
+	
+	<bean id="socialProfile3" class="domain.SocialProfile">
+		<property name="nick" value="actor_3_fb" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="link" value="https://www.facebook.com/profile.php?id=674673767" />
+		<property name="actor" ref="actor3" />
+	</bean>
+	
+	<bean id="socialProfile4" class="domain.SocialProfile">
+		<property name="nick" value="actor_3_insta" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="link" value="https://www.instagram.com/actor3/?hl=es" />
+		<property name="actor" ref="actor3" />
+	</bean>
+	
+	<bean id="socialProfile5" class="domain.SocialProfile">
+		<property name="nick" value="actor_4_feirbu" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="link" value="https://www.facebook.com/profile.php?id=9873654" />
+		<property name="actor" ref="actor4" />
+	</bean>
+	
+	<bean id="socialProfile6" class="domain.SocialProfile">
+		<property name="nick" value="actor_4_tuitah" />
+		<property name="socialNetwork" value="Twitter" />
+		<property name="link" value="https://twitter.com/actor4" />
+		<property name="actor" ref="actor4" />
+	</bean>
+	
+	<bean id="socialProfile7" class="domain.SocialProfile">
+		<property name="nick" value="actor_4_instragrammer" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="link" value="https://www.instagram.com/actor4/?hl=es" />
+		<property name="actor" ref="actor4" />
+	</bean>
+	
+	<bean id="socialProfile8" class="domain.SocialProfile">
+		<property name="nick" value="actor_5_feisbu" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="link" value="https://www.facebook.com/profile.php?id=098654574" />
+		<property name="actor" ref="actor5" />
+	</bean>
+	
+	<bean id="socialProfile9" class="domain.SocialProfile">
+		<property name="nick" value="actor_7_fb" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="link" value="https://www.facebook.com/profile.php?id=967567575" />
+		<property name="actor" ref="actor7" />
+	</bean>
+	
+	<bean id="socialProfile10" class="domain.SocialProfile">
+		<property name="nick" value="actor_7_instah" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="link" value="https://www.instagram.com/actor7/?hl=es" />
+		<property name="actor" ref="actor7" />
+	</bean>
+	
+	<bean id="socialProfile11" class="domain.SocialProfile">
+		<property name="nick" value="actor_7_linkedin" />
+		<property name="socialNetwork" value="LinkedIn" />
+		<property name="link" value="https://www.linkedin.com/in/actor7/" />
+		<property name="actor" ref="actor7" />
+	</bean>	
 	
 	<!-- Position -->
 
@@ -538,6 +914,10 @@
 		<property name="hacker" ref="actor5" />
 		<property name="problem" ref="problem2" />
 		<property name="position" ref="position1" />
+<<<<<<< HEAD
+=======
+		<property name="curriculum" ref="curriculum3" />
+>>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
 	</bean>
 	
 	<bean id="application2" class="domain.Application">
@@ -546,9 +926,16 @@
 		<property name="codeLink" value="codeLink2" />
 		<property name="submitMoment" value="03/03/2019 20:20" />
 		<property name="status" value="REJECTED" />
+<<<<<<< HEAD
 		<property name="hacker" ref="actor6" />
 		<property name="problem" ref="problem2" />
 		<property name="position" ref="position1" />
+=======
+		<property name="hacker" ref="actor5" />
+		<property name="problem" ref="problem2" />
+		<property name="position" ref="position1" />
+		<property name="curriculum" ref="curriculum2" />
+>>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
 	</bean>
 	
 	<bean id="application3" class="domain.Application">
@@ -560,15 +947,26 @@
 		<property name="hacker" ref="actor6" />
 		<property name="problem" ref="problem3" />
 		<property name="position" ref="position1" />
+<<<<<<< HEAD
+=======
+		<property name="curriculum" ref="curriculum5" />
+>>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
 	</bean>
 	
 	<bean id="application4" class="domain.Application">
 		<property name="moment" value="01/04/2023" />
 		<property name="explanation" value="" />
 		<property name="codeLink" value="" />
+<<<<<<< HEAD
 		<property name="hacker" ref="actor7" />
 		<property name="problem" ref="problem3" />
 		<property name="position" ref="position1" />
+=======
+		<property name="hacker" ref="actor6" />
+		<property name="problem" ref="problem3" />
+		<property name="position" ref="position1" />
+		<property name="curriculum" ref="curriculum6" />
+>>>>>>> 29b125cc7021e9588dc937a4f20e83784edd94df
 	</bean>
 	
 	<!-- Messages -->
