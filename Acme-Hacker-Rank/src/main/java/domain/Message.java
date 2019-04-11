@@ -28,8 +28,9 @@ public class Message extends DomainEntity {
 	private String				body;
 	public Date					moment;
 	private Collection<String>	attachments;
+	private Collection<String>	tags;
 	public Boolean				spam;
-
+	public Boolean				delete;
 	public Actor				recipient;
 	public Actor				sender;
 
@@ -71,12 +72,28 @@ public class Message extends DomainEntity {
 		this.attachments = attachments;
 	}
 
+	@ElementCollection
+	public Collection<String> getTags() {
+		return this.tags;
+	}
+	public void setTags(final Collection<String> tags) {
+		this.tags = tags;
+	}
+
 	@NotNull
 	public Boolean getSpam() {
 		return this.spam;
 	}
 	public void setSpam(final Boolean spam) {
 		this.spam = spam;
+	}
+
+	@NotNull
+	public Boolean getDelete() {
+		return this.delete;
+	}
+	public void setDelete(final Boolean delete) {
+		this.delete = delete;
 	}
 
 	@NotNull
