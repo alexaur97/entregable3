@@ -60,7 +60,7 @@ public class Actor extends DomainEntity {
 
 	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@Pattern(regexp = "^[0-9A-Z][0-9]{7}[0-9A-Z]$")
+	@Pattern(regexp = "^(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]$")
 	//Una letra mayúscula o número, siete números y una letra mayúscula o un número
 	public String getVAT() {
 		return this.VAT;

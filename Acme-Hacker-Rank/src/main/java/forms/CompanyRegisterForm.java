@@ -68,7 +68,7 @@ public class CompanyRegisterForm {
 
 	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@Pattern(regexp = "^[0-9A-Za-z][0-9]{7}[0-9A-Za-z]$")
+	@Pattern(regexp = "^(ES)?[0-9A-Za-z][0-9]{7}[0-9A-Za-z]$")
 	public String getVAT() {
 		return this.VAT;
 	}
