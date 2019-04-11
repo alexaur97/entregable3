@@ -30,10 +30,20 @@ public class Message extends DomainEntity {
 	private Collection<String>	attachments;
 	private Collection<String>	tags;
 	public Boolean				spam;
-	public Boolean				delete;
+	public Boolean				deleted;
 	public Actor				recipient;
 	public Actor				sender;
+	public Integer				owner;
 
+
+	@NotNull
+	public Integer getOwner() {
+		return this.owner;
+	}
+
+	public void setOwner(final Integer owner) {
+		this.owner = owner;
+	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -89,11 +99,11 @@ public class Message extends DomainEntity {
 	}
 
 	@NotNull
-	public Boolean getDelete() {
-		return this.delete;
+	public Boolean getDeleted() {
+		return this.deleted;
 	}
-	public void setDelete(final Boolean delete) {
-		this.delete = delete;
+	public void setDeleted(final Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@NotNull

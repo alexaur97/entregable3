@@ -56,6 +56,16 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/profile/action-3.do"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/list.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/show.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/delete.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/create.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/edit.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/position/company/**"
 			access="hasRole('COMPANY')" />
