@@ -39,4 +39,8 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p where p.mode='FINAL' AND p.company.banned=false")
 	Collection<Position> findFinalNotBanned();
 
+	@Query("select p from Position p join p.problems pr where pr.id=?1")
+	Collection<Position> findAllByProblem(Integer id);
+
+
 }

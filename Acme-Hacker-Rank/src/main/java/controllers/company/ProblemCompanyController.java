@@ -3,10 +3,15 @@ package controllers.company;
 
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ProblemService;
@@ -24,11 +29,102 @@ public class ProblemCompanyController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		final Collection<Problem> problems = this.problemService.findAllByPrincipalId();
+		try {
+			final Collection<Problem> problems = this.problemService.findAllByPrincipalId();
 
-		result = new ModelAndView("problem/myList");
-		result.addObject("problems", problems);
-		result.addObject("requestURI", "problem/company/list.do");
+			result = new ModelAndView("problem/myList");
+			result.addObject("problems", problems);
+			result.addObject("requestURI", "problem/company/list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		try {
+			final Problem problem = this.problemService.create();
+			result = this.createEditModelAndView(problem);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int problemId) {
+		ModelAndView result;
+		try {
+			final Problem problem = this.problemService.findOne(problemId);
+			result = new ModelAndView("problem/show");
+			result.addObject("problem", problem);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int problemId) {
+		ModelAndView result;
+		try {
+			final Problem problem = this.problemService.findOne(problemId);
+			result = this.createEditModelAndView(problem);
+			result.addObject("problem", problem);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@ModelAttribute("problem") Problem problem, final BindingResult binding) {
+		ModelAndView result;
+		problem = this.problemService.reconstruct(problem, binding);
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(problem);
+		else
+			try {
+				final Boolean b = Utils.validateURL(problem.getAttachments());
+				if (!b)
+					result = this.createEditModelAndView(problem, "problem.url.error");
+				else {
+					final Problem saved = this.problemService.save(problem);
+					result = new ModelAndView("redirect:/problem/company/show.do?problemId=" + saved.getId());
+				}
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(problem, "problem.commit.error");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int problemId) {
+		ModelAndView result;
+		try {
+			final Problem problem = this.problemService.findOne(problemId);
+			this.problemService.delete(problem);
+			result = new ModelAndView("redirect:/problem/company/list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Problem problem) {
+		return this.createEditModelAndView(problem, null);
+	}
+
+	protected ModelAndView createEditModelAndView(final Problem problem, final String messageCode) {
+		ModelAndView result;
+		if (problem.getId() == 0)
+			result = new ModelAndView("problem/create");
+		else
+			result = new ModelAndView("problem/edit");
+		result.addObject("problem", problem);
+		result.addObject("message", messageCode);
 		return result;
 	}
 

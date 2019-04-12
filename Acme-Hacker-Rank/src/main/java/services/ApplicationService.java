@@ -70,4 +70,16 @@ public class ApplicationService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public void delete(final Collection<Application> applications) {
+		this.applicationRepository.delete(applications);
+	}
+
+	public Collection<Application> findAllByProblem(final int id) {
+		final Collection<Application> result = this.applicationRepository.findAllByProblem(id);
+		return result;
+	}
+
+	//Other Methods--------------------
+
 }

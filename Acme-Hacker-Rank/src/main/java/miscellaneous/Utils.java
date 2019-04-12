@@ -1,6 +1,10 @@
 
 package miscellaneous;
 
+import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.joda.time.LocalDate;
 
 import domain.CreditCard;
@@ -29,6 +33,22 @@ public class Utils {
 		else if ((year + 2000) == y && month < m)
 			res = true;
 		return res;
+	}
+
+	public static Boolean validateURL(final Collection<String> collection) {
+		final String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=_|!:,.;]*[-a-zA-Z0-9+&@#/%=_|]";
+		final Pattern patt = Pattern.compile(regex);
+		Boolean b = true;
+
+		if (!collection.isEmpty())
+			for (final String s : collection) {
+				final Matcher matcher = patt.matcher(s);
+				if (!matcher.matches()) {
+					b = false;
+					break;
+				}
+			}
+		return b;
 	}
 
 }
