@@ -26,15 +26,18 @@
 
 <display:table pagesize="5" name="positions" id="position"
 	requestURI="${requestURI}" class="displaytag table">
-	<display:column titleKey="position.title"  property="title" />
-	<display:column titleKey="position.salaryOffered" property="salaryOffered" />
+	<display:column titleKey="position.title" property="title" />
+	<display:column titleKey="position.salaryOffered"
+		property="salaryOffered" />
 	<display:column titleKey="position.showPosition">
-		<acme:cancel url="/position/show.do?positionId=${position.id}" code="position.show" />
+		<acme:cancel url="/position/show.do?positionId=${position.id}"
+			code="position.show" />
 	</display:column>
 	<display:column titleKey="position.company">
-		<acme:cancel url="/company/show.do?companyId=${position.company.id}" code="position.company" />
+		<acme:cancel url="/company/show.do?companyId=${position.company.id}"
+			code="position.company" />
 	</display:column>
-	
+
 
 </display:table>
 
@@ -42,6 +45,6 @@
 <br>
 <br>
 
-		<security:authorize access="hasRole('COMPANY')">
-		<acme:cancel url="/position/company/create.do" code="position.create"/>
-		</security:authorize>
+<security:authorize access="hasRole('COMPANY')">
+	<acme:cancel url="/position/company/create.do" code="position.create" />
+</security:authorize>

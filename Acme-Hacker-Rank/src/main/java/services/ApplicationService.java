@@ -1,37 +1,35 @@
-package services; 
 
-import java.util.Collection; 
+package services;
 
-import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Transactional; 
-import org.springframework.util.Assert; 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
+import domain.Application;
 
-import domain.Application; 
-
-@Service 
-@Transactional 
-public class ApplicationService { 
+@Service
+@Transactional
+public class ApplicationService {
 
 	//Managed repository -------------------
 	@Autowired
-	private ApplicationRepository applicationRepository;
+	private ApplicationRepository	applicationRepository;
 
 
 	//Supporting Services ------------------
 
-
 	//COnstructors -------------------------
-	public ApplicationService(){
+	public ApplicationService() {
 		super();
 	}
 
-
 	//Simple CRUD methods--------------------
 
-	public Application create(){
+	public Application create() {
 		Application result;
 
 		result = new Application();
@@ -39,32 +37,40 @@ public class ApplicationService {
 		return result;
 	}
 
-	public Collection<Application> findAll(){
+	public Collection<Application> findAll() {
 		Collection<Application> result;
 
-		result = applicationRepository.findAll();
+		result = this.applicationRepository.findAll();
 
 		return result;
 	}
 
-	public Application findOne(int applicationId){
+	public Application findOne(final int applicationId) {
 		Application result;
 
-		result = applicationRepository.findOne(applicationId);
+		result = this.applicationRepository.findOne(applicationId);
 
 		return result;
 	}
 
-	public void save(Application application){
+	public void save(final Application application) {
 		Assert.notNull(application);
 
-		applicationRepository.save(application);
+		this.applicationRepository.save(application);
 	}
 
-	public void delete(Application application){
-		applicationRepository.delete(application);
+	public void delete(final Application application) {
+		this.applicationRepository.delete(application);
 	}
 
+	public void delete(final Collection<Application> applications) {
+		this.applicationRepository.delete(applications);
+	}
+
+	public Collection<Application> findAllByProblem(final int id) {
+		final Collection<Application> result = this.applicationRepository.findAllByProblem(id);
+		return result;
+	}
 
 	//Other Methods--------------------
-} 
+}

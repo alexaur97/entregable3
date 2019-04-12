@@ -73,4 +73,9 @@ public class PositionService {
 		return this.positionRepository.searchPositionKeyWord(keyword);
 
 	}
+
+	public Collection<Position> findAllByProblem(final int id) {
+		final Collection<Position> result = this.positionRepository.findAllByProblem(id);
+		return result;
+	}
 }

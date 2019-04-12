@@ -501,7 +501,7 @@
 		<property name="commercialName" value="Hackeanders" />
 		<property name="spammer" value="true" />
 		<property name="banned" value="false" />
-		<property name="userAccount" ref="userAccount3" />
+		<property name="userAccount" ref="userAccount6" />
 	</bean>
 
 	<bean id="actor4" class="domain.Company">
@@ -517,7 +517,7 @@
 		<property name="commercialName" value="The good great hacker" />
 		<property name="spammer" value="false" />
 		<property name="banned" value="true" />
-		<property name="userAccount" ref="userAccount4" />
+		<property name="userAccount" ref="userAccount7" />
 	</bean>
 
 	<bean id="actor5" class="domain.Hacker">
@@ -532,7 +532,7 @@
 		<property name="address" value="" />
 		<property name="spammer" value="false" />
 		<property name="banned" value="false" />
-		<property name="userAccount" ref="userAccount5" />
+		<property name="userAccount" ref="userAccount2" />
 		<property name="curriculums">
 			<list>
 				<ref bean="curriculum1"/>
@@ -554,7 +554,7 @@
 		<property name="address" value="" />
 		<property name="spammer" value="true" />
 		<property name="banned" value="false" />
-		<property name="userAccount" ref="userAccount6" />
+		<property name="userAccount" ref="userAccount3" />
 		<property name="curriculums">
 			<list>
 				<ref bean="curriculum4"/>
@@ -576,7 +576,7 @@
 		<property name="address" value="Abbey Road, Liverpool" />
 		<property name="spammer" value="false" />
 		<property name="banned" value="true" />
-		<property name="userAccount" ref="userAccount7" />
+		<property name="userAccount" ref="userAccount4" />
 		<property name="curriculums">
 			<list>
 			</list>

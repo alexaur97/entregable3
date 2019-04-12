@@ -1,15 +1,21 @@
+
 package repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository; 
-import org.springframework.data.jpa.repository.Query; 
-import org.springframework.stereotype.Repository; 
+import java.util.Collection;
 
-import domain.Application; 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-@Repository 
-public interface ApplicationRepository extends JpaRepository<Application, Integer>{ 
+import domain.Application;
+
+@Repository
+public interface ApplicationRepository extends JpaRepository<Application, Integer> {
+
+	@Query("select a from Application a where a.problem.id=?1")
+	Collection<Application> findAllByProblem(int id);
 
 	//@Query("") 
 	//Method 
 
-} 
+}

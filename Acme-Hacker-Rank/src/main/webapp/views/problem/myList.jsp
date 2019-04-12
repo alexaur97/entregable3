@@ -18,8 +18,17 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="problems" id="problem" requestURI="${requestURI}" pagesize="5" class="displaytag">
-	<display:column property="title" titleKey="problem.title"/>
-	<display:column property="statement" titleKey="problem.statement"/>
-	<display:column property="hint" titleKey="problem.hint"/>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<display:table name="problems" id="problem" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+	<display:column property="title" titleKey="problem.title" />
+	<display:column property="statement" titleKey="problem.statement" />
+	<display:column property="hint" titleKey="problem.hint" />
+	<display:column titleKey="problem.show">
+		<acme:button url="/problem/company/show.do?problemId=${problem.id}"
+			code="problem.show" />
+	</display:column>
+	
 </display:table>
+<acme:button url="/problem/company/create.do" code="problem.create" />
