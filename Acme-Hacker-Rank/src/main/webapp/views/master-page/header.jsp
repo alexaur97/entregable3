@@ -27,23 +27,16 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
 				<ul>
-					<li class="arrow"></li>					
-					<li><a href="stats/administrator/display.do"><spring:message code="master.page.administrator.stats" /></a></li>
+					<li class="arrow"></li>
+					<li><a href="stats/administrator/display.do"><spring:message
+								code="master.page.administrator.stats" /></a></li>
 				</ul></li>
 		</security:authorize>
-	<li><a class="fNiv" href="position/search.do"><spring:message code="master.page.searchPosition" /></a></li>
-		
-
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.customer" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message
-								code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message
-								code="master.page.customer.action.2" /></a></li>
-				</ul></li>
+		<li><a class="fNiv" href="position/search.do"><spring:message
+					code="master.page.searchPosition" /></a></li>
+					
+		<security:authorize access="hasRole('HACKER')">
+			<li><a href="finder/hacker/view.do"><spring:message code="master.page.finder" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('COMPANY')">
@@ -58,10 +51,10 @@
 
 		<li><a class="fNiv" href="company/list.do"><spring:message
 					code="master.page.companies" /></a></li>
-		
+
 		<security:authorize access="hasRole('COMPANY')">
-		<li><a class="fNiv" href="problem/company/list.do"><spring:message
-					code="master.page.company.list" /></a></li>
+			<li><a class="fNiv" href="problem/company/list.do"><spring:message
+						code="master.page.company.list" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
@@ -71,11 +64,13 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="actor/edit.do"><spring:message
+								code="master.page.editProfile" /></a></li>
 					<li><a href="message/list.do"><spring:message
 								code="master.page.message" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
-								
+
 				</ul></li>
 		</security:authorize>
 

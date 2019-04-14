@@ -2,11 +2,13 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import domain.Position;
 import domain.Position;
 
 @Repository
@@ -42,5 +44,16 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p join p.problems pr where pr.id=?1")
 	Collection<Position> findAllByProblem(Integer id);
 
+	@Query("select p from Position p where (p.title like %?1%)or (p.description like %?1%)or (p.profileRequired like %?1%) or (p.ticker like %?1%) or (p.techRequired like %?1%) or (p.skillRequired like %?1%)")
+	Collection<Position> searchPositionsKeyWord(String keyword);
+
+	@Query("select p from Position p where p.salaryOffered >= ?1 ")
+	Collection<Position> searchPositionsMinSalary(Integer minSalary);
+
+	@Query("select p from Position p where p.salaryOffered <= ?1 ")
+	Collection<Position> searchPositionsMaxSalary(Integer maxSalary);
+
+	@Query("select p from Position p where p.deadline <= ?1 ")
+	Collection<Position> searchPositionsDeadline(Date deadline);
 
 }

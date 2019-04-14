@@ -14,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
+import forms.ActorEditForm;
 
 @Service
 @Transactional
@@ -91,6 +92,20 @@ public class AdministratorService {
 	public Administrator findByUserId(final int id) {
 		final Administrator a = this.administratorRepository.findByUserId(id);
 		return a;
+	}
+	
+	public Administrator reconstructEdit(final ActorEditForm actorEditForm) {
+		final Administrator res;
+		res = this.findByPrincipal();
+		res.setName(actorEditForm.getName());
+		res.setVAT(actorEditForm.getVAT());
+		res.setSurnames(actorEditForm.getSurnames());
+		res.setPhoto(actorEditForm.getPhoto());
+		res.setEmail(actorEditForm.getEmail());
+		res.setPhone(actorEditForm.getPhone());
+		res.setAddress(actorEditForm.getAddress());
+		Assert.notNull(res);
+		return res;
 	}
 
 }
