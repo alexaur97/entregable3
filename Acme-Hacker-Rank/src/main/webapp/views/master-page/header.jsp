@@ -70,7 +70,12 @@
 						property="principal.username" />)
 			</a>
 				<ul>
+				
 					<li class="arrow"></li>
+					<security:authorize access="hasRole('HACKER')">
+					<li><a href="curriculum/hacker/list.do"><spring:message
+								code="master.page.curriculum" /> </a></li>
+					</security:authorize>
 					<li><a href="message/list.do"><spring:message
 								code="master.page.message" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message

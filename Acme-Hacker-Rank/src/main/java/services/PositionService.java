@@ -113,6 +113,7 @@ public class PositionService {
 	public Collection<Position> findFinalNotBanned() {
 		final Collection<Position> result = this.positionRepository.findFinalNotBanned();
 		Assert.notNull(result);
+		return result;
 	}
 
 	public Collection<Position> findAllByProblem(final int id) {
