@@ -15,6 +15,10 @@
 		<put-attribute name="title" value="Positions" />
 		<put-attribute name="body" value="/views/position/list.jsp" />
 	</definition>
+	<definition name="position/myList" extends="master.page">
+		<put-attribute name="title" value="Positions" />
+		<put-attribute name="body" value="/views/position/myList.jsp" />
+	</definition>
 	<definition name="position/search" extends="master.page">
 		<put-attribute name="title" value="Positions searched" />
 		<put-attribute name="body" value="/views/position/search.jsp" />
@@ -23,5 +27,11 @@
 		<put-attribute name="title" value="Position Details" />
 		<put-attribute name="body" value="/views/position/show.jsp" />
 	</definition>
+	
+	<definition name="position/edit" extends="master.page">
+		<put-attribute name="title" value="Position Edit" />
+		<put-attribute name="body" value="/views/position/edit.jsp" />
+	</definition>
+	
 
 </tiles-definitions>
