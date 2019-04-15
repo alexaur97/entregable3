@@ -63,12 +63,17 @@
 						property="principal.username" />)
 			</a>
 				<ul>
+				
 					<li class="arrow"></li>
 		                    <security:authorize access="hasRole('ADMINISTRATOR')">
 		            <li><a href="administrator/administrator/create.do"><spring:message code="master.page.signup.admin" /></a></li>
 		                    </security:authorize>
 		            <li><a href="actor/edit.do"><spring:message
 								code="master.page.editProfile" /></a></li>
+					<security:authorize access="hasRole('HACKER')">
+					<li><a href="curriculum/hacker/list.do"><spring:message
+								code="master.page.curriculum" /> </a></li>
+					</security:authorize>
 					<li><a href="message/list.do"><spring:message
 								code="master.page.message" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message

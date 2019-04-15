@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,7 +35,7 @@ public class Curriculum extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	public PersonalData getPersonalData() {
 		return this.personalData;
 	}
@@ -43,7 +44,7 @@ public class Curriculum extends DomainEntity {
 		this.personalData = personalData;
 	}
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<EducationData> getEducationData() {
 		return this.educationData;
 	}
@@ -52,7 +53,7 @@ public class Curriculum extends DomainEntity {
 		this.educationData = educationData;
 	}
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<MiscellaniusData> getMiscellaniusData() {
 		return this.miscellaniusData;
 	}
@@ -61,7 +62,7 @@ public class Curriculum extends DomainEntity {
 		this.miscellaniusData = miscellaniusData;
 	}
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<PositionData> getPositionData() {
 		return this.positionData;
 	}

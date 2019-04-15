@@ -18,15 +18,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table pagesize="5" name="shouts" id="row"
-	requestURI="customer/action-1.do">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<display:column property="username" titleKey="customer.username" />
-	<display:column titleKey="customer.shout">
-		<strong><a href="${row.link}"><jstl:out
-					value="${row.link}" /></a></strong>
-		<br />
-		<jstl:out value="${row.text}" />
+<display:table pagesize="5" name="curriculums" id="row"
+	requestURI="curriculum/hacker/list.do" >
+
+	<display:column property="personalData.statement" titleKey="curriculum.personalData.statement" />
+	<display:column titleKey="curriculum.show">
+	<acme:button url="/curriculum/hacker/show.do?curriculumId=${row.id}" code="curriculum.show"/>
 	</display:column>
-
 </display:table>
+
+<acme:button code="curriculum.create" url="/curriculum/hacker/create.do"/>
+
