@@ -42,13 +42,7 @@
 						<acme:textbox code="position.salaryOffered" path="salaryOffered" />
 					
 						
-						<jstl:if test="${position.problems.size()> 1}">
-						<spring:message code ="position.mode"/>	
-						<form:select code="position.mode" path="mode" >
-							<form:option value="FINAL"></form:option>
-							<form:option value="DRAFT"></form:option>
-						</form:select>
-						</jstl:if>
+						
 						<br>
 						<br>
 						

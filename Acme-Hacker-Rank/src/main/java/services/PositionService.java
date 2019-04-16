@@ -175,12 +175,6 @@ public class PositionService {
 	public Position reconstruct(final Position position, final BindingResult binding) {
 		final Position res = position;
 		final Company c = this.companyService.findByPrincipal();
-		if (res.getId() != 0) {
-			final Position pos = this.findOne(res.getId());
-
-			if (pos.getMode().equals("FINAL"))
-				Assert.isTrue(position.getProblems().size() > 1);
-		}
 
 		res.setCompany(c);
 		final String name = this.createName(position.getCompany().getCommercialName());
@@ -223,6 +217,12 @@ public class PositionService {
 		}
 		res = new String(conjunto);
 
+		return res;
+	}
+
+	public Position saveMode(final Position position) {
+		final Position res = position;
+		res.setMode("FINAL");
 		return res;
 	}
 }
