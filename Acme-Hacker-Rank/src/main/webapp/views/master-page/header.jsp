@@ -52,7 +52,10 @@
 						<li><a class="fNiv" href="application/company/list.do"><spring:message
 						code="master.page.myApplications" /></a></li>
 		</security:authorize>
-
+<security:authorize access="hasRole('HACKER')">
+			<li><a class="fNiv" href="application/hacker/list.do"><spring:message
+						code="master.page.myApplications" /></a></li>
+		</security:authorize>
 
 		<li><a class="fNiv" href="position/list.do"><spring:message
 					code="master.page.positions" /></a></li>

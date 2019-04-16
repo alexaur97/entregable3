@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 
 import repositories.ApplicationRepository;
 import domain.Application;
@@ -65,12 +64,6 @@ public class ApplicationService {
 	public Application saveCompany(final Application application) {
 		final Application result;
 		Assert.notNull(application);
-		if (application.getStatus() == "REJECTED") {
-
-			Assert.isTrue(!(application.getExplanation() == null));
-			if (!(application.getExplanation() == null))
-				Assert.isTrue(!(application.getExplanation().isEmpty()));
-		}
 		final Company company = this.companyService.findByPrincipal();
 		Assert.isTrue(company.equals(application.getPosition().getCompany()));
 		result = this.applicationRepository.save(application);
@@ -114,25 +107,18 @@ public class ApplicationService {
 		return application;
 
 	}
-	public void restriccionesRejectGet(final Integer applicationId) {
+	public Application rejectApplicationChanges(final int applicationId) {
 		Assert.notNull(applicationId);
 		final Company company = this.companyService.findByPrincipal();
 		final Application application = this.applicationRepository.findOne(applicationId);
 		Assert.isTrue(company.equals(application.getPosition().getCompany()));
 		Assert.isTrue(application.getStatus().equals("SUBMITTED"));
+		application.setStatus("REJECTED");
+		return application;
 
 	}
-	public Application rejectRecostruction(final Application application, final BindingResult binding) {
-		final Application res = application;
-		final Application a = this.findOne(application.getId());
-		res.setStatus("REJECTED");
-		res.setCodeLink(a.getCodeLink());
-		res.setCurriculum(a.getCurriculum());
-		res.setHacker(a.getHacker());
-		res.setMoment(a.getMoment());
-		res.setPosition(a.getPosition());
-		res.setProblem(a.getProblem());
-		res.setSubmitMoment(a.getSubmitMoment());
-		return res;
+	public Collection<Application> findApplicationsByHacker(final int id) {
+		final Collection<Application> result = this.applicationRepository.findApplicationsByHacker(id);
+		return result;
 	}
 }

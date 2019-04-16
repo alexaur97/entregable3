@@ -120,4 +120,8 @@ public class PositionService {
 		final Collection<Position> result = this.positionRepository.findAllByProblem(id);
 		return result;
 	}
+	public Collection<Position> findPositionsFinal() {
+		final Collection<Position> result = this.positionRepository.findPositionsFinal();
+		return result;
+	}
 }
