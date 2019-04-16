@@ -15,7 +15,7 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p where p.company.id=?1")
 	Collection<Position> findByCompany(Integer id);
 
-	@Query("select p from Position p where (p.title like %?1%)or (p.description like %?1%)or (p.profileRequired like %?1%)or (p.skillRequired like %?1%)or (p.techRequired like %?1%)or (p.company.commercialName like %?1%)")
+	@Query("select p from Position p where ((p.title like %?1%)or (p.description like %?1%)or (p.profileRequired like %?1%)or (p.skillRequired like %?1%)or (p.techRequired like %?1%)or (p.company.commercialName like %?1%))and p.mode='FINAL'")
 	Collection<Position> searchPositionKeyWord(String keyword);
 
 	@Query("select avg(1.0*(select count(p) from Position p where p.company.id = c.id)),min(1.0*(select count(p) from Position p where p.company.id = c.id)),max(1.0*(select count(p) from Position p where p.company.id = c.id)),stddev(1.0*(select count(p) from Position p where p.company.id = c.id)) from Company c")
@@ -41,6 +41,5 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 
 	@Query("select p from Position p join p.problems pr where pr.id=?1")
 	Collection<Position> findAllByProblem(Integer id);
-
 
 }

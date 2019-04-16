@@ -72,7 +72,8 @@
 			
 			<security:intercept-url pattern="/problem/company/**"
 			access="hasRole('COMPANY')" />
-			
+			<security:intercept-url pattern="/application/company/**"
+			access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/list.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/company/show.do"
