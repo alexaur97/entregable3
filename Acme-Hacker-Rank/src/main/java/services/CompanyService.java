@@ -18,6 +18,8 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Company;
 import domain.CreditCard;
+import domain.Hacker;
+import forms.ActorEditForm;
 import forms.CompanyRegisterForm;
 
 @Service
@@ -158,5 +160,19 @@ public class CompanyService {
 		final Collection<Company> result = this.companyRepository.companiesNotBanned();
 		Assert.notNull(result);
 		return result;
+	}
+	
+	public Company reconstructEdit(final ActorEditForm actorEditForm) {
+		final Company res;
+		res = this.findByPrincipal();
+		res.setName(actorEditForm.getName());
+		res.setVAT(actorEditForm.getVAT());
+		res.setSurnames(actorEditForm.getSurnames());
+		res.setPhoto(actorEditForm.getPhoto());
+		res.setEmail(actorEditForm.getEmail());
+		res.setPhone(actorEditForm.getPhone());
+		res.setAddress(actorEditForm.getAddress());
+		Assert.notNull(res);
+		return res;
 	}
 }

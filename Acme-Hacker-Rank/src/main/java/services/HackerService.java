@@ -18,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.CreditCard;
 import domain.Hacker;
+import forms.ActorEditForm;
 import forms.HackerRegisterForm;
 
 @Service
@@ -75,9 +76,7 @@ public class HackerService {
 
 	public Hacker save(final Hacker hacker) {
 		Assert.notNull(hacker);
-
 		final Hacker result = this.hackerRepository.save(hacker);
-		System.out.println(result);
 		return result;
 	}
 
@@ -157,6 +156,20 @@ public class HackerService {
 		final Collection<Double> result = this.hackerRepository.statsCurriculaPerHacker();
 		Assert.notNull(result);
 		return result;
+	}
+
+	public Hacker reconstructEdit(final ActorEditForm actorEditForm) {
+		final Hacker res;
+		res = this.findByPrincipal();
+		res.setName(actorEditForm.getName());
+		res.setVAT(actorEditForm.getVAT());
+		res.setSurnames(actorEditForm.getSurnames());
+		res.setPhoto(actorEditForm.getPhoto());
+		res.setEmail(actorEditForm.getEmail());
+		res.setPhone(actorEditForm.getPhone());
+		res.setAddress(actorEditForm.getAddress());
+		Assert.notNull(res);
+		return res;
 	}
 
 }

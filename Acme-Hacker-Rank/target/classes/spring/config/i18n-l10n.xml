@@ -27,13 +27,13 @@
 		<value>/views/about/messages</value>
 
 		<value>/views/administrator/messages</value>
-		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/company/messages</value>
 		<value>/views/hacker/messages</value>
 		<value>/views/stats/messages</value>
 		<value>/views/problem/messages</value>
 		<value>/views/message/messages</value>
+		<value>/views/curriculum/messages</value>
 	</util:list>
 
 </beans>

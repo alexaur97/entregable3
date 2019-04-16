@@ -1,7 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,8 @@ public class PositionService {
 
 
 	//Supporting Services ------------------
+	@Autowired
+	private ConfigurationParametersService configParamsService;
 
 	//COnstructors -------------------------
 	public PositionService() {
@@ -120,8 +125,46 @@ public class PositionService {
 		final Collection<Position> result = this.positionRepository.findAllByProblem(id);
 		return result;
 	}
+
+	public Collection<Position> searchPositions(final String keyword, final Integer minSalary, final Integer maxSalary, final Date deadline) {
+		Collection<Position> positionsByKeyWord = new ArrayList<>();
+		Collection<Position> positionsByMinSalary = new ArrayList<>();
+		Collection<Position> positionsByMaxSalary = new ArrayList<>();
+		Collection<Position> positionsByDeadline = new ArrayList<>();
+		Collection<Position> result = new ArrayList<>();
+		if (keyword.isEmpty())
+			positionsByKeyWord = this.positionRepository.findFinalNotBanned();
+		else
+			positionsByKeyWord = this.positionRepository.searchPositionsKeyWord(keyword);
+		if (Objects.equals(null,minSalary))
+			positionsByMinSalary = this.positionRepository.findFinalNotBanned();
+		else
+			positionsByMinSalary = this.positionRepository.searchPositionsMinSalary(minSalary);
+
+		if (Objects.equals(null,maxSalary))
+			positionsByMaxSalary = this.positionRepository.findFinalNotBanned();
+		else
+			positionsByMaxSalary = this.positionRepository.searchPositionsMaxSalary(maxSalary);
+
+		if (Objects.equals(null,deadline))
+			positionsByDeadline = this.positionRepository.findFinalNotBanned();
+		else
+			positionsByDeadline = this.positionRepository.searchPositionsDeadline(deadline);
+
+		positionsByKeyWord.retainAll(positionsByMinSalary);
+		positionsByKeyWord.retainAll(positionsByMaxSalary);
+		positionsByKeyWord.retainAll(positionsByDeadline);
+		if(this.configParamsService.find().getFinderMaxResults()< positionsByKeyWord.size()){
+			for(int i = 0; i < this.configParamsService.find().getFinderMaxResults(); i++) {
+				result.add((Position) positionsByKeyWord.toArray()[i]);
+			}
+		}else{
+			result = positionsByKeyWord;
+		}
+		return result;
+
+	}
 	public Collection<Position> findPositionsFinal() {
 		final Collection<Position> result = this.positionRepository.findPositionsFinal();
 		return result;
-	}
 }

@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import forms.ActorEditForm;
 
 @Service
 @Transactional
@@ -93,5 +94,26 @@ public class ActorService {
 	public Collection<String> findAllEmails() {
 		final Collection<String> result = this.actorRepository.findAllEmails();
 		return result;
+	}
+	
+	public Boolean authEdit(final Actor a, final String auth) {
+		final UserAccount userAccount = a.getUserAccount();
+		final Collection<Authority> allAuths = userAccount.getAuthorities();
+		final Authority au = new Authority();
+		au.setAuthority(auth);
+		final Boolean res = allAuths.contains(au);
+		return res;
+	}
+	
+	public ActorEditForm toForm(final Actor actor) {
+		final ActorEditForm res = new ActorEditForm();
+		res.setName(actor.getName());
+		res.setSurnames(actor.getSurnames());
+		res.setVAT(actor.getVAT());
+		res.setPhoto(actor.getPhoto());
+		res.setEmail(actor.getEmail());
+		res.setPhone(actor.getPhone());
+		res.setAddress(actor.getAddress());
+		return res;
 	}
 }

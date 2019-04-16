@@ -29,7 +29,8 @@
 		<acme:textbox code="company.name" path="name" />
 		<acme:textbox code="company.surnames" path="surnames" />
 		<acme:textbox code="company.commercialName" path="commercialName" />
-		<acme:textbox code="company.vat" path="VAT" placeholder="ESANNNNNNNA" comment="company.vat.pattern"/>
+		<acme:textbox code="company.vat" path="VAT" placeholder="ESANNNNNNNA"
+			comment="company.vat.pattern" />
 		<acme:textbox code="company.photo" path="photo" />
 		<acme:textbox code="company.email" path="email" />
 		<acme:textbox code="company.phone" path="phone" />
@@ -59,30 +60,32 @@
 	<spring:message code="company.check" />
 	<form:checkbox path="terms" />
 	<form:errors path="terms" cssClass="error" />
-	<br/>
+	<br />
 
 	<jstl:choose>
 		<jstl:when test="${lang eq 'en'}">
-			<button type="submit" onclick="return validatePhoneNumber()" name="save">
+			<button type="submit" onclick="return validatePhoneNumber()"
+				name="save">
 				<spring:message code="company.save" />
 			</button>
 		</jstl:when>
 		<jstl:otherwise>
-			<button type="submit" onclick="return validatePhoneNumberEs()" name="save">
+			<button type="submit" onclick="return validatePhoneNumberEs()"
+				name="save">
 				<spring:message code="company.save" />
 			</button>
 		</jstl:otherwise>
 	</jstl:choose>
 	<acme:cancel url="/#" code="company.cancel" />
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		function validatePhoneNumber() {
 			var phoneNumber = document.getElementById("phone");
-			if (!(phoneNumber.value).match("\\+\d{3}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{3} \\d{4,}|^\\d{4,}$|^$")) { return confirm("Phone number doesn't adhere to the correct pattern. Do you want to continue?"); }
+			if (!(phoneNumber.value).match("^\\+\\d{1,3}([ ]{1}[(]{1}\\d{1,3}[)]{1})?[ ]{1}\\d{4,}$|^\\d{4,}$|^$")) { return confirm("Phone number doesn't adhere to the correct pattern. Do you want to continue?"); }
 		}
 		function validatePhoneNumberEs() {
 			var phoneNumber = document.getElementById("phone");
-			if (!(phoneNumber.value).match("\\+\\d{3}([ ]{1}[(]{1}\\d{1,3}[)]{1})? \\d{4,}|\\+\\d{3} \\d{4,}|^\\d{4,}$|^$")) { return confirm("El teléfono no se ajusta al patrón correcto. ¿Desea continuar?"); }
+			if (!(phoneNumber.value).match("^\\+\\d{1,3}([ ]{1}[(]{1}\\d{1,3}[)]{1})?[ ]{1}\\d{4,}$|^\\d{4,}$|^$")) { return confirm("El teléfono no se ajusta al patrón correcto. ¿Desea continuar?"); }
 		}
 	</script>
 </form:form>

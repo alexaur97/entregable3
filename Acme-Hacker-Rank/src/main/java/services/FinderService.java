@@ -25,23 +25,21 @@ public class FinderService {
 
 
 	//Supporting Services ------------------
-
+	@Autowired
+	private ConfigurationParametersService	configParamsService;
+	
+	@Autowired
+	private PositionService	positionService;
+	
+	@Autowired
+	private HackerService	hackerService;
+	
 	//COnstructors -------------------------
 	public FinderService() {
 		super();
 	}
 
 	//Simple CRUD methods--------------------
-
-	public void createFinder(final Hacker hackerCreated) {
-		final Finder finder = new Finder();
-		final Collection<Position> positions = new ArrayList<Position>();
-		finder.setKeyword("");
-		finder.setHacker(hackerCreated);
-		finder.setLastSearch(new Date());
-		finder.setPositions(positions);
-		this.finderRepository.save(finder);
-	}
 
 	public Collection<Finder> findAll() {
 		Collection<Finder> result;
@@ -57,12 +55,6 @@ public class FinderService {
 		result = this.finderRepository.findOne(finderId);
 
 		return result;
-	}
-
-	public void save(final Finder finder) {
-		Assert.notNull(finder);
-
-		this.finderRepository.save(finder);
 	}
 
 	public void delete(final Finder finder) {
@@ -81,5 +73,71 @@ public class FinderService {
 		final Collection<Double> result = this.finderRepository.emptyVsNonEmptyFindersRatio();
 		Assert.notEmpty(result);
 		return result;
+	}
+	
+	public Finder getFinderFromHacker(int id) {
+		return this.finderRepository.getFinderFromHacker(id);
+	}
+	
+	public void createFinder(Hacker hackerCreated) {
+		Finder finder = new Finder();
+		Collection<Position> positions = new ArrayList<Position>();
+		finder.setKeyword("");
+		finder.setHacker(hackerCreated);
+		finder.setLastSearch(new Date());
+		finder.setPositions(positions);
+		this.finderRepository.save(finder);
+	}
+
+	public void save(Finder finder) {
+		Assert.notNull(finder);
+		finder.setLastSearch(new Date());
+		finder.setHacker(this.hackerService.findByPrincipal());
+		finder.setPositions(this.positionService.searchPositions(finder.getKeyword(), finder.getMinSalary(), finder.getMaxSalary(), finder.getDeadline()));
+		this.finderRepository.save(finder);
+	}
+
+	public Finder reconstruct(Finder finder) {
+		Assert.notNull(finder);
+		Finder result = this.finderRepository.findOne(finder.getId());
+		result.setDeadline(finder.getDeadline());
+		result.setKeyword(finder.getKeyword());
+		result.setMaxSalary(finder.getMaxSalary());
+		result.setMinSalary(finder.getMinSalary());
+		return result;
+	}
+
+	public void saveAfterClean(Finder finder) {
+		Assert.notNull(finder);
+		Collection<Position> positions = new ArrayList<Position>();
+		finder.setLastSearch(new Date());
+		finder.setHacker(this.hackerService.findByPrincipal());
+		finder.setPositions(positions);
+		this.finderRepository.save(finder);
+	}
+	
+	public void cleanFinder(Finder finder){
+		Assert.notNull(finder);
+		Collection<Position> positions = new ArrayList<Position>();
+		finder.setDeadline(null);
+		finder.setKeyword("");
+		finder.setMaxSalary(null);
+		finder.setMinSalary(null);
+		finder.setLastSearch(new Date());
+
+		finder.setPositions(positions);
+		this.finderRepository.save(finder);		
+	}
+	
+	public void cleanCacheIfNecessary() {
+		int cachedHours = this.configParamsService.find().getFinderCachedHours();
+		Collection<Finder> finders = finderRepository.findAll();
+		Date now = new Date();
+		for(Finder f: finders){
+			if((now.getTime()-f.getLastSearch().getTime())/3600000 >= cachedHours){
+				cleanFinder(f);
+			}
+		}
+		
 	}
 }

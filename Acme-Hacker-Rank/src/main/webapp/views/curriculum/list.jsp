@@ -18,25 +18,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="administrator.action.1" />
-</p>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<table style="width: 25%">
-	<tr>
-		<th><spring:message code="administrator.indicator" /></th>
-		<th><spring:message code="administrator.value" /></th>
-	</tr>
-	<tr>
-		<td><spring:message code="administrator.count.all.shouts" /></td>
-		<td><jstl:out value="${statistics.get('count.all.shouts')}" /></td>
-	</tr>
-	<tr>
-		<td><spring:message code="administrator.count.short.shouts" /></td>
-		<td><jstl:out value="${statistics.get('count.short.shouts')}" /></td>
-	</tr>
-	<tr>
-		<td><spring:message code="administrator.count.long.shouts" /></td>
-		<td><jstl:out value="${statistics.get('count.long.shouts')}" /></td>
-	</tr>
-</table>
+<display:table pagesize="5" name="curriculums" id="row"
+	requestURI="curriculum/hacker/list.do" >
+
+	<display:column property="personalData.statement" titleKey="curriculum.personalData.statement" />
+	<display:column titleKey="curriculum.show">
+	<acme:button url="/curriculum/hacker/show.do?curriculumId=${row.id}" code="curriculum.show"/>
+	</display:column>
+</display:table>
+
+<acme:button code="curriculum.create" url="/curriculum/hacker/create.do"/>
+

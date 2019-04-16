@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.CompanyService;
 import services.ConfigurationParametersService;
+import services.FinderService;
 import services.HackerService;
 import domain.Company;
 import domain.ConfigurationParameters;
@@ -46,7 +47,9 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	CompanyService							companyService;
-
+	
+	@Autowired
+	FinderService							finderService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -77,7 +80,7 @@ public class WelcomeController extends AbstractController {
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
-		//this.finderService.cleanCacheIfNecessary();
+		this.finderService.cleanCacheIfNecessary();
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);

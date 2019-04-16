@@ -204,9 +204,9 @@
 	</bean>
 	
 	<bean id="personalData1" class="domain.PersonalData">
-		<property name="fullname" value="-" />
-		<property name="statement" value="-" />
-		<property name="phone" value="-"/>
+		<property name="fullname" value="fullname1" />
+		<property name="statement" value="statement1" />
+		<property name="phone" value="phone1"/>
 		<property name="github" value="https://github.com/kghiuy6d/" />
 		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
 	</bean>
@@ -252,9 +252,9 @@
 	</bean>
 	
 	<bean id="personalData2" class="domain.PersonalData">
-		<property name="fullname" value="-" />
-		<property name="statement" value="-" />
-		<property name="phone" value="-"/>
+		<property name="fullname" value="fullname2" />
+		<property name="statement" value="statement2" />
+		<property name="phone" value="phone2"/>
 		<property name="github" value="https://github.com/kghiuy6d/" />
 		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
 	</bean>
@@ -300,9 +300,9 @@
 	</bean>
 	
 	<bean id="personalData3" class="domain.PersonalData">
-		<property name="fullname" value="-" />
-		<property name="statement" value="-" />
-		<property name="phone" value="-"/>
+		<property name="fullname" value="fullname3" />
+		<property name="statement" value="statement3" />
+		<property name="phone" value="phone3"/>
 		<property name="github" value="https://github.com/kghiuy6d/" />
 		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
 	</bean>
@@ -348,9 +348,9 @@
 	</bean>
 	
 	<bean id="personalData4" class="domain.PersonalData">
-		<property name="fullname" value="-" />
-		<property name="statement" value="-" />
-		<property name="phone" value="-"/>
+		<property name="fullname" value="fullname4" />
+		<property name="statement" value="statement4" />
+		<property name="phone" value="phone4"/>
 		<property name="github" value="https://github.com/kghiuy6d/" />
 		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
 	</bean>
@@ -396,9 +396,9 @@
 	</bean>
 	
 	<bean id="personalData5" class="domain.PersonalData">
-		<property name="fullname" value="-" />
-		<property name="statement" value="-" />
-		<property name="phone" value="-"/>
+		<property name="fullname" value="fullname5" />
+		<property name="statement" value="statement5" />
+		<property name="phone" value="phone5"/>
 		<property name="github" value="https://github.com/kghiuy6d/" />
 		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
 	</bean>
@@ -425,7 +425,7 @@
 
 	<bean id="curriculum6" class="domain.Curriculum">
 		<property name="copy" value="true" />
-		<property name="personalData" ref="personalData5" />
+		<property name="personalData" ref="personalData6" />
 		<property name="educationData">
 			<list>
 				<ref bean="educationData6"/>
@@ -444,9 +444,9 @@
 	</bean>
 	
 	<bean id="personalData6" class="domain.PersonalData">
-		<property name="fullname" value="-" />
-		<property name="statement" value="-" />
-		<property name="phone" value="-"/>
+		<property name="fullname" value="fullname6" />
+		<property name="statement" value="statement6" />
+		<property name="phone" value="phone6"/>
 		<property name="github" value="https://github.com/kghiuy6d/" />
 		<property name="linkedin" value="https://linkedin.com/kghiuy6d/" />
 	</bean>
@@ -925,7 +925,7 @@
 		<property name="title" value="Strange problem" />
 		<property name="statement" value="The stranges problem ever found"/>
 		<property name="hint" value="Hints are in an strange language" />
-		<property name="attachments" value=""/>	
+		<property name="attachments" value="https://i.stack.imgur.com/E9AFU.png , https://i.stack.imgur.com/E9AFU.png"/>	
 		<property name="mode" value="FINAL" />
 		<property name="company" ref="actor2" />
 	</bean>
@@ -934,7 +934,7 @@
 		<property name="title" value="Planification problem" />
 		<property name="statement" value="How don't know how to planificate a hack plan."/>
 		<property name="hint" value="Hints are not available" />
-		<property name="attachments" value=""/>	
+		<property name="attachments" value="https://i.stack.imgur.com/E9AFU.png , https://i.stack.imgur.com/E9AFU.png"/>	
 		<property name="mode" value="FINAL" />
 		<property name="company" ref="actor3" />
 	</bean>
@@ -952,7 +952,7 @@
 		<property name="title" value="Problem not defined yet" />
 		<property name="statement" value="Problem not defined yet"/>
 		<property name="hint" value="Problem not defined yet" />
-		<property name="attachments" value=""/>	
+		<property name="attachments" value="https://i.stack.imgur.com/E9AFU.png , https://i.stack.imgur.com/E9AFU.png"/>	
 		<property name="mode" value="DRAFT" />
 		<property name="company" ref="actor4" />
 	</bean>
@@ -961,7 +961,7 @@
 		<property name="title" value="Problem for spam people" />
 		<property name="statement" value="Problem not defined yet"/>
 		<property name="hint" value="Just be spammer" />
-		<property name="attachments" value=""/>	
+		<property name="attachments" value="https://i.stack.imgur.com/E9AFU.png , https://i.stack.imgur.com/E9AFU.png"/>	
 		<property name="mode" value="FINAL" />
 		<property name="company" ref="actor8" />
 	</bean>
@@ -970,7 +970,7 @@
 		<property name="title" value="Problem for ban people" />
 		<property name="statement" value="-"/>
 		<property name="hint" value="-" />
-		<property name="attachments" value=""/>	
+		<property name="attachments" value="https://i.stack.imgur.com/E9AFU.png , https://i.stack.imgur.com/E9AFU.png"/>	
 		<property name="mode" value="FINAL" />
 		<property name="company" ref="actor8" />
 	</bean>

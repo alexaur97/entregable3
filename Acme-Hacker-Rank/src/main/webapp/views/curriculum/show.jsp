@@ -1,5 +1,5 @@
 <%--
- * action-1.jsp
+ * action-2.jsp
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -18,15 +18,13 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table pagesize="5" name="shouts" id="row"
-	requestURI="customer/action-1.do">
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<display:column property="username" titleKey="customer.username" />
-	<display:column titleKey="customer.shout">
-		<strong><a href="${row.link}"><jstl:out
-					value="${row.link}" /></a></strong>
-		<br />
-		<jstl:out value="${row.text}" />
-	</display:column>
+<acme:display code="curriculum.personalData.fullname" path="${curriculum.personalData.fullname}"/>
+<acme:display code="curriculum.personalData.github" path="${curriculum.personalData.github}"/>
+<acme:display code="curriculum.personalData.linkedin" path="${curriculum.personalData.linkedin}"/>
+<acme:display code="curriculum.personalData.phone" path="${curriculum.personalData.phone}"/>
+<acme:display code="curriculum.personalData.statement" path="${curriculum.personalData.statement}"/>
 
-</display:table>
+<acme:button url="curriculum/hacker/list.do" code="curriculum.back"/>
+
