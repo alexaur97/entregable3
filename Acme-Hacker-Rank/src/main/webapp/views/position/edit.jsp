@@ -49,6 +49,8 @@
 							<form:option value="DRAFT"></form:option>
 						</form:select>
 						</jstl:if>
+						<br>
+						<br>
 						
 						<spring:message code ="position.problems"/>	
 						
@@ -63,7 +65,12 @@
 		
 						
 						<acme:submit name="save" code="position.save" />
-						
+						<jstl:if test="${position.mode eq 'DRAFT'}">
+						<jstl:if test="${position.id!=0}">
+							<acme:submitConfirmation name="delete" code="position.delete"
+								onclick="position.delete.confirmation" />
+						</jstl:if>
+						</jstl:if>
 						<acme:cancel url="/position/company/myList.do"
 							code="position.cancel" />
 					</div>

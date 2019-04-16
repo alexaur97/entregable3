@@ -121,30 +121,28 @@ public class PositionCompanyController extends AbstractController {
 
 		return res;
 	}
-	//	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
-	//	public ModelAndView delete(final Float floaat, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		try {
-	//			this.floatService.delete(floaat);
-	//			result = new ModelAndView("redirect:/brotherhood/float/list.do");
-	//
-	//		} catch (final Throwable oops) {
-	//			result = new ModelAndView("float/edit");
-	//			result.addObject("floaat", floaat);
-	//			result.addObject("message", oops.getMessage());
-	//			final String msg = oops.getMessage();
-	//			if (msg.equals("floatcannotDelete")) {
-	//				final Boolean floatcannotDelete = true;
-	//				result.addObject("floatcannotDelete", floatcannotDelete);
-	//				result.addObject("brotherhood", this.brotherhoodService.findByPrincipal());
-	//
-	//			}
-	//		}
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Position position, final BindingResult binding) {
+		ModelAndView result;
 
+		try {
+			Assert.isTrue(position.getMode().equals("DRAFT"));
+			this.positionService.delete(position);
+			result = new ModelAndView("redirect:/position/company/myList.do");
+
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(position, oops.getMessage());
+
+			final String msg = oops.getMessage();
+			if (msg.equals("positioncannotDelete")) {
+				final Boolean positioncannotDelete = true;
+				result.addObject("positioncannotDelete", positioncannotDelete);
+
+			}
+		}
+
+		return result;
+	}
 	protected ModelAndView createEditModelAndView(final Position position) {
 		return this.createEditModelAndView(position, null);
 	}

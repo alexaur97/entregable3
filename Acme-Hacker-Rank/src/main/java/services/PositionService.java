@@ -177,7 +177,7 @@ public class PositionService {
 		final Company c = this.companyService.findByPrincipal();
 		if (res.getId() != 0) {
 			final Position pos = this.findOne(res.getId());
-			res.getProblems().addAll(pos.getProblems());
+
 			if (pos.getMode().equals("FINAL"))
 				Assert.isTrue(position.getProblems().size() > 1);
 		}
@@ -197,7 +197,8 @@ public class PositionService {
 	}
 	private String createName(final String commercialName) {
 		String res = null;
-		final String nuevo = commercialName.split(" ").toString();
+		//		final String nuevo = commercialName.split(" ").toString();
+		final String nuevo = commercialName;
 		if (nuevo.length() >= 4)
 			res = nuevo.substring(0, 4);
 		else
