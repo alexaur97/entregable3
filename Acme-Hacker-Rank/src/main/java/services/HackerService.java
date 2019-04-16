@@ -16,7 +16,6 @@ import repositories.HackerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Administrator;
 import domain.CreditCard;
 import domain.Hacker;
 import forms.ActorEditForm;
@@ -77,9 +76,7 @@ public class HackerService {
 
 	public Hacker save(final Hacker hacker) {
 		Assert.notNull(hacker);
-
 		final Hacker result = this.hackerRepository.save(hacker);
-		System.out.println(result);
 		return result;
 	}
 
@@ -160,7 +157,7 @@ public class HackerService {
 		Assert.notNull(result);
 		return result;
 	}
-	
+
 	public Hacker reconstructEdit(final ActorEditForm actorEditForm) {
 		final Hacker res;
 		res = this.findByPrincipal();

@@ -20,13 +20,11 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form modelAttribute="curriculumCreateForm">
-<acme:display code="curriculum.personalData.fullname" path="fullname"/>
-<acme:display code="curriculum.personalData.github" path="github"/>
-<acme:display code="curriculum.personalData.linkedin" path="linkedin"/>
-<acme:display code="curriculum.personalData.phone" path="phone"/>
-<acme:display code="curriculum.personalData.statement" path="statement"/>
+<acme:display code="curriculum.personalData.fullname" path="${curriculum.personalData.fullname}"/>
+<acme:display code="curriculum.personalData.github" path="${curriculum.personalData.github}"/>
+<acme:display code="curriculum.personalData.linkedin" path="${curriculum.personalData.linkedin}"/>
+<acme:display code="curriculum.personalData.phone" path="${curriculum.personalData.phone}"/>
+<acme:display code="curriculum.personalData.statement" path="${curriculum.personalData.statement}"/>
 
 <acme:button url="curriculum/hacker/list.do" code="curriculum.back"/>
 
-</form:form>

@@ -73,9 +73,13 @@ public class CurriculumService {
 	}
 
 	public Curriculum save(final Curriculum curriculum) {
-		this.hackerService.findByPrincipal();
+		final Hacker principal = this.hackerService.findByPrincipal();
 		Assert.notNull(curriculum);
 		final Curriculum result = this.curriculumRepository.save(curriculum);
+		final Collection<Curriculum> curriculums = principal.getCurriculums();
+		curriculums.add(result);
+		principal.getCurriculums();
+		this.hackerService.save(principal);
 		return result;
 	}
 
