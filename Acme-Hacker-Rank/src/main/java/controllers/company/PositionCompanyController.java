@@ -44,7 +44,7 @@ public class PositionCompanyController extends AbstractController {
 			final Company company = this.companyService.findByPrincipal();
 			Collection<Position> positions;
 
-			positions = this.positionService.findByCompany(company.getId());
+			positions = this.positionService.findByCompanyNotCancel(company.getId());
 			result = new ModelAndView("position/myList");
 			result.addObject("requestURI", "position/myList.do");
 			result.addObject("positions", positions);
@@ -143,18 +143,41 @@ public class PositionCompanyController extends AbstractController {
 		}
 		return res;
 	}
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int positionId) {
+		ModelAndView res;
+		try {
+
+			Position position = this.positionService.findOne(positionId);
+			Assert.notNull(position);
+			final Integer idC = this.companyService.findByPrincipal().getId();
+			final Collection<Position> positions = this.positionService.findByCompany(idC);
+			Assert.isTrue(positions.contains(position));
+
+			position = this.positionService.cancel(position);
+			this.positionService.save(position);
+
+			res = new ModelAndView("redirect:/position/company/myList.do");
+			res.addObject("position", position);
+
+		} catch (final Throwable oops) {
+			res = new ModelAndView("redirect:/#");
+		}
+		return res;
+	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Position position, final BindingResult binding) {
 		ModelAndView result;
-
+		final Position pos = this.positionService.findOne(position.getId());
 		try {
-			Assert.isTrue(position.getMode().equals("DRAFT"));
-			this.positionService.delete(position);
+
+			Assert.isTrue(pos.getMode().equals("DRAFT"));
+			this.positionService.delete(pos);
 			result = new ModelAndView("redirect:/position/company/myList.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(position, oops.getMessage());
+			result = this.createEditModelAndView(pos, oops.getMessage());
 
 			final String msg = oops.getMessage();
 			if (msg.equals("positioncannotDelete")) {

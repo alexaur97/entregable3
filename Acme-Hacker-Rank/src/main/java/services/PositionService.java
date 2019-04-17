@@ -82,6 +82,12 @@ public class PositionService {
 		final Collection<Position> res = this.positionRepository.findByCompany(companyId);
 		return res;
 	}
+
+	public Collection<Position> findByCompanyNotCancel(final Integer companyId) {
+		Assert.notNull(companyId);
+		final Collection<Position> res = this.positionRepository.findByCompanyNotCancel(companyId);
+		return res;
+	}
 	//Other Methods--------------------
 	public Collection<Position> searchPosition(final String keyword) {
 		return this.positionRepository.searchPositionKeyWord(keyword);
@@ -265,6 +271,12 @@ public class PositionService {
 	public Position saveMode(final Position position) {
 		final Position res = position;
 		res.setMode("FINAL");
+		return res;
+	}
+
+	public Position cancel(final Position position) {
+		final Position res = position;
+		res.setCancelled(true);
 		return res;
 	}
 }

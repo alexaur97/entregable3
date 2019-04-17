@@ -56,7 +56,12 @@
 		</jstl:if>
 	</display:column>
 	
-	
+	<display:column titleKey="position.cancelPos">
+		<jstl:if test="${position.mode=='FINAL' }">
+		<acme:cancel url="/position/company/cancel.do?positionId=${position.id}"
+			code="position.cancel" />
+		</jstl:if>
+	</display:column>
 
 </display:table>
 
