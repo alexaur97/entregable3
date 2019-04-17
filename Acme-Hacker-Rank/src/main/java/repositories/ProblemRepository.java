@@ -18,7 +18,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Integer> {
 	@Query("select p.problems from Position p where p.id=?1")
 	Collection<Problem> findProblemsByPosition(int positionId);
 
-	//@Query("") 
-	//Method 
+	//@Query("")
+	//Method
 
 }
