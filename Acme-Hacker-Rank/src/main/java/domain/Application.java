@@ -67,7 +67,7 @@ public class Application extends DomainEntity {
 		this.submitMoment = submitMoment;
 	}
 
-	@Pattern(regexp = "^ACCEPTED|REJECTED|SUBMITTED$")
+	@Pattern(regexp = "^ACCEPTED|REJECTED|SUBMITTED|PENDING$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getStatus() {
 		return this.status;

@@ -2,15 +2,19 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ApplicationRepository;
 import domain.Application;
 import domain.Company;
+import domain.Problem;
 
 @Service
 @Transactional
@@ -21,6 +25,12 @@ public class ApplicationService {
 	private ApplicationRepository	applicationRepository;
 	@Autowired
 	private CompanyService			companyService;
+	@Autowired
+	private HackerService			hackerService;
+	@Autowired
+	private ProblemService			problemService;
+	@Autowired
+	private Validator				validator;
 
 
 	//Supporting Services ------------------
@@ -120,5 +130,18 @@ public class ApplicationService {
 	public Collection<Application> findApplicationsByHacker(final int id) {
 		final Collection<Application> result = this.applicationRepository.findApplicationsByHacker(id);
 		return result;
+	}
+	public Application recostructionCreate(final Application application, final BindingResult binding) {
+		application.setHacker(this.hackerService.findByPrincipal());
+		final Date moment = new Date();
+		application.setMoment(moment);
+		application.setStatus("PENDING");
+		if (!(application.getPosition() == null)) {
+			final Problem problem = this.problemService.findProblemByPosition(application.getPosition().getId());
+			application.setProblem(problem);
+		}
+		this.validator.validate(application, binding);
+		return application;
+
 	}
 }

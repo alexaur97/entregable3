@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,6 +120,10 @@ public class ProblemService {
 		this.validator.validate(result, binding);
 		return result;
 	}
-
+	public Problem findProblemByPosition(final int positionId) {
+		final List<Problem> problems = new ArrayList<>(this.problemRepository.findProblemsByPosition(positionId));
+		final Problem problem = problems.get(0);
+		return problem;
+	}
 	//Other Methods--------------------
 }

@@ -12,11 +12,14 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Curriculum extends DomainEntity {
 
 	private Boolean							copy;
+	private String							idName;
 
 	private PersonalData					personalData;
 	private Collection<EducationData>		educationData;
@@ -31,6 +34,14 @@ public class Curriculum extends DomainEntity {
 
 	public void setCopy(final Boolean copy) {
 		this.copy = copy;
+	}
+	@NotBlank
+	public String getIdName() {
+		return this.idName;
+	}
+
+	public void setIdName(final String idName) {
+		this.idName = idName;
 	}
 
 	@NotNull

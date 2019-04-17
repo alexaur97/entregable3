@@ -18,7 +18,10 @@
 		<put-attribute name="title" value="edit application" />
 		<put-attribute name="body" value="/views/application/edit.jsp" />
 	</definition>
-
+<definition name="application/create" extends="master.page">
+		<put-attribute name="title" value="create application" />
+		<put-attribute name="body" value="/views/application/create.jsp" />
+	</definition>
 	
 
 </tiles-definitions>

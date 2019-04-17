@@ -20,12 +20,12 @@ public class PositionService {
 
 	//Managed repository -------------------
 	@Autowired
-	private PositionRepository	positionRepository;
-
+	private PositionRepository				positionRepository;
 
 	//Supporting Services ------------------
 	@Autowired
-	private ConfigurationParametersService configParamsService;
+	private ConfigurationParametersService	configParamsService;
+
 
 	//COnstructors -------------------------
 	public PositionService() {
@@ -136,17 +136,17 @@ public class PositionService {
 			positionsByKeyWord = this.positionRepository.findFinalNotBanned();
 		else
 			positionsByKeyWord = this.positionRepository.searchPositionsKeyWord(keyword);
-		if (Objects.equals(null,minSalary))
+		if (Objects.equals(null, minSalary))
 			positionsByMinSalary = this.positionRepository.findFinalNotBanned();
 		else
 			positionsByMinSalary = this.positionRepository.searchPositionsMinSalary(minSalary);
 
-		if (Objects.equals(null,maxSalary))
+		if (Objects.equals(null, maxSalary))
 			positionsByMaxSalary = this.positionRepository.findFinalNotBanned();
 		else
 			positionsByMaxSalary = this.positionRepository.searchPositionsMaxSalary(maxSalary);
 
-		if (Objects.equals(null,deadline))
+		if (Objects.equals(null, deadline))
 			positionsByDeadline = this.positionRepository.findFinalNotBanned();
 		else
 			positionsByDeadline = this.positionRepository.searchPositionsDeadline(deadline);
@@ -154,17 +154,17 @@ public class PositionService {
 		positionsByKeyWord.retainAll(positionsByMinSalary);
 		positionsByKeyWord.retainAll(positionsByMaxSalary);
 		positionsByKeyWord.retainAll(positionsByDeadline);
-		if(this.configParamsService.find().getFinderMaxResults()< positionsByKeyWord.size()){
-			for(int i = 0; i < this.configParamsService.find().getFinderMaxResults(); i++) {
+		if (this.configParamsService.find().getFinderMaxResults() < positionsByKeyWord.size())
+			for (int i = 0; i < this.configParamsService.find().getFinderMaxResults(); i++)
 				result.add((Position) positionsByKeyWord.toArray()[i]);
-			}
-		}else{
+		else
 			result = positionsByKeyWord;
-		}
 		return result;
 
 	}
 	public Collection<Position> findPositionsFinal() {
 		final Collection<Position> result = this.positionRepository.findPositionsFinal();
 		return result;
+	}
+
 }
