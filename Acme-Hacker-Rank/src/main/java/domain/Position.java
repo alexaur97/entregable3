@@ -105,7 +105,7 @@ public class Position extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "[0-9a-zA-Z ]{4}-[0-9]{4}")
+	@Pattern(regexp = "[a-zA-Z]{4}-[0-9]{4}")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTicker() {
 		return this.ticker;

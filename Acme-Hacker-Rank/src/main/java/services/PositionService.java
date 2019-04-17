@@ -189,17 +189,59 @@ public class PositionService {
 		this.validator.validate(res, binding);
 		return res;
 	}
+
 	private String createName(final String commercialName) {
-		String res = null;
-		//		final String nuevo = commercialName.split(" ").toString();
-		final String nuevo = commercialName;
-		if (nuevo.length() >= 4)
-			res = nuevo.substring(0, 4);
-		else
-			for (int i = nuevo.length(); i <= 4; i++)
-				res = nuevo.concat("x");
-		return res;
+		String resultado;
+		final char[] res = new char[4];
+
+		final Collection<String> elementos = new ArrayList<>();
+		elementos.add("A");
+		elementos.add("N");
+		elementos.add("B");
+		elementos.add("O");
+		elementos.add("C");
+		elementos.add("P");
+		elementos.add("D");
+		elementos.add("Q");
+		elementos.add("E");
+		elementos.add("R");
+		elementos.add("F");
+		elementos.add("S");
+		elementos.add("G");
+		elementos.add("T");
+		elementos.add("H");
+		elementos.add("U");
+		elementos.add("I");
+		elementos.add("V");
+		elementos.add("J");
+		elementos.add("W");
+		elementos.add("K");
+		elementos.add("X");
+		elementos.add("L");
+		elementos.add("Y");
+		elementos.add("M");
+		elementos.add("Z");
+
+		final char[] nuevo = commercialName.toUpperCase().toCharArray();
+		int a = 0;
+		for (int i = 0; i <= nuevo.length; i++) {
+			char letra;
+			final String s = String.valueOf(nuevo[i]);
+			if (elementos.contains(s)) {
+				letra = commercialName.charAt(i);
+				res[a] = letra;
+				a++;
+				if (a == 4)
+					break;
+			}
+		}
+		resultado = new String(res);
+		if (resultado.length() < 4)
+			for (int j = resultado.length(); j <= 4; j++)
+				resultado = resultado.concat("X");
+		return resultado;
 	}
+
 	public String creaNum() {
 		String res = null;
 
