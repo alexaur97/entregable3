@@ -23,8 +23,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<form:form action="position/company/editMode.do?positionId=${position.id}"
-					modelAttribute="positionId" class="form-horizontal" method="post">
+
 <display:table pagesize="5" name="positions" id="position"
 	requestURI="${requestURI}" class="displaytag table">
 	<display:column titleKey="position.title" property="title" />
@@ -51,8 +50,9 @@
 	
 					
 	<display:column titleKey="position.editMode">
-		<jstl:if test="${position.problems.size()>1}">
-		<acme:submit name="save" code="position.change" />
+		<jstl:if test="${position.problems.size()>1 and position.mode=='DRAFT' }">
+		<acme:cancel url="/position/company/editMode.do?positionId=${position.id}"
+			code="position.change" />
 		</jstl:if>
 	</display:column>
 	
@@ -67,4 +67,3 @@
 <security:authorize access="hasRole('COMPANY')">
 	<acme:cancel url="/position/company/create.do" code="position.create" />
 </security:authorize>
-</form:form>

@@ -121,64 +121,29 @@ public class PositionCompanyController extends AbstractController {
 
 		return res;
 	}
-	//	@RequestMapping(value = "/editMode", method = RequestMethod.GET)
-	//	public ModelAndView editMode(@RequestParam final int positionId) {
-	//		ModelAndView res;
-	//		try {
-	//
-	//			final Position position = this.positionService.findOne(positionId);
-	//			Assert.notNull(position);
-	//			final Integer idC = this.companyService.findByPrincipal().getId();
-	//			final Collection<Position> positions = this.positionService.findByCompany(idC);
-	//			Assert.isTrue(positions.contains(position));
-	//			res = new ModelAndView("redirect:/position/company/editMode.do");
-	//			res.addObject("position", position);
-	//
-	//		} catch (final Throwable oops) {
-	//			res = new ModelAndView("redirect:/#");
-	//		}
-	//		return res;
-	//	}
-
-	//	@RequestMapping(value = "/editMode", method = RequestMethod.POST)
-	//	public ModelAndView saveMode(@ModelAttribute("position") Position position) {
-	//		ModelAndView res;
-	//
-	//		try {
-	//			position = this.positionService.saveMode(position);
-	//			this.positionService.save(position);
-	//			res = new ModelAndView("redirect:/position/company/myList.do");
-	//
-	//		} catch (final Throwable oops) {
-	//
-	//			res = this.createEditModelAndView(position, "position.commit.error");
-	//
-	//		}
-	//
-	//		return res;
-	//	}
-	@RequestMapping(value = "/editMode", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveMode(@RequestParam final int positionId) {
+	@RequestMapping(value = "/editMode", method = RequestMethod.GET)
+	public ModelAndView editMode(@RequestParam final int positionId) {
 		ModelAndView res;
-		Position position = this.positionService.findOne(positionId);
 		try {
 
+			Position position = this.positionService.findOne(positionId);
 			Assert.notNull(position);
 			final Integer idC = this.companyService.findByPrincipal().getId();
 			final Collection<Position> positions = this.positionService.findByCompany(idC);
 			Assert.isTrue(positions.contains(position));
+
 			position = this.positionService.saveMode(position);
 			this.positionService.save(position);
+
 			res = new ModelAndView("redirect:/position/company/myList.do");
+			res.addObject("position", position);
 
 		} catch (final Throwable oops) {
-
-			res = this.createEditModelAndView(position, "position.commit.error");
-
+			res = new ModelAndView("redirect:/#");
 		}
-
 		return res;
 	}
+
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Position position, final BindingResult binding) {
 		ModelAndView result;
