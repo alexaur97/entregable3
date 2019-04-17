@@ -40,7 +40,7 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('COMPANY')">
-			<li><a class="fNiv" href="position/company/list.do"><spring:message
+			<li><a class="fNiv" href="position/company/myList.do"><spring:message
 						code="master.page.myPositions" /></a></li>
 						<li><a class="fNiv" href="application/company/list.do"><spring:message
 						code="master.page.myApplications" /></a></li>

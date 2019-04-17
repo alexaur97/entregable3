@@ -142,7 +142,7 @@ public class Position extends DomainEntity {
 		this.company = company;
 	}
 
-	@NotNull
+	//	@NotNull
 	@ManyToMany
 	public Collection<Problem> getProblems() {
 		return this.problems;
