@@ -29,6 +29,8 @@
 	<display:column titleKey="position.title" property="title" />
 	<display:column titleKey="position.salaryOffered"
 		property="salaryOffered" />
+		<display:column titleKey="position.ticker"
+		property="ticker" />
 		<display:column titleKey="position.mode"
 		property="mode" />
 	<display:column titleKey="position.showPosition">

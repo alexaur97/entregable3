@@ -2,6 +2,7 @@
 package controllers.company;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,20 +103,22 @@ public class PositionCompanyController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("position") Position position, final BindingResult binding) {
 		ModelAndView res;
-
 		position = this.positionService.reconstruct(position, binding);
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(position);
 		else
 			try {
-
+				final Date date = new Date();
+				Assert.isTrue(position.getDeadline().after(date));
 				this.positionService.save(position);
 				res = new ModelAndView("redirect:/position/company/myList.do");
 
 			} catch (final Throwable oops) {
-
-				res = this.createEditModelAndView(position, "position.commit.error");
+				if (position.getDeadline().after(new Date()))
+					res = this.createEditModelAndView(position, "position.error.date");
+				else
+					res = this.createEditModelAndView(position, "position.commit.error");
 
 			}
 

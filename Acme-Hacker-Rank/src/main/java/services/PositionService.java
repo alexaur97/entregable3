@@ -179,7 +179,9 @@ public class PositionService {
 	}
 
 	public Position reconstruct(final Position position, final BindingResult binding) {
+
 		final Position res = position;
+
 		final Company c = this.companyService.findByPrincipal();
 
 		res.setCompany(c);
@@ -282,4 +284,5 @@ public class PositionService {
 	public Collection<Position> findPositionsFinal() {
 		final Collection<Position> result = this.positionRepository.findPositionsFinal();
 		return result;
+	}
 }
