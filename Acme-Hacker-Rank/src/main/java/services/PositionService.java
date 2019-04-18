@@ -83,9 +83,9 @@ public class PositionService {
 		return res;
 	}
 
-	public Collection<Position> findByCompanyNotCancel(final Integer companyId) {
+	public Collection<Position> findByCompanyCancelled(final Integer companyId) {
 		Assert.notNull(companyId);
-		final Collection<Position> res = this.positionRepository.findByCompanyNotCancel(companyId);
+		final Collection<Position> res = this.positionRepository.findByCompanyCancelled(companyId);
 		return res;
 	}
 	//Other Methods--------------------
@@ -179,7 +179,9 @@ public class PositionService {
 	}
 
 	public Position reconstruct(final Position position, final BindingResult binding) {
+
 		final Position res = position;
+
 		final Company c = this.companyService.findByPrincipal();
 
 		res.setCompany(c);
@@ -283,5 +285,4 @@ public class PositionService {
 		final Collection<Position> result = this.positionRepository.findPositionsFinal();
 		return result;
 	}
-
 }
