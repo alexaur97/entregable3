@@ -15,4 +15,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Integer> {
 	@Query("select p from Problem p where p.company.id=?1")
 	Collection<Problem> findAllByPrincipalId(int companyId);
 
+	@Query("select p from Problem p where p.company.id=?1 and p.mode='FINAL'")
+	Collection<Problem> findAllByPrincipalIdFinal(Integer companyId);
+
 }

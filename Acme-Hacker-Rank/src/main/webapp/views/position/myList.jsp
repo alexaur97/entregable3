@@ -33,6 +33,7 @@
 		property="ticker" />
 		<display:column titleKey="position.mode"
 		property="mode" />
+		
 	<display:column titleKey="position.showPosition">
 		<acme:cancel url="/position/show.do?positionId=${position.id}"
 			code="position.show" />
@@ -65,6 +66,32 @@
 		</jstl:if>
 	</display:column>
 
+</display:table>
+
+
+<br>
+<br>
+<h3>
+<spring:message code = "position.cancelled"/>
+</h3>
+<display:table pagesize="5" name="positionsCancelled" id="positionC"
+	requestURI="${requestURI}" class="displaytag table">
+	<display:column titleKey="position.title" property="title" />
+	<display:column titleKey="position.salaryOffered"
+		property="salaryOffered" />
+		<display:column titleKey="position.ticker"
+		property="ticker" />
+		<display:column titleKey="position.mode"
+		property="mode" />
+		
+	<display:column titleKey="position.showPosition">
+		<acme:cancel url="/position/show.do?positionId=${positionC.id}"
+			code="position.show" />
+	</display:column>
+	<display:column titleKey="position.company">
+		<acme:cancel url="/company/show.do?companyId=${positionC.company.id}"
+			code="position.company" />
+	</display:column>
 </display:table>
 
 <br>

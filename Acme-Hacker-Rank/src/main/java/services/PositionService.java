@@ -83,9 +83,9 @@ public class PositionService {
 		return res;
 	}
 
-	public Collection<Position> findByCompanyNotCancel(final Integer companyId) {
+	public Collection<Position> findByCompanyCancelled(final Integer companyId) {
 		Assert.notNull(companyId);
-		final Collection<Position> res = this.positionRepository.findByCompanyNotCancel(companyId);
+		final Collection<Position> res = this.positionRepository.findByCompanyCancelled(companyId);
 		return res;
 	}
 	//Other Methods--------------------
