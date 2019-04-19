@@ -26,6 +26,7 @@
 <%@ attribute name="path" required="true"%>
 <%@ attribute name="code" required="true"%>
 <%@ attribute name="readonly" required="false"%>
+<%@ attribute name="isUrl" required="false"%>
 
 <jstl:if test="${readonly == null}">
 	<jstl:set var="readonly" value="false" />
@@ -33,6 +34,15 @@
 
 <%-- Definition --%>
 
+<jstl:choose>
+<jstl:when test="${isUrl eq 'yes'}">
+<div class="form-group">
+		<spring:message code="${code}" />: <a href="${path}"><jstl:out value="${path}"/></a>
+</div>
+</jstl:when>
+<jstl:otherwise>
 <div class="form-group">
 		<spring:message code="${code}" />: <jstl:out value="${path}"/>
 </div>
+</jstl:otherwise>
+</jstl:choose>

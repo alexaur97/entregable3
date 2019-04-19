@@ -53,10 +53,10 @@ public class PersonalDataService {
 		return result;
 	}
 
-	public void save(final PersonalData personalData) {
+	public PersonalData save(final PersonalData personalData) {
 		Assert.notNull(personalData);
-
-		this.personalDataRepository.save(personalData);
+		final PersonalData result = this.personalDataRepository.save(personalData);
+		return result;
 	}
 
 	public void delete(final PersonalData personalData) {

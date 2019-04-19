@@ -20,32 +20,34 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form modelAttribute="curriculumCreateForm">
-<acme:textbox code="curriculum.idName" path="idName"/>
-<fieldset style="border-width: 4px">
-<legend><spring:message code="curriculum.personalData" /></legend>
-<acme:textbox code="curriculum.personalData.fullname" path="fullname"/>
-<acme:textbox code="curriculum.personalData.github" path="github"/>
-<acme:textbox code="curriculum.personalData.linkedin" path="linkedin"/>
-<acme:textbox code="curriculum.personalData.phone" path="phone"/>
-<acme:textbox code="curriculum.personalData.statement" path="statement"/>
-</fieldset>
+<form:form modelAttribute="personalData">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<acme:textbox code="personalData.fullname" path="fullname" />
+	<acme:textbox code="personalData.github" path="github" />
+	<acme:textbox code="personalData.linkedin" path="linkedin" />
+	<acme:textbox code="personalData.phone" path="phone" />
+	<acme:textbox code="personalData.statement" path="statement" />
 
-<jstl:choose>
-		<jstl:when test="${lang == 'en'}">
-		<button type="submit" onclick="return validatePhoneNumber()" name="save">
-				<spring:message code="curriculum.save" />
+	<jstl:choose>
+		<jstl:when test="${lang eq 'en'}">
+			<button type="submit" onclick="return validatePhoneNumber()"
+				name="save">
+				<spring:message code="personalData.save" />
 			</button>
 		</jstl:when>
 		<jstl:otherwise>
-			<button type="submit" onclick="return validatePhoneNumberEs()" name="save">
-				<spring:message code="curriculum.save" />
+			<button type="submit" onclick="return validatePhoneNumberEs()"
+				name="save">
+				<spring:message code="personalData.save" />
 			</button>
 		</jstl:otherwise>
 	</jstl:choose>
-<acme:button url="curriculum/hacker/list.do" code="curriculum.cancel"/>
+	<acme:button
+		url="curriculum/hacker/show.do?curriculumId=${curriculum.id}"
+		code="personalData.cancel" />
 
-<script type="text/javascript">
+	<script type="text/javascript">
 		function validatePhoneNumber() {
 			var phoneNumber = document.getElementById("phone");
 			if (!(phoneNumber.value).match("^\\+\\d{1,3}([ ]{1}[(]{1}\\d{1,3}[)]{1})?[ ]{1}\\d{4,}$|^\\d{4,}$|^$")) { return confirm("Phone number doesn't adhere to the correct pattern. Do you want to continue?"); }

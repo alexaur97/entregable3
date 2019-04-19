@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CurriculumRepository;
 import domain.Curriculum;
@@ -31,6 +33,18 @@ public class CurriculumService {
 
 	@Autowired
 	private PersonalDataService		personalDataService;
+
+	@Autowired
+	private EducationDataService	educationDataService;
+
+	@Autowired
+	private MiscellaniusDataService	miscellaniusDataService;
+
+	@Autowired
+	private PositionDataService		positionDataService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	//Supporting Services ------------------
@@ -84,9 +98,16 @@ public class CurriculumService {
 	}
 
 	public void delete(final Curriculum curriculum) {
-		this.curriculumRepository.delete(curriculum);
-	}
+		final Hacker principal = this.hackerService.findByPrincipal();
+		final Collection<Curriculum> curriculums = principal.getCurriculums();
+		Assert.isTrue(curriculums.contains(curriculum));
 
+		final Curriculum result = this.curriculumRepository.findOne(curriculum.getId());
+		curriculums.remove(curriculum);
+		principal.setCurriculums(curriculums);
+		this.hackerService.save(principal);
+		this.curriculumRepository.delete(result);
+	}
 	public Collection<Curriculum> findAllByPrincipal() {
 		final Hacker principal = this.hackerService.findByPrincipal();
 		final Collection<Curriculum> result = this.curriculumRepository.findAllByPrincipal(principal.getId());
@@ -95,6 +116,7 @@ public class CurriculumService {
 
 	public Curriculum constructByForm(final CurriculumCreateForm c) {
 		final Curriculum result = this.create();
+		result.setIdName(c.getIdName());
 		final PersonalData a = this.personalDataService.create();
 		a.setFullname(c.getFullname());
 		a.setGithub(c.getGithub());
@@ -102,6 +124,19 @@ public class CurriculumService {
 		a.setPhone(c.getPhone());
 		a.setStatement(c.getStatement());
 		result.setPersonalData(a);
+		return result;
+	}
+
+	public Curriculum reconstruct(final Curriculum curriculum, final BindingResult binding) {
+		final Curriculum result = this.findOne(curriculum.getId());
+		result.setIdName(curriculum.getIdName());
+		this.validator.validate(result, binding);
+		return result;
+	}
+
+	public Curriculum findByPersonalData(final int id) {
+		this.hackerService.findByPrincipal();
+		final Curriculum result = this.curriculumRepository.findByPersonalData(id);
 		return result;
 	}
 
