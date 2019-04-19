@@ -25,6 +25,10 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <td><acme:cancel url="/message/create.do" code="message.create" /></td>
+<security:authorize access="hasRole('ADMINISTRATOR')">
+<td><acme:cancel url="/message/administrator/create.do" code="message.create" /></td>
+		</security:authorize>
+
 <h4>
 	<spring:message code="message.recived" />
 </h4>
