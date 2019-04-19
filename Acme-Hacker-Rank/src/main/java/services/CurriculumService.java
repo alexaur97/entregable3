@@ -105,5 +105,15 @@ public class CurriculumService {
 		return result;
 	}
 
+	public Collection<Curriculum> findByHacker(final Integer idH) {
+		final Collection<Curriculum> res = this.curriculumRepository.findAllByPrincipal(idH);
+		return res;
+	}
+
+	public Curriculum findByPositionData(final int positionDataId) {
+		final Curriculum res = this.curriculumRepository.findByPositonData(positionDataId);
+		return null;
+	}
+
 	//Other Methods--------------------
 }
