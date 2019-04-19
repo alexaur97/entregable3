@@ -26,21 +26,20 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 				
-					<security:authorize access="hasRole('COMPANY')">
-					<form:form action="application/company/reject.do"
+					<form:form action="application/hacker/edit.do"
 					modelAttribute="application" class="form-horizontal" method="post">
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>
+						<acme:textbox code="application.codeLink" path="codeLink" />
 						<acme:textarea code="application.explanation" path="explanation" />
 
 						<acme:submit name="save" code="application.save" />
-						<acme:cancel url="/application/company/list.do"
+						<acme:cancel url="/application/hacker/list.do"
 							code="application.cancel" />
 					</div>
 				</form:form>		
-				</security:authorize>
 			</fieldset>
 		
 

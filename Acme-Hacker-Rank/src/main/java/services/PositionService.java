@@ -90,7 +90,7 @@ public class PositionService {
 	}
 	//Other Methods--------------------
 	public Collection<Position> searchPosition(final String keyword) {
-		return this.positionRepository.searchPositionKeyWord(keyword);
+		return this.positionRepository.searchPositionsKeyWord(keyword);
 
 	}
 

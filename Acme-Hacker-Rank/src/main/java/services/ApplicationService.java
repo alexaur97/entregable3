@@ -144,4 +144,18 @@ public class ApplicationService {
 		return application;
 
 	}
+	public Application recostructionEdit(final Application application, final BindingResult binding) {
+		final Application a = this.applicationRepository.findOne(application.getId());
+		application.setCurriculum(a.getCurriculum());
+		application.setHacker(a.getHacker());
+		application.setMoment(a.getMoment());
+		application.setPosition(a.getPosition());
+		application.setProblem(a.getProblem());
+		application.setStatus("SUBMITTED");
+		final Date moment = new Date();
+		application.setSubmitMoment(moment);
+		this.validator.validate(application, binding);
+		return application;
+
+	}
 }
