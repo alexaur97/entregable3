@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
 import domain.Curriculum;
+import domain.EducationData;
+import domain.MiscellaniusData;
+import domain.PositionData;
 import forms.CurriculumCreateForm;
 
 @Controller
@@ -53,13 +57,32 @@ public class CurriculumHackerController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int curriculumId) {
+		ModelAndView result;
+		try {
+			final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
+			result = this.editModelAndView(curriculum);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/#");
+		}
+		return result;
+	}
+
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int curriculumId) {
 		ModelAndView result;
 		try {
 			final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
+			final Collection<EducationData> educationData = curriculum.getEducationData();
+			final Collection<MiscellaniusData> miscellaniusData = curriculum.getMiscellaniusData();
+			final Collection<PositionData> positionData = curriculum.getPositionData();
 			result = new ModelAndView("curriculum/show");
 			result.addObject("curriculum", curriculum);
+			result.addObject("educationDatas", educationData);
+			result.addObject("miscellaniusDatas", miscellaniusData);
+			result.addObject("positionDatas", positionData);
+			result.addObject("requestURI", "/curriculum/hacker/show.do?curriculumId=" + curriculum.getId());
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -67,9 +90,9 @@ public class CurriculumHackerController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView create(@Valid final CurriculumCreateForm curriculumCreateForm, final BindingResult bindingResult) {
+	public ModelAndView create(@Valid final CurriculumCreateForm curriculumCreateForm, final BindingResult binding) {
 		ModelAndView result;
-		if (bindingResult.hasErrors())
+		if (binding.hasErrors())
 			result = this.createModelAndView(curriculumCreateForm);
 		else
 			try {
@@ -79,6 +102,34 @@ public class CurriculumHackerController {
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(curriculumCreateForm, "curriculum.commit.error");
 			}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(@ModelAttribute("curriculum") Curriculum curriculum, final BindingResult binding) {
+		ModelAndView result;
+		curriculum = this.curriculumService.reconstruct(curriculum, binding);
+		if (binding.hasErrors())
+			result = this.editModelAndView(curriculum);
+		else
+			try {
+				final Curriculum saved = this.curriculumService.save(curriculum);
+				result = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + saved.getId());
+			} catch (final Throwable oops) {
+				result = this.editModelAndView(curriculum, "curriculum.commit.error");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@ModelAttribute("curriculum") final Curriculum curriculum) {
+		ModelAndView result;
+		try {
+			this.curriculumService.delete(curriculum);
+			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
+		} catch (final Throwable oops) {
+			result = this.editModelAndView(curriculum, "curriculum.commit.error");
+		}
 		return result;
 	}
 
@@ -93,6 +144,17 @@ public class CurriculumHackerController {
 		final Locale l = LocaleContextHolder.getLocale();
 		final String lang = l.getLanguage();
 		result.addObject("lang", lang);
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final Curriculum curriculum) {
+		return this.editModelAndView(curriculum, null);
+	}
+
+	protected ModelAndView editModelAndView(final Curriculum curriculum, final String messageCode) {
+		final ModelAndView result = new ModelAndView("curriculum/edit");
+		result.addObject("curriculum", curriculum);
+		result.addObject("message", messageCode);
 		return result;
 	}
 

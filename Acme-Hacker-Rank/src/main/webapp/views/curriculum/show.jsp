@@ -20,11 +20,77 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<acme:display code="curriculum.personalData.fullname" path="${curriculum.personalData.fullname}"/>
-<acme:display code="curriculum.personalData.github" path="${curriculum.personalData.github}"/>
-<acme:display code="curriculum.personalData.linkedin" path="${curriculum.personalData.linkedin}"/>
-<acme:display code="curriculum.personalData.phone" path="${curriculum.personalData.phone}"/>
-<acme:display code="curriculum.personalData.statement" path="${curriculum.personalData.statement}"/>
+<acme:display code="curriculum.idName" path="${curriculum.idName}" />
+<br />
 
-<acme:button url="curriculum/hacker/list.do" code="curriculum.back"/>
+<h4><spring:message code="curriculum.personalData"/>:</h4>
+
+<acme:display code="curriculum.personalData.fullname"
+	path="${curriculum.personalData.fullname}" />
+<acme:display code="curriculum.personalData.github"
+	path="${curriculum.personalData.github}" isUrl="yes"/>
+<acme:display code="curriculum.personalData.linkedin"
+	path="${curriculum.personalData.linkedin}" isUrl="yes"/>
+<acme:display code="curriculum.personalData.phone"
+	path="${curriculum.personalData.phone}" />
+<acme:display code="curriculum.personalData.statement"
+	path="${curriculum.personalData.statement}" />
+<acme:button url="personalData/hacker/edit.do?personalDataId=${curriculum.personalData.id}" code="curriculum.edit"/>
+<h4><spring:message code="curriculum.educationData"/>:</h4>
+
+<display:table name="educationDatas" id="educationData"
+	class="displaytag" pagesize="5" requestURI="${requestURI}">
+	<display:column titleKey="curriculum.educationData.degree"
+		property="degree" />
+	<display:column titleKey="curriculum.educationData.institution"
+		property="institution" />
+	<display:column titleKey="curriculum.educationData.mark"
+		property="mark" />
+	<display:column titleKey="curriculum.educationData.startDate"
+		property="startDate" />
+	<display:column titleKey="curriculum.educationData.endDate"
+		property="endDate" />
+	<display:column titleKey="curriculum.show">
+		<acme:button url="/educationData/hacker/show.do?educationDataId=${educationData.id}"
+			code="curriculum.show" />
+	</display:column>
+</display:table>
+
+<h4><spring:message code="curriculum.miscellaniusData"/>:</h4>
+
+<display:table name="miscellaniusDatas" id="miscellaniusData"
+	class="displaytag" pagesize="5" requestURI="${requestURI}">
+	<display:column titleKey="curriculum.miscellaniusData.attachments"
+		property="attachments" />
+	<display:column titleKey="curriculum.miscellaniusData.text"
+		property="text" />
+	<display:column titleKey="curriculum.show">
+		<acme:button url="/miscellaniusData/hacker/show.do?miscellaniusDataId=${miscellaniusData.id}"
+			code="curriculum.show" />
+	</display:column>
+</display:table>
+
+<h4><spring:message code="curriculum.positionData"/>:</h4>
+
+<display:table name="positionDatas" id="positionData"
+	class="displaytag" pagesize="5" requestURI="${requestURI}">
+	
+	<display:column titleKey="curriculum.positionData.title"
+		property="title" />
+	<display:column titleKey="curriculum.positionData.description"
+		property="description" />
+	<display:column titleKey="curriculum.positionData.startDate"
+		property="startDate" />
+	<display:column titleKey="curriculum.positionData.endDate"
+		property="endDate" />
+		<display:column titleKey="curriculum.show">
+		<acme:button url="/positionData/hacker/show.do?positionDataId=${positionData.id}"
+			code="curriculum.show" />
+	</display:column>
+</display:table>
+
+<acme:button
+	url="curriculum/hacker/edit.do?curriculumId=${curriculum.id}"
+	code="curriculum.edit" />
+<acme:button url="curriculum/hacker/list.do" code="curriculum.back" />
 

@@ -185,20 +185,36 @@
 	
 	<bean id="curriculum1" class="domain.Curriculum">
 		<property name="copy" value="false" />
+		<property name="idName" value="Curriculum1" />
 		<property name="personalData" ref="personalData1" />
 		<property name="educationData">
 			<list>
 				<ref bean="educationData1"/>
+				<ref bean="educationData7"/>
+				<ref bean="educationData8"/>
+				<ref bean="educationData9"/>
+				<ref bean="educationData10"/>
+				<ref bean="educationData11"/>
 			</list>
 		</property>	
 		<property name="miscellaniusData">
 			<list>
 				<ref bean="miscellaniusData1"/>
+				<ref bean="miscellaniusData7"/>
+				<ref bean="miscellaniusData8"/>
+				<ref bean="miscellaniusData9"/>
+				<ref bean="miscellaniusData10"/>
+				<ref bean="miscellaniusData11"/>
 			</list>
 		</property>	
 		<property name="positionData">
 			<list>
 				<ref bean="positionData1"/>
+				<ref bean="positionData7"/>
+				<ref bean="positionData8"/>
+				<ref bean="positionData9"/>
+				<ref bean="positionData10"/>
+				<ref bean="positionData11"/>
 			</list>
 		</property>	
 	</bean>
@@ -233,6 +249,8 @@
 	
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum2" />
+		
 		<property name="personalData" ref="personalData2" />
 		<property name="educationData">
 			<list>
@@ -281,6 +299,8 @@
 	
 	<bean id="curriculum3" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum3" />
+		
 		<property name="personalData" ref="personalData3" />
 		<property name="educationData">
 			<list>
@@ -329,6 +349,8 @@
 	
 	<bean id="curriculum4" class="domain.Curriculum">
 		<property name="copy" value="false" />
+				<property name="idName" value="Curriculum4" />
+		
 		<property name="personalData" ref="personalData4" />
 		<property name="educationData">
 			<list>
@@ -377,6 +399,8 @@
 	
 	<bean id="curriculum5" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum5" />
+		
 		<property name="personalData" ref="personalData5" />
 		<property name="educationData">
 			<list>
@@ -425,6 +449,8 @@
 
 	<bean id="curriculum6" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum6" />
+		
 		<property name="personalData" ref="personalData6" />
 		<property name="educationData">
 			<list>
@@ -471,7 +497,105 @@
 		<property name="startDate" value="05/05/2012" />
 	</bean>
 
+<bean id="educationData7" class="domain.EducationData">
+		<property name="degree" value="Degree7" />
+		<property name="institution" value="Institution7" />
+		<property name="mark" value="10"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData7" class="domain.MiscellaniusData">
+		<property name="text" value="text7" />
+		<property name="attachments" value="attachmentA, attachmentB" />
+	</bean>
+	
+	<bean id="positionData7" class="domain.PositionData">
+		<property name="title" value="Title7" />
+		<property name="description" value="Description7" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
 
+<bean id="educationData8" class="domain.EducationData">
+		<property name="degree" value="Degree8" />
+		<property name="institution" value="Institution8" />
+		<property name="mark" value="10"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData8" class="domain.MiscellaniusData">
+		<property name="text" value="text8" />
+		<property name="attachments" value="attachmentA, attachmentB" />
+	</bean>
+	
+	<bean id="positionData8" class="domain.PositionData">
+		<property name="title" value="Title8" />
+		<property name="description" value="Description8" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+
+<bean id="educationData9" class="domain.EducationData">
+		<property name="degree" value="Degree9" />
+		<property name="institution" value="Institution9" />
+		<property name="mark" value="10"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData9" class="domain.MiscellaniusData">
+		<property name="text" value="text9" />
+		<property name="attachments" value="attachmentA, attachmentB" />
+	</bean>
+	
+	<bean id="positionData9" class="domain.PositionData">
+		<property name="title" value="Title9" />
+		<property name="description" value="Description9" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+
+<bean id="educationData10" class="domain.EducationData">
+		<property name="degree" value="Degree10" />
+		<property name="institution" value="Institution10" />
+		<property name="mark" value="10"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData10" class="domain.MiscellaniusData">
+		<property name="text" value="text10" />
+		<property name="attachments" value="attachmentA, attachmentB" />
+	</bean>
+	
+	<bean id="positionData10" class="domain.PositionData">
+		<property name="title" value="Title10" />
+		<property name="description" value="Description10" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="educationData11" class="domain.EducationData">
+		<property name="degree" value="Degree11" />
+		<property name="institution" value="Institution11" />
+		<property name="mark" value="10"/>
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
+	
+	<bean id="miscellaniusData11" class="domain.MiscellaniusData">
+		<property name="text" value="text11" />
+		<property name="attachments" value="attachmentA, attachmentB" />
+	</bean>
+	
+	<bean id="positionData11" class="domain.PositionData">
+		<property name="title" value="Title11" />
+		<property name="description" value="Description11" />
+		<property name="endDate" value="05/05/2014" />
+		<property name="startDate" value="05/05/2012" />
+	</bean>
 	<!-- Actors -->
 
 	<!-- Administrators -->

@@ -63,5 +63,10 @@ public class PositionDataService {
 		this.positionDataRepository.delete(positionData);
 	}
 
+	public void delete(final Collection<PositionData> positionDatas) {
+		this.positionDataRepository.delete(positionDatas);
+
+	}
+
 	//Other Methods--------------------
 }

@@ -29,35 +29,40 @@ public class PersonalData extends DomainEntity {
 	public void setFullname(final String fullname) {
 		this.fullname = fullname;
 	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getStatement() {
 		return this.statement;
 	}
 
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public void setStatement(final String statement) {
 		this.statement = statement;
 	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
 
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
+
+	@URL
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getGithub() {
 		return this.github;
 	}
 
-	@URL
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public void setGithub(final String github) {
 		this.github = github;
 	}
 
 	@URL
+	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLinkedin() {
 		return this.linkedin;
