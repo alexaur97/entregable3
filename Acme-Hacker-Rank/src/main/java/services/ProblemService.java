@@ -125,5 +125,13 @@ public class ProblemService {
 		final Problem problem = problems.get(0);
 		return problem;
 	}
+
+	public Collection<Problem> findAllByPrincipalIdFinal() {
+		final Company principal = this.companyService.findByPrincipal();
+		final Integer companyId = principal.getId();
+		final Collection<Problem> problems = this.problemRepository.findAllByPrincipalIdFinal(companyId);
+		return problems;
+	}
+
 	//Other Methods--------------------
 }

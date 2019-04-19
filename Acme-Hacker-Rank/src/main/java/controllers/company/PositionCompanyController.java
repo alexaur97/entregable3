@@ -2,6 +2,7 @@
 package controllers.company;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,11 +44,14 @@ public class PositionCompanyController extends AbstractController {
 		try {
 			final Company company = this.companyService.findByPrincipal();
 			Collection<Position> positions;
+			Collection<Position> positionsCancelled;
 
-			positions = this.positionService.findByCompanyNotCancel(company.getId());
+			positions = this.positionService.findByCompany(company.getId());
+			positionsCancelled = this.positionService.findByCompanyCancelled(company.getId());
 			result = new ModelAndView("position/myList");
-			result.addObject("requestURI", "position/myList.do");
+			result.addObject("requestURI", "position/company/myList.do");
 			result.addObject("positions", positions);
+			result.addObject("positionsCancelled", positionsCancelled);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -102,20 +106,22 @@ public class PositionCompanyController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute("position") Position position, final BindingResult binding) {
 		ModelAndView res;
-
 		position = this.positionService.reconstruct(position, binding);
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(position);
 		else
 			try {
-
+				final Date date = new Date();
+				Assert.isTrue(position.getDeadline().after(date));
 				this.positionService.save(position);
 				res = new ModelAndView("redirect:/position/company/myList.do");
 
 			} catch (final Throwable oops) {
-
-				res = this.createEditModelAndView(position, "position.commit.error");
+				if (!position.getDeadline().after(new Date()))
+					res = this.createEditModelAndView(position, "position.error.date");
+				else
+					res = this.createEditModelAndView(position, "position.commit.error");
 
 			}
 
@@ -147,6 +153,7 @@ public class PositionCompanyController extends AbstractController {
 	public ModelAndView cancel(@RequestParam final int positionId) {
 		ModelAndView res;
 		try {
+			//final Company company = this.companyService.findByPrincipal();
 
 			Position position = this.positionService.findOne(positionId);
 			Assert.notNull(position);
@@ -157,8 +164,11 @@ public class PositionCompanyController extends AbstractController {
 			position = this.positionService.cancel(position);
 			this.positionService.save(position);
 
+			//	final Collection<Position> positionsCancelled = this.positionService.findByCompanyCancelled(company.getId());
+
 			res = new ModelAndView("redirect:/position/company/myList.do");
-			res.addObject("position", position);
+			//			res.addObject("position", position);
+			//			res.addObject("positionsCancelled", positionsCancelled);
 
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -195,7 +205,7 @@ public class PositionCompanyController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Position position, final String messageCode) {
 		final ModelAndView res;
 		res = new ModelAndView("position/edit");
-		final Collection<Problem> problems = this.problemService.findAllByPrincipalId();
+		final Collection<Problem> problems = this.problemService.findAllByPrincipalIdFinal();
 		res.addObject("problems", problems);
 		res.addObject("position", position);
 		res.addObject("message", messageCode);

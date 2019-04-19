@@ -48,10 +48,10 @@
 						
 						<spring:message code ="position.problems"/>	
 						
-						<form:select id="problems" code="position.problems" path="problems">
+						<form:select  id="problems" code="position.problems" path="problems">
 							<form:options items="${problems}" itemLabel="title" itemValue="id" />
 						</form:select>
-						
+						<spring:message code= "position.problem.expl"/>
 						
 						<br>
 						<br>

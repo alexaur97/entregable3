@@ -6,7 +6,8 @@ métodos que necesitemos utilizar en momentos determinados y que se reutilizan n
 #2 El patrón del VAT seguirá el siguiente formato: (ES)ÑNNNNNNNÑ donde (ES) es una particula opcional, las Ñ representan
 letras mayúsculas o números, y las N representan números.
 
-#3
+#3 Cuando se cancela una position, está seguirá mostrandose en el sistema aunque no se pueda aplicar a ella, pero debe mostrarse
+para dejar constancia de que existe.
 
 #4
 
