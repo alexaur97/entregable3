@@ -105,6 +105,8 @@ public class CurriculumService {
 		return result;
 	}
 
+	//Other Methods--------------------
+
 	public Collection<Curriculum> findByHacker(final Integer idH) {
 		final Collection<Curriculum> res = this.curriculumRepository.findAllByPrincipal(idH);
 		return res;
@@ -128,5 +130,36 @@ public class CurriculumService {
 		return res;
 	}
 
-	//Other Methods--------------------
+	public Curriculum findByMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.curriculumRepository.findByMiscellaneousData(miscellaneousData.getId());
+		return res;
+	}
+
+	public Curriculum deleteMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		res.getMiscellaniusData().remove(miscellaneousData);
+		return res;
+	}
+	public Curriculum saveMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		res.getMiscellaniusData().add(miscellaneousData);
+		return res;
+
+	}
+
+	public Curriculum findByEducationData(final EducationData educationData) {
+		final Curriculum res = this.curriculumRepository.findByEducationData(educationData.getId());
+		return res;
+	}
+	public Curriculum deleteEductationData(final EducationData educationData) {
+		final Curriculum res = this.findByEducationData(educationData);
+		res.getEducationData().remove(educationData);
+		return res;
+	}
+	public Curriculum saveEducationData(final EducationData educationData) {
+		final Curriculum res = this.findByPositionData(educationData.getId());
+		res.getEducationData().add(educationData);
+		return res;
+
+	}
 }

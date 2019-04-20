@@ -14,37 +14,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
+import services.EducationDataService;
 import services.HackerService;
-import services.PositionDataService;
 import domain.Curriculum;
-import domain.PositionData;
+import domain.EducationData;
 
 @Controller
-@RequestMapping("/positionData/hacker/")
-public class PositionDataHackerController {
+@RequestMapping("/educationData/hacker/")
+public class EducationDataHackerController {
 
 	@Autowired
-	private PositionDataService	positionDataService;
+	private EducationDataService	educationDataService;
 
 	@Autowired
-	private HackerService		hackerService;
+	private HackerService			hackerService;
 
 	@Autowired
-	private CurriculumService	curriculumService;
+	private CurriculumService		curriculumService;
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 
 		ModelAndView result;
-		PositionData positionData;
-		positionData = this.positionDataService.create();
+		EducationData educationData;
+		educationData = this.educationDataService.create();
 
 		try {
 			this.hackerService.findByPrincipal();
-			positionData.setId(0);
+			educationData.setId(0);
 
-			result = this.createEditModelAndView(positionData);
+			result = this.createEditModelAndView(educationData);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -55,17 +55,17 @@ public class PositionDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int positionDataId) {
+	public ModelAndView edit(@RequestParam final int educationDataId) {
 		ModelAndView res;
 		try {
 
-			final PositionData positionData = this.positionDataService.findOne(positionDataId);
-			Assert.notNull(positionData);
+			final EducationData educationData = this.educationDataService.findOne(educationDataId);
+			Assert.notNull(educationData);
 			final Integer idH = this.hackerService.findByPrincipal().getId();
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
-			final Curriculum curriculum = this.curriculumService.findByPositionData(positionDataId);
+			final Curriculum curriculum = this.curriculumService.findByEducationData(educationData);
 			Assert.isTrue(curriculums.contains(curriculum));
-			res = this.createEditModelAndView(positionData);
+			res = this.createEditModelAndView(educationData);
 
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -74,24 +74,24 @@ public class PositionDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("positionData") final PositionData positionData, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("educationData") final EducationData educationData, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(positionData);
+			res = this.createEditModelAndView(educationData);
 		else
 			try {
 
-				this.positionDataService.save(positionData);
+				this.educationDataService.save(educationData);
 
-				if (positionData.getId() == 0)
-					this.curriculumService.savePositionData(positionData);
+				if (educationData.getId() == 0)
+					this.curriculumService.saveEducationData(educationData);
 
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
 
-				res = this.createEditModelAndView(positionData, "positionData.commit.error");
+				res = this.createEditModelAndView(educationData, "educationData.commit.error");
 
 			}
 
@@ -99,35 +99,35 @@ public class PositionDataHackerController {
 	}
 
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final PositionData positionData, final BindingResult binding) {
+	public ModelAndView delete(final EducationData educationData, final BindingResult binding) {
 		ModelAndView result;
-		final PositionData pos = this.positionDataService.findOne(positionData.getId());
+		final EducationData ed = this.educationDataService.findOne(educationData.getId());
 		try {
 
-			this.curriculumService.deletePositionData(pos);
-			this.positionDataService.delete(pos);
+			this.curriculumService.deleteEductationData(ed);
+			this.educationDataService.delete(ed);
 
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(pos, oops.getMessage());
+			result = this.createEditModelAndView(ed, oops.getMessage());
 
 			final String msg = oops.getMessage();
-			if (msg.equals("positionDatacannotDelete")) {
-				final Boolean positionDatacannotDelete = true;
-				result.addObject("positionDatacannotDelete", positionDatacannotDelete);
+			if (msg.equals("educationDatacannotDelete")) {
+				final Boolean educationDatacannotDelete = true;
+				result.addObject("educationDatacannotDelete", educationDatacannotDelete);
 
 			}
 		}
 		return result;
 	}
-	protected ModelAndView createEditModelAndView(final PositionData positionData) {
-		return this.createEditModelAndView(positionData, null);
+	protected ModelAndView createEditModelAndView(final EducationData educationData) {
+		return this.createEditModelAndView(educationData, null);
 	}
-	protected ModelAndView createEditModelAndView(final PositionData positionData, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final EducationData educationData, final String messageCode) {
 		final ModelAndView res;
-		res = new ModelAndView("positionData/edit");
-		res.addObject("positionData", positionData);
+		res = new ModelAndView("educationData/edit");
+		res.addObject("educationData", educationData);
 		res.addObject("message", messageCode);
 
 		return res;
