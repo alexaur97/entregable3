@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- * security.xml * * Copyright (C) 2019 Universidad de Sevilla * * The 
-	use of this project is hereby constrained to the conditions of the * TDG 
+<!-- * security.xml * * Copyright (C) 2019 Universidad de Sevilla * * The
+	use of this project is hereby constrained to the conditions of the * TDG
 	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
     ">
 
@@ -45,6 +45,7 @@
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
 		
+
 		<security:intercept-url pattern="/stats/administrator/display.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/edit.do" access="hasRole('ADMINISTRATOR')" />
@@ -57,6 +58,7 @@
 		
 		
 		<security:intercept-url pattern="/finder/hacker/**" access="hasRole('HACKER')" />
+
 
 		<security:intercept-url pattern="/profile/action-1.do"
 			access="isAuthenticated()" />
@@ -77,12 +79,31 @@
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
 			
+		<security:intercept-url pattern="/socialprofile/list.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/edit.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/delete.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/show.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/create.do"
+			access="isAuthenticated()" />
+			
+
 		<security:intercept-url pattern="/position/company/**"
 			access="hasRole('COMPANY')" />
 
 		<security:intercept-url pattern="/problem/company/**"
 			access="hasRole('COMPANY')" />
-
+			<security:intercept-url pattern="/application/company/**"
+			access="hasRole('COMPANY')" />
+			<security:intercept-url pattern="/application/hacker/**"
+			access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/position/list.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/company/show.do"

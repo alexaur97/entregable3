@@ -44,6 +44,7 @@
 
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
+		
 
 		<security:intercept-url pattern="/stats/administrator/display.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
@@ -77,6 +78,22 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
+			
+		<security:intercept-url pattern="/socialprofile/list.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/edit.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/delete.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/show.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/socialprofile/create.do"
+			access="isAuthenticated()" />
+			
 
 		<security:intercept-url pattern="/position/company/**"
 			access="hasRole('COMPANY')" />

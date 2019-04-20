@@ -185,6 +185,7 @@
 	
 	<bean id="curriculum1" class="domain.Curriculum">
 		<property name="copy" value="false" />
+		<property name="idName" value="Curriculum1" />
 		<property name="personalData" ref="personalData1" />
 		<property name="educationData">
 			<list>
@@ -233,6 +234,8 @@
 	
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum2" />
+		
 		<property name="personalData" ref="personalData2" />
 		<property name="educationData">
 			<list>
@@ -281,6 +284,8 @@
 	
 	<bean id="curriculum3" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum3" />
+		
 		<property name="personalData" ref="personalData3" />
 		<property name="educationData">
 			<list>
@@ -329,6 +334,8 @@
 	
 	<bean id="curriculum4" class="domain.Curriculum">
 		<property name="copy" value="false" />
+				<property name="idName" value="Curriculum4" />
+		
 		<property name="personalData" ref="personalData4" />
 		<property name="educationData">
 			<list>
@@ -377,6 +384,8 @@
 	
 	<bean id="curriculum5" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum5" />
+		
 		<property name="personalData" ref="personalData5" />
 		<property name="educationData">
 			<list>
@@ -425,6 +434,8 @@
 
 	<bean id="curriculum6" class="domain.Curriculum">
 		<property name="copy" value="true" />
+				<property name="idName" value="Curriculum6" />
+		
 		<property name="personalData" ref="personalData6" />
 		<property name="educationData">
 			<list>
