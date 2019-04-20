@@ -18,7 +18,6 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Company;
 import domain.CreditCard;
-import domain.Hacker;
 import forms.ActorEditForm;
 import forms.CompanyRegisterForm;
 
@@ -140,7 +139,7 @@ public class CompanyService {
 
 		result.setEmail(companyRegisterForm.getEmail());
 		result.setName(companyRegisterForm.getName());
-		result.setPhone(companyRegisterForm.getPhone());
+		result.setPhone(this.actorService.addCountryCode(companyRegisterForm.getPhone()));
 		result.setPhoto(companyRegisterForm.getPhoto());
 		result.setSpammer(false);
 		result.setSurnames(companyRegisterForm.getSurnames());
@@ -161,7 +160,7 @@ public class CompanyService {
 		Assert.notNull(result);
 		return result;
 	}
-	
+
 	public Company reconstructEdit(final ActorEditForm actorEditForm) {
 		final Company res;
 		res = this.findByPrincipal();
@@ -170,7 +169,7 @@ public class CompanyService {
 		res.setSurnames(actorEditForm.getSurnames());
 		res.setPhoto(actorEditForm.getPhoto());
 		res.setEmail(actorEditForm.getEmail());
-		res.setPhone(actorEditForm.getPhone());
+		res.setPhone(this.actorService.addCountryCode(actorEditForm.getPhone()));
 		res.setAddress(actorEditForm.getAddress());
 		Assert.notNull(res);
 		return res;

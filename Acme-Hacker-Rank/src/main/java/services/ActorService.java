@@ -2,8 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.ConfigurationParameters;
 import forms.ActorEditForm;
 
 @Service
@@ -23,7 +22,10 @@ import forms.ActorEditForm;
 public class ActorService {
 
 	@Autowired
-	private ActorRepository	actorRepository;
+	private ActorRepository					actorRepository;
+
+	@Autowired
+	private ConfigurationParametersService	configurationParametersService;
 
 
 	public Actor save(final Actor a) {
@@ -81,21 +83,11 @@ public class ActorService {
 		return result;
 	}
 
-	public boolean validateCountryCode(final String phoneNumber) {
-		final String regex = "[0-9]+";
-		final Pattern patt = Pattern.compile(regex);
-		Boolean b = true;
-		final Matcher matcher = patt.matcher(phoneNumber);
-		if (!matcher.matches())
-			b = false;
-		return b;
-	}
-
 	public Collection<String> findAllEmails() {
 		final Collection<String> result = this.actorRepository.findAllEmails();
 		return result;
 	}
-	
+
 	public Boolean authEdit(final Actor a, final String auth) {
 		final UserAccount userAccount = a.getUserAccount();
 		final Collection<Authority> allAuths = userAccount.getAuthorities();
@@ -104,7 +96,7 @@ public class ActorService {
 		final Boolean res = allAuths.contains(au);
 		return res;
 	}
-	
+
 	public ActorEditForm toForm(final Actor actor) {
 		final ActorEditForm res = new ActorEditForm();
 		res.setName(actor.getName());
@@ -116,4 +108,14 @@ public class ActorService {
 		res.setAddress(actor.getAddress());
 		return res;
 	}
+
+	public String addCountryCode(String phoneNumber) {
+		if (phoneNumber.charAt(0) != '+') {
+			final ConfigurationParameters cp = this.configurationParametersService.find();
+			final String cc = cp.getCountryCode();
+			phoneNumber = cc + " " + phoneNumber;
+		}
+		return phoneNumber;
+	}
+
 }
