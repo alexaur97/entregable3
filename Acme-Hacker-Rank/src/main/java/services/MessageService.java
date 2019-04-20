@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
+import domain.Actor;
+import domain.Administrator;
 import domain.Message;
 
 @Service
@@ -19,10 +23,13 @@ public class MessageService {
 
 	//Managed repository -------------------
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository		messageRepository;
 
 	@Autowired
-	private Validator			validator;
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	//Supporting Services ------------------
@@ -104,5 +111,37 @@ public class MessageService {
 		final Message res = msg;
 		this.validator.validate(res, binding);
 		return res;
+	}
+	//CUANDO EXISTA LAS SPAM WORDS
+	public Boolean spam(final Message msg) {
+		Boolean res = false;
+		final Collection<String> sw = new ArrayList<>();
+		for (final String s : sw) {
+			if (msg.getBody().contains(s))
+				res = true;
+			if (msg.getSubject().contains(s))
+				res = true;
+		}
+		return res;
+	}
+	public Message reconstructAdmnistrator(final Message msg, final BindingResult binding) {
+		final Administrator admin = this.administratorService.findByPrincipal();
+		msg.setDeleted(false);
+		final Date moment = new Date();
+		msg.setMoment(moment);
+		msg.setRecipient(admin);
+		msg.setSender(admin);
+		final Collection<String> tags = new ArrayList<>();
+		tags.add("SYSTEM");
+		msg.setTags(tags);
+		msg.setSpam(this.spam(msg));
+		msg.setOwner(admin.getId());
+		this.validator.validate(msg, binding);
+		return msg;
+	}
+	public Message reconstructAdmnistrator2(final Message msg, final Actor actor, final BindingResult binding) {
+		msg.setRecipient(actor);
+		this.validator.validate(msg, binding);
+		return msg;
 	}
 }

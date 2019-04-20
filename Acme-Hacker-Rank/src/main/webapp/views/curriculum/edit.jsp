@@ -1,5 +1,5 @@
 <%--
- * action-1.jsp
+ * action-2.jsp
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -20,14 +20,15 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" name="curriculums" id="row"
-	requestURI="curriculum/hacker/list.do" class="displaytag" >
-	<display:column property="idName" titleKey="curriculum.idName"/>
-	<display:column property="personalData.statement" titleKey="curriculum.personalData.statement" />
-	<display:column titleKey="curriculum.show">
-	<acme:button url="/curriculum/hacker/show.do?curriculumId=${row.id}" code="curriculum.show"/>
-	</display:column>
-</display:table>
-
-<acme:button code="curriculum.create" url="/curriculum/hacker/create.do"/>
-
+<form:form modelAttribute="curriculum">
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+<acme:textbox code="curriculum.idName" path="idName"/>
+			<button type="submit" name="save">
+				<spring:message code="curriculum.save" />
+			</button>
+				<button type="submit" name="delete">
+				<spring:message code="curriculum.delete" />
+			</button>
+			<acme:button url="curriculum/hacker/show.do?curriculumId=${curriculum.id}" code="curriculum.back"/>
+</form:form>

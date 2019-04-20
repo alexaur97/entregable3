@@ -63,5 +63,10 @@ public class MiscellaniusDataService {
 		this.miscellaniusDataRepository.delete(miscellaniusData);
 	}
 
+	public void delete(final Collection<MiscellaniusData> miscellaniusDatas) {
+		this.miscellaniusDataRepository.delete(miscellaniusDatas);
+
+	}
+
 	//Other Methods--------------------
 }

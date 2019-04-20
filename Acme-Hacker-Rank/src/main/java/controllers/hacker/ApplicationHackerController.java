@@ -124,9 +124,10 @@ public class ApplicationHackerController extends AbstractController {
 
 		try {
 			application = this.applicationService.findOne(applicationId);
-			final Collection<Position> positions = this.positionService.findPositionsFinal();
+			Assert.isTrue(application.getStatus().equals("PENDING"));
 			final Hacker hacker = this.hackerService.findByPrincipal();
-			Assert.isTrue(application.getHacker() == hacker);
+			final Collection<Position> positions = this.positionService.findPositionsFinal();
+			Assert.isTrue(application.getHacker().equals(hacker));
 			result = new ModelAndView("application/edit");
 			result.addObject("application", application);
 			result.addObject("positions", positions);
@@ -138,5 +139,46 @@ public class ApplicationHackerController extends AbstractController {
 		}
 
 		return result;
+	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveEdit(final Application application, final BindingResult binding) {
+		ModelAndView res;
+		final Application applicationFinal = this.applicationService.recostructionEdit(application, binding);
+		final Collection<Application> applications;
+		if (binding.hasErrors()) {
+			final Collection<Position> positions = this.positionService.findPositionsFinal();
+			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipal();
+			res = new ModelAndView("application/create");
+			res.addObject("curriculums", curriculums);
+			res.addObject("positions", positions);
+		} else
+			try {
+				final Hacker hacker = this.hackerService.findByPrincipal();
+				final String p = "PENDING";
+				Assert.isTrue(!(applicationFinal.getExplanation() == null));
+				if (!(applicationFinal.getExplanation() == null))
+					Assert.isTrue(!(applicationFinal.getExplanation().isEmpty()));
+				Assert.isTrue(!(applicationFinal.getCodeLink() == null));
+				if (!(applicationFinal.getCodeLink() == null))
+					Assert.isTrue(!(applicationFinal.getCodeLink().isEmpty()));
+
+				this.applicationService.save(applicationFinal);
+				applications = this.applicationService.findApplicationsByHacker(hacker.getId());
+				res = new ModelAndView("application/list");
+
+				res.addObject("applications", applications);
+				res.addObject("requestURI", "application/list.do");
+				res.addObject("p", p);
+
+			} catch (final Throwable oops) {
+				if (application.getExplanation().isEmpty() || application.getCodeLink().isEmpty()) {
+					res = new ModelAndView("application/edit");
+					res.addObject("application", application);
+					res.addObject("message", "application.explanationLink.error");
+
+				} else
+					res = new ModelAndView("redirect:/#");
+			}
+		return res;
 	}
 }

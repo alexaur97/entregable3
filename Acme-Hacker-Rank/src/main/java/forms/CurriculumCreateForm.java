@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.URL;
 
 public class CurriculumCreateForm {
 
+	private String	idName;
 	private String	fullname;
 	private String	github;
 	private String	linkedin;
@@ -58,6 +59,15 @@ public class CurriculumCreateForm {
 
 	public void setStatement(final String statement) {
 		this.statement = statement;
+	}
+
+	@NotBlank
+	public String getIdName() {
+		return this.idName;
+	}
+
+	public void setIdName(final String idName) {
+		this.idName = idName;
 	}
 
 }

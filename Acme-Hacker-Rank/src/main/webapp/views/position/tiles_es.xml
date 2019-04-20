@@ -15,7 +15,7 @@
 	</definition>
 	<definition name="position/myList" extends="master.page">
 		<put-attribute name="title" value="Posiciones" />
-		<put-attribute name="body" value="/views/position/Mylist.jsp" />
+		<put-attribute name="body" value="/views/position/myList.jsp" />
 	</definition>
 	<definition name="position/search" extends="master.page">
 		<put-attribute name="title" value="Posiciones buscadas" />
