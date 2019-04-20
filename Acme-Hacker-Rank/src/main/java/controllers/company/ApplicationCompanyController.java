@@ -38,7 +38,7 @@ public class ApplicationCompanyController extends AbstractController {
 			final Collection<Application> applications;
 			applications = this.applicationService.findApplicationsByCompany(company.getId());
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/list.do");
+			result.addObject("requestURI", "application/company/list.do");
 			result.addObject("applications", applications);
 			final String s = "SUBMITTED";
 			result.addObject("s", s);

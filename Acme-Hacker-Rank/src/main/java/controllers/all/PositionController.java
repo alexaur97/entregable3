@@ -32,6 +32,7 @@ public class PositionController {
 		try {
 			result = new ModelAndView("position/search");
 			result.addObject("position", position);
+			result.addObject("requestURI", "position/search.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -44,6 +45,7 @@ public class PositionController {
 			result = new ModelAndView("position/search");
 			final Collection<Position> positions = this.positionService.searchPosition(position.getTitle());
 			result.addObject("positions", positions);
+			result.addObject("requestURI", "position/search.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}

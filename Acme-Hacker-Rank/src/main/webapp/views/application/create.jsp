@@ -31,7 +31,7 @@
 	<form:hidden path="id"/>
 						<form:hidden path="version"/>
 		<acme:select items="${positions}" itemLabel="title" code="application.positions" path="position"/>
-			<acme:select items="${curriculums}" itemLabel="idName" code="application.positions" path="curriculum"/>
+			<acme:select items="${curriculums}" itemLabel="idName" code="application.curriculums" path="curriculum"/>
 	
 	<acme:submit name="save" code="application.save"/>
 	<acme:cancel url="#" code="application.cancel"/>
