@@ -112,7 +112,20 @@ public class CurriculumService {
 
 	public Curriculum findByPositionData(final int positionDataId) {
 		final Curriculum res = this.curriculumRepository.findByPositonData(positionDataId);
-		return null;
+		return res;
+	}
+
+	public Curriculum savePositionData(final PositionData positionData) {
+		final Curriculum res = this.findByPositionData(positionData.getId());
+		res.getPositionData().add(positionData);
+		return res;
+
+	}
+
+	public Curriculum deletePositionData(final PositionData pos) {
+		final Curriculum res = this.findByPositionData(pos.getId());
+		res.getPositionData().remove(pos);
+		return res;
 	}
 
 	//Other Methods--------------------

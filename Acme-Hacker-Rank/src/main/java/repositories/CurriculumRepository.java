@@ -15,7 +15,6 @@ public interface CurriculumRepository extends JpaRepository<Curriculum, Integer>
 	@Query("select h.curriculums from Hacker h where h.id=?1")
 	Collection<Curriculum> findAllByPrincipal(int id);
 
-	@Query("select h from Curriculum h were h.positionData.id=?1")
-	Curriculum findByPositonData(int positionDataId);
-
+	@Query("select c from Curriculum c join c.positionData p  where p.id=?1")
+	Curriculum findByPositonData(int id);
 }

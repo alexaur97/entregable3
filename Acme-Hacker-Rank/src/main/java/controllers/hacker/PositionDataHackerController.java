@@ -81,7 +81,12 @@ public class PositionDataHackerController {
 			res = this.createEditModelAndView(positionData);
 		else
 			try {
+
 				this.positionDataService.save(positionData);
+
+				if (positionData.getId() == 0)
+					this.curriculumService.savePositionData(positionData);
+
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
@@ -93,6 +98,29 @@ public class PositionDataHackerController {
 		return res;
 	}
 
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final PositionData positionData, final BindingResult binding) {
+		ModelAndView result;
+		final PositionData pos = this.positionDataService.findOne(positionData.getId());
+		try {
+
+			this.curriculumService.deletePositionData(pos);
+			this.positionDataService.delete(pos);
+
+			result = new ModelAndView("redirect:/position/company/myList.do");
+
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(pos, oops.getMessage());
+
+			final String msg = oops.getMessage();
+			if (msg.equals("positioncannotDelete")) {
+				final Boolean positioncannotDelete = true;
+				result.addObject("positioncannotDelete", positioncannotDelete);
+
+			}
+		}
+		return result;
+	}
 	protected ModelAndView createEditModelAndView(final PositionData positionData) {
 		return this.createEditModelAndView(positionData, null);
 	}
