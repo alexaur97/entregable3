@@ -9,7 +9,4 @@ import domain.PositionData;
 @Repository
 public interface PositionDataRepository extends JpaRepository<PositionData, Integer> {
 
-	//@Query("") 
-	//Method 
-
 }

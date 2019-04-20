@@ -141,4 +141,60 @@ public class CurriculumService {
 	}
 
 	//Other Methods--------------------
+
+	public Collection<Curriculum> findByHacker(final Integer idH) {
+		final Collection<Curriculum> res = this.curriculumRepository.findAllByPrincipal(idH);
+		return res;
+	}
+
+	public Curriculum findByPositionData(final int positionDataId) {
+		final Curriculum res = this.curriculumRepository.findByPositonData(positionDataId);
+		return res;
+	}
+
+	public Curriculum savePositionData(final PositionData positionData) {
+		final Curriculum res = this.findByPositionData(positionData.getId());
+		res.getPositionData().add(positionData);
+		return res;
+
+	}
+
+	public Curriculum deletePositionData(final PositionData pos) {
+		final Curriculum res = this.findByPositionData(pos.getId());
+		res.getPositionData().remove(pos);
+		return res;
+	}
+
+	public Curriculum findByMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.curriculumRepository.findByMiscellaneousData(miscellaneousData.getId());
+		return res;
+	}
+
+	public Curriculum deleteMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		res.getMiscellaniusData().remove(miscellaneousData);
+		return res;
+	}
+	public Curriculum saveMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		res.getMiscellaniusData().add(miscellaneousData);
+		return res;
+
+	}
+
+	public Curriculum findByEducationData(final EducationData educationData) {
+		final Curriculum res = this.curriculumRepository.findByEducationData(educationData.getId());
+		return res;
+	}
+	public Curriculum deleteEductationData(final EducationData educationData) {
+		final Curriculum res = this.findByEducationData(educationData);
+		res.getEducationData().remove(educationData);
+		return res;
+	}
+	public Curriculum saveEducationData(final EducationData educationData) {
+		final Curriculum res = this.findByPositionData(educationData.getId());
+		res.getEducationData().add(educationData);
+		return res;
+
+	}
 }
