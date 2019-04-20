@@ -3,11 +3,12 @@ package controllers.hacker;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,7 +75,7 @@ public class PositionDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("positionData") final PositionData positionData, final BindingResult binding) {
+	public ModelAndView save(@Valid final PositionData positionData, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
@@ -131,6 +132,25 @@ public class PositionDataHackerController {
 		res.addObject("message", messageCode);
 
 		return res;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int positionDataId) {
+		ModelAndView result;
+		final PositionData positionData;
+
+		try {
+			this.hackerService.findByPrincipal();
+			Assert.notNull(positionDataId);
+			positionData = this.positionDataService.findOne(positionDataId);
+
+			result = new ModelAndView("positionData/show");
+			result.addObject("positionData", positionData);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
 	}
 
 }

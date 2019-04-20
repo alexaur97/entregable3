@@ -55,8 +55,20 @@
 		<security:intercept-url pattern="/position/company/edit.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/editMode.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/cancel.do" access="hasRole('COMPANY')" />
+		<security:intercept-url pattern="/position/company/show.do" access="hasRole('COMPANY')" />
 		
-		
+
+		<security:intercept-url pattern="/positionData/hacker/show.do" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/positionData/hacker/edit.do" access="hasRole('HACKER')" />
+
+		<security:intercept-url pattern="/educationData/hacker/show.do" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/educationData/hacker/edit.do" access="hasRole('HACKER')" />
+
+
+		<security:intercept-url pattern="/miscellaneousData/hacker/show.do" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/miscellaneousData/hacker/edit.do" access="hasRole('HACKER')" />
+
+
 		
 		<security:intercept-url pattern="/finder/hacker/**" access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/stats/administrator/display.do"

@@ -87,6 +87,11 @@
 		<acme:button url="/positionData/hacker/show.do?positionDataId=${positionData.id}"
 			code="curriculum.show" />
 	</display:column>
+	
+	<acme:button
+	url="positionData/hacker/edit.do?positionDataId=${positionData.id}"
+	code="curriculum.edit" />
+	
 </display:table>
 
 <acme:button
