@@ -136,7 +136,7 @@ public class HackerService {
 
 		result.setEmail(hackerRegisterForm.getEmail());
 		result.setName(hackerRegisterForm.getName());
-		result.setPhone(hackerRegisterForm.getPhone());
+		result.setPhone(this.actorService.addCountryCode(hackerRegisterForm.getPhone()));
 		result.setPhoto(hackerRegisterForm.getPhoto());
 		result.setSpammer(false);
 		result.setSurnames(hackerRegisterForm.getSurnames());
@@ -166,7 +166,7 @@ public class HackerService {
 		res.setSurnames(actorEditForm.getSurnames());
 		res.setPhoto(actorEditForm.getPhoto());
 		res.setEmail(actorEditForm.getEmail());
-		res.setPhone(actorEditForm.getPhone());
+		res.setPhone(this.actorService.addCountryCode(actorEditForm.getPhone()));
 		res.setAddress(actorEditForm.getAddress());
 		Assert.notNull(res);
 		return res;

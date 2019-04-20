@@ -33,7 +33,7 @@ public class ActorEditForm {
 	public void setName(final String name) {
 		this.name = name;
 	}
-	
+
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurnames() {
@@ -68,7 +68,6 @@ public class ActorEditForm {
 
 	@Column(unique = true)
 	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
