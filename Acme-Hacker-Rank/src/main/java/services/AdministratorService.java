@@ -27,13 +27,13 @@ public class AdministratorService {
 
 	// Repositorios propios
 	@Autowired
-	private AdministratorRepository	administratorRepository;
+	private AdministratorRepository			administratorRepository;
 
 	@Autowired
-	private ActorService			actorService;
-	
+	private ActorService					actorService;
+
 	@Autowired
-	private ConfigurationParametersService configurationParametersService;
+	private ConfigurationParametersService	configurationParametersService;
 
 
 	// Servicios ajenos
@@ -103,7 +103,7 @@ public class AdministratorService {
 		final Administrator a = this.administratorRepository.findByUserId(id);
 		return a;
 	}
-	
+
 	public Administrator reconstruct(final AdministratorRegisterForm r) {
 		Assert.isTrue(r.getPassword().equals(r.getConfirmPassword()));
 
@@ -131,15 +131,9 @@ public class AdministratorService {
 		result.setSurnames(r.getSurnames());
 		result.setPhoto(r.getPhoto());
 		result.setEmail(r.getEmail());
-		final String phoneNumber = r.getPhone();
-		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
-		final String countryCode = this.configurationParametersService.find().getCountryCode();
-		if (b)
-			result.setPhone(countryCode + " " + phoneNumber);
-		else
-			result.setPhone(phoneNumber);
+		result.setPhone(this.actorService.addCountryCode(r.getPhone()));
 		result.setAddress(r.getAddress());
-		
+
 		result.setBanned(false);
 
 		final CreditCard creditCard = result.getCreditCard();
@@ -155,10 +149,9 @@ public class AdministratorService {
 
 		result.setSpammer(false);
 
-
 		return result;
 	}
-	
+
 	public Administrator reconstructEdit(final ActorEditForm actorEditForm) {
 		final Administrator res;
 		res = this.findByPrincipal();
@@ -167,7 +160,7 @@ public class AdministratorService {
 		res.setSurnames(actorEditForm.getSurnames());
 		res.setPhoto(actorEditForm.getPhoto());
 		res.setEmail(actorEditForm.getEmail());
-		res.setPhone(actorEditForm.getPhone());
+		res.setPhone(this.actorService.addCountryCode(actorEditForm.getPhone()));
 		res.setAddress(actorEditForm.getAddress());
 		Assert.notNull(res);
 		return res;
