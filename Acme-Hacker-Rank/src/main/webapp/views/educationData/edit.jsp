@@ -26,17 +26,18 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="positionData/hacker/edit.do"
-					modelAttribute="positionData" class="form-horizontal" method="post">
+				<form:form action="educationData/hacker/edit.do"
+					modelAttribute="educationData" class="form-horizontal" method="post">
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>
 								
-						<acme:textbox code="positionData.title" path="title" />
-						<acme:textarea code="positionData.description" path="description" />
-						<acme:textbox placeholder="dd/MM/yyyy" code="positionData.startDate" path="startDate" />
-						<acme:textbox placeholder="dd/MM/yyyy" code="positionData.endDate" path="endDate" />
+						<acme:textbox code="educationData.degree" path="degree" />
+						<acme:textarea code="educationData.institution" path="institution" />
+						<acme:textarea code="educationData.mark" path="mark" />					
+						<acme:textbox placeholder="dd/MM/yyyy" code="educationData.startDate" path="startDate" />
+						<acme:textbox placeholder="dd/MM/yyyy" code="educationData.endDate" path="endDate" />
 					
 						
 						
@@ -46,13 +47,13 @@
 					
 		
 						
-						<acme:submit name="save" code="positionData.save" />
-						<jstl:if test="${positionData.id!=0}">
-							<acme:submitConfirmation name="delete" code="positionData.delete"
-								onclick="positionData.delete.confirmation" />
+						<acme:submit name="save" code="educationData.save" />
+						<jstl:if test="${educationData.id!=0}">
+							<acme:submitConfirmation name="delete" code="educationData.delete"
+								onclick="educationData.delete.confirmation" />
 						</jstl:if>
 						<acme:cancel url="/curriculum/hacker/list.do"
-							code="positionData.cancel" />
+							code="educationData.cancel" />
 					</div>
 				</form:form>
 			</fieldset>

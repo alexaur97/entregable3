@@ -122,6 +122,26 @@ public class MiscellaneousDataHackerController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int miscellaneousDataId) {
+		ModelAndView result;
+		final MiscellaniusData miscellaneousData;
+
+		try {
+			this.hackerService.findByPrincipal();
+			Assert.notNull(miscellaneousDataId);
+			miscellaneousData = this.miscellaneousDataService.findOne(miscellaneousDataId);
+
+			result = new ModelAndView("miscellaneousData/show");
+			result.addObject("miscellaneousData", miscellaneousData);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaneousData) {
 		return this.createEditModelAndView(miscellaneousData, null);
 	}

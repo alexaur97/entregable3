@@ -83,6 +83,8 @@ public class EducationDataHackerController {
 		else
 			try {
 
+				Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
+
 				this.educationDataService.save(educationData);
 
 				if (educationData.getId() == 0)
@@ -92,7 +94,11 @@ public class EducationDataHackerController {
 
 			} catch (final Throwable oops) {
 
-				res = this.createEditModelAndView(educationData, "educationData.commit.error");
+				if (educationData.getStartDate().after(educationData.getEndDate()))
+					res = this.createEditModelAndView(educationData, "educationData.error.date2");
+
+				else
+					res = this.createEditModelAndView(educationData, "educationData.commit.error");
 
 			}
 
@@ -122,6 +128,26 @@ public class EducationDataHackerController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int educationDataId) {
+		ModelAndView result;
+		final EducationData educationData;
+
+		try {
+			this.hackerService.findByPrincipal();
+			Assert.notNull(educationDataId);
+			educationData = this.educationDataService.findOne(educationDataId);
+
+			result = new ModelAndView("educationData/show");
+			result.addObject("educationData", educationData);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final EducationData educationData) {
 		return this.createEditModelAndView(educationData, null);
 	}

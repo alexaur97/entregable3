@@ -65,7 +65,7 @@
 	<display:column titleKey="curriculum.miscellaniusData.text"
 		property="text" />
 	<display:column titleKey="curriculum.show">
-		<acme:button url="/miscellaniusData/hacker/show.do?miscellaniusDataId=${miscellaniusData.id}"
+		<acme:button url="/miscellaneousData/hacker/show.do?miscellaneousDataId=${miscellaniusData.id}"
 			code="curriculum.show" />
 	</display:column>
 </display:table>
