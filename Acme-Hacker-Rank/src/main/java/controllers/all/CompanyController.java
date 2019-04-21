@@ -110,7 +110,7 @@ public class CompanyController {
 			Assert.notNull(companyId);
 			final Collection<Position> positions = this.positionService.findByCompanyFinal(companyId);
 			company = this.companyService.findOne(companyId);
-			if (company.isBanned()) {
+			if (company.getBanned()) {
 				final Authority auth = new Authority();
 				auth.setAuthority(Authority.ADMINISTRATOR);
 				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));

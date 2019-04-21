@@ -75,6 +75,8 @@
 		                    </security:authorize>
 		            <li><a href="actor/edit.do"><spring:message
 								code="master.page.editProfile" /></a></li>
+								<li><a href="actor/administrator/list.do"><spring:message
+								code="master.page.actorList" /></a></li>
 					<security:authorize access="hasRole('HACKER')">
 					<li><a href="curriculum/hacker/list.do"><spring:message
 								code="master.page.curriculum" /> </a></li>
