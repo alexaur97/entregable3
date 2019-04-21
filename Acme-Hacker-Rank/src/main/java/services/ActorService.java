@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +17,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Message;
 import forms.ActorEditForm;
 
 @Service
@@ -24,6 +26,9 @@ public class ActorService {
 
 	@Autowired
 	private ActorRepository	actorRepository;
+
+	@Autowired
+	private MessageService	messageService;
 
 
 	public Actor save(final Actor a) {
@@ -95,7 +100,7 @@ public class ActorService {
 		final Collection<String> result = this.actorRepository.findAllEmails();
 		return result;
 	}
-	
+
 	public Boolean authEdit(final Actor a, final String auth) {
 		final UserAccount userAccount = a.getUserAccount();
 		final Collection<Authority> allAuths = userAccount.getAuthorities();
@@ -104,7 +109,7 @@ public class ActorService {
 		final Boolean res = allAuths.contains(au);
 		return res;
 	}
-	
+
 	public ActorEditForm toForm(final Actor actor) {
 		final ActorEditForm res = new ActorEditForm();
 		res.setName(actor.getName());
@@ -115,5 +120,20 @@ public class ActorService {
 		res.setPhone(actor.getPhone());
 		res.setAddress(actor.getAddress());
 		return res;
+	}
+
+	public void isSpammer() {
+
+		final List<Actor> actores = this.actorRepository.findAll();
+		for (int i = 0; i < actores.size(); i++) {
+			final int actorId = actores.get(i).getId();
+
+			final Collection<Message> messages = this.messageService.findSender(actorId);
+			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
+			if (messagesSpam.size() / messages.size() > 10)
+				actores.get(i).setSpammer(true);
+			else
+				actores.get(i).setSpammer(false);
+		}
 	}
 }

@@ -27,13 +27,13 @@ public class AdministratorService {
 
 	// Repositorios propios
 	@Autowired
-	private AdministratorRepository	administratorRepository;
+	private AdministratorRepository			administratorRepository;
 
 	@Autowired
-	private ActorService			actorService;
-	
+	private ActorService					actorService;
+
 	@Autowired
-	private ConfigurationParametersService configurationParametersService;
+	private ConfigurationParametersService	configurationParametersService;
 
 
 	// Servicios ajenos
@@ -103,7 +103,7 @@ public class AdministratorService {
 		final Administrator a = this.administratorRepository.findByUserId(id);
 		return a;
 	}
-	
+
 	public Administrator reconstruct(final AdministratorRegisterForm r) {
 		Assert.isTrue(r.getPassword().equals(r.getConfirmPassword()));
 
@@ -139,7 +139,7 @@ public class AdministratorService {
 		else
 			result.setPhone(phoneNumber);
 		result.setAddress(r.getAddress());
-		
+
 		result.setBanned(false);
 
 		final CreditCard creditCard = result.getCreditCard();
@@ -155,10 +155,9 @@ public class AdministratorService {
 
 		result.setSpammer(false);
 
-
 		return result;
 	}
-	
+
 	public Administrator reconstructEdit(final ActorEditForm actorEditForm) {
 		final Administrator res;
 		res = this.findByPrincipal();

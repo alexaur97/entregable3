@@ -64,11 +64,17 @@ public class SocialProfileService {
 
 	public void save(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
+		final int id = this.actorService.findByPrincipal().getId();
+		Assert.isTrue(socialProfile.getActor().getId() == id);
 
 		this.socialProfileRepository.save(socialProfile);
 	}
 
 	public void delete(final SocialProfile socialProfile) {
+
+		final int id = this.actorService.findByPrincipal().getId();
+		Assert.isTrue(socialProfile.getActor().getId() == id);
+
 		this.socialProfileRepository.delete(socialProfile);
 	}
 

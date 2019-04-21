@@ -1151,7 +1151,7 @@
 	
 	<bean id="message1" class="domain.Message">
 		<property name="subject" value="Message 1" />
-		<property name="body" value="This is message 1" />
+		<property name="body" value="This is message 1 sex" />
 		<property name="moment" value="08/08/2018 00:54" />
 		<property name="attachments" value="" />
 		<property name="spam" value="false" />
@@ -1164,7 +1164,7 @@
 	
 	<bean id="message7" class="domain.Message">
 		<property name="subject" value="Message 1" />
-		<property name="body" value="This is message 1" />
+		<property name="body" value="This is message 1 viagra" />
 		<property name="moment" value="08/08/2018 00:54" />
 		<property name="attachments" value="" />
 		<property name="spam" value="false" />
