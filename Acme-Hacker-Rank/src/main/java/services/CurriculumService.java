@@ -140,5 +140,132 @@ public class CurriculumService {
 		return result;
 	}
 
+	public Curriculum copyCurriculum(final Curriculum curriculum) {
+		final Hacker principal = this.hackerService.findByPrincipal();
+		Assert.isTrue(principal.getCurriculums().contains(curriculum));
+
+		final Curriculum copy = this.create();
+		copy.setIdName(curriculum.getIdName());
+		copy.setCopy(true);
+
+		final PersonalData personalData = this.copyPersonalData(curriculum.getPersonalData());
+
+		final Collection<EducationData> educationDatas = this.copyEducationData(curriculum.getEducationData());
+		final Collection<MiscellaniusData> miscellaniusDatas = this.copyMiscellaniusData(curriculum.getMiscellaniusData());
+		final Collection<PositionData> positionDatas = this.copyPositionData(curriculum.getPositionData());
+
+		copy.setPersonalData(personalData);
+		copy.setEducationData(educationDatas);
+		copy.setMiscellaniusData(miscellaniusDatas);
+		copy.setPositionData(positionDatas);
+
+		final Curriculum result = this.save(copy);
+		return result;
+	}
+
+	private Collection<PositionData> copyPositionData(final Collection<PositionData> positionDatas) {
+		final Collection<PositionData> result = new ArrayList<>();
+		for (final PositionData p : positionDatas) {
+			final PositionData positionData = this.positionDataService.create();
+			positionData.setDescription(p.getDescription());
+			positionData.setEndDate(p.getEndDate());
+			positionData.setStartDate(p.getStartDate());
+			positionData.setTitle(p.getTitle());
+			result.add(positionData);
+		}
+		return result;
+	}
+
+	private Collection<MiscellaniusData> copyMiscellaniusData(final Collection<MiscellaniusData> miscellaniusDatas) {
+		final Collection<MiscellaniusData> result = new ArrayList<>();
+		for (final MiscellaniusData m : miscellaniusDatas) {
+			final MiscellaniusData miscellaniusData = this.miscellaniusDataService.create();
+			miscellaniusData.setAttachments(m.getAttachments());
+			miscellaniusData.setText(m.getText());
+			result.add(miscellaniusData);
+		}
+		return result;
+	}
+
+	private Collection<EducationData> copyEducationData(final Collection<EducationData> educationDatas) {
+		final Collection<EducationData> result = new ArrayList<>();
+		for (final EducationData e : educationDatas) {
+			final EducationData educationData = this.educationDataService.create();
+			educationData.setDegree(e.getDegree());
+			educationData.setEndDate(e.getEndDate());
+			educationData.setInstitution(e.getInstitution());
+			educationData.setMark(e.getMark());
+			educationData.setStartDate(e.getStartDate());
+			result.add(educationData);
+		}
+		return result;
+	}
+
+	private PersonalData copyPersonalData(final PersonalData personalData) {
+		final PersonalData result = this.personalDataService.create();
+		result.setFullname(personalData.getFullname());
+		result.setGithub(personalData.getGithub());
+		result.setLinkedin(personalData.getLinkedin());
+		result.setPhone(personalData.getPhone());
+		result.setStatement(personalData.getStatement());
+		return result;
+	}
+
 	//Other Methods--------------------
+
+	public Collection<Curriculum> findByHacker(final Integer idH) {
+		final Collection<Curriculum> res = this.curriculumRepository.findAllByPrincipal(idH);
+		return res;
+	}
+
+	public Curriculum findByPositionData(final int positionDataId) {
+		final Curriculum res = this.curriculumRepository.findByPositonData(positionDataId);
+		return res;
+	}
+
+	public Curriculum savePositionData(final PositionData positionData) {
+		final Curriculum res = this.findByPositionData(positionData.getId());
+		res.getPositionData().add(positionData);
+		return res;
+
+	}
+
+	public Curriculum deletePositionData(final PositionData pos) {
+		final Curriculum res = this.findByPositionData(pos.getId());
+		res.getPositionData().remove(pos);
+		return res;
+	}
+
+	public Curriculum findByMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.curriculumRepository.findByMiscellaneousData(miscellaneousData.getId());
+		return res;
+	}
+
+	public Curriculum deleteMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		res.getMiscellaniusData().remove(miscellaneousData);
+		return res;
+	}
+	public Curriculum saveMiscellaneousData(final MiscellaniusData miscellaneousData) {
+		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		res.getMiscellaniusData().add(miscellaneousData);
+		return res;
+
+	}
+
+	public Curriculum findByEducationData(final EducationData educationData) {
+		final Curriculum res = this.curriculumRepository.findByEducationData(educationData.getId());
+		return res;
+	}
+	public Curriculum deleteEductationData(final EducationData educationData) {
+		final Curriculum res = this.findByEducationData(educationData);
+		res.getEducationData().remove(educationData);
+		return res;
+	}
+	public Curriculum saveEducationData(final EducationData educationData) {
+		final Curriculum res = this.findByPositionData(educationData.getId());
+		res.getEducationData().add(educationData);
+		return res;
+
+	}
 }

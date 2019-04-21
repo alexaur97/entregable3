@@ -41,6 +41,7 @@
 			
 	<value>/views/personalData/messages</value>
 
+			<value>/views/personalData/messages</value>
 	</util:list>
 
 </beans>

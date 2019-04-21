@@ -26,7 +26,7 @@ import domain.Problem;
 @RequestMapping("/position/company/")
 public class PositionCompanyController extends AbstractController {
 
-	//Repository
+	//Servicio
 	@Autowired
 	private CompanyService	companyService;
 

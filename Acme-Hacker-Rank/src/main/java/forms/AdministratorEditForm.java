@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
-public class ActorEditForm {
+public class AdministratorEditForm {
 
 	private String	name;
 	private String	surnames;
@@ -21,7 +21,7 @@ public class ActorEditForm {
 	private String	address;
 
 
-	public ActorEditForm() {
+	public AdministratorEditForm() {
 		super();
 	}
 	@NotBlank
@@ -67,7 +67,7 @@ public class ActorEditForm {
 	}
 
 	@Column(unique = true)
-	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)+\\>")
+	@Pattern(regexp = "([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*|[a-zA-Z0-9]+[ a-zA-Z0-9]*\\<([a-zA-Z0-9])+@([a-zA-Z0-9]+\\.[a-zA-Z0-9]+)*\\>")
 	public String getEmail() {
 		return this.email;
 	}

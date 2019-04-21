@@ -50,7 +50,7 @@ public class ApplicationHackerController extends AbstractController {
 			final Collection<Application> applications;
 			applications = this.applicationService.findApplicationsByHacker(hacker.getId());
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/list.do");
+			result.addObject("requestURI", "application/hacker/list.do");
 			result.addObject("applications", applications);
 			final String p = "PENDING";
 			result.addObject("p", p);

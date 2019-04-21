@@ -25,19 +25,36 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
-				
-					<form:form action="application/hacker/create.do" modelAttribute="application"  class="form-horizontal" method="post">
-	<div class="form-group ">
-	<form:hidden path="id"/>
-						<form:hidden path="version"/>
-		<acme:select items="${positions}" itemLabel="title" code="application.positions" path="position"/>
-			<acme:select items="${curriculums}" itemLabel="idName" code="application.curriculums" path="curriculum"/>
-	
-	<acme:submit name="save" code="application.save"/>
-	<acme:cancel url="#" code="application.cancel"/>
 
-</div>	
-</form:form>
+				<form:form action="positionData/hacker/edit.do"
+					modelAttribute="positionData" class="form-horizontal" method="post">
+					<div class="form-group ">
+
+						<form:hidden path="id"/>
+						<form:hidden path="version"/>
+								
+						<acme:textbox code="positionData.title" path="title" />
+						<acme:textarea code="positionData.description" path="description" />
+						<acme:textbox placeholder="dd/MM/yyyy" code="positionData.startDate" path="startDate" />
+						<acme:textbox placeholder="dd/MM/yyyy" code="positionData.endDate" path="endDate" />
+					
+						
+						
+						<br>
+						<br>
+						
+					
+		
+						
+						<acme:submit name="save" code="positionData.save" />
+						<jstl:if test="${position.id!=0}">
+							<acme:submitConfirmation name="delete" code="position.delete"
+								onclick="position.delete.confirmation" />
+						</jstl:if>
+						<acme:cancel url="/curriculum/hacker/list.do"
+							code="positionData.cancel" />
+					</div>
+				</form:form>
 			</fieldset>
 		
 

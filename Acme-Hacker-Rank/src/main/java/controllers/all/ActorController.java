@@ -23,6 +23,7 @@ import domain.Administrator;
 import domain.Company;
 import domain.Hacker;
 import forms.ActorEditForm;
+import forms.AdministratorEditForm;
 
 @Controller
 @RequestMapping("/actor")
@@ -31,11 +32,12 @@ public class ActorController extends AbstractController {
 	@Autowired
 	private ActorService			actorService;
 	@Autowired
-	private CompanyService		companyService;
+	private CompanyService			companyService;
 	@Autowired
 	private HackerService			hackerService;
 	@Autowired
 	private AdministratorService	administratorService;
+
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -43,9 +45,14 @@ public class ActorController extends AbstractController {
 
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			final ActorEditForm actorEditForm = this.actorService.toForm(actor);
 			result = new ModelAndView("actor/edit");
-			result.addObject("actorEditForm", actorEditForm);
+			if (this.actorService.authEdit(actor, "ADMINISTRATOR")) {
+				final AdministratorEditForm administratorEditForm = this.administratorService.toForm(actor);
+				result.addObject("actorEditForm", administratorEditForm);
+			} else {
+				final ActorEditForm actorEditForm = this.actorService.toForm(actor);
+				result.addObject("actorEditForm", actorEditForm);
+			}
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
 			result.addObject("lang", lang);
@@ -56,7 +63,7 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ActorEditForm actorEditForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
@@ -75,9 +82,6 @@ public class ActorController extends AbstractController {
 				} else if (this.actorService.authEdit(actor, "HACKER")) {
 					final Hacker hacker = this.hackerService.reconstructEdit(actorEditForm);
 					this.hackerService.save(hacker);
-				} else if (this.actorService.authEdit(actor, "ADMINISTRATOR")) {
-					final Administrator administrator = this.administratorService.reconstructEdit(actorEditForm);
-					this.administratorService.save(administrator);
 				}
 				res = new ModelAndView("redirect:/#");
 			} catch (final Throwable oops) {
@@ -92,5 +96,33 @@ public class ActorController extends AbstractController {
 		return res;
 	}
 	//JAVI
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
+	public ModelAndView saveAdmin(@Valid final AdministratorEditForm administratorEditForm, final BindingResult binding) {
+		ModelAndView res;
+		if (binding.hasErrors()) {
+			res = new ModelAndView("actor/edit");
+			res.addObject("actorEditForm", administratorEditForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			res.addObject("lang", lang);
+
+		} else
+			try {
+				final Administrator administrator = this.administratorService.reconstructEdit(administratorEditForm);
+				this.administratorService.save(administrator);
+
+				res = new ModelAndView("redirect:/#");
+			} catch (final Throwable oops) {
+				res = new ModelAndView("actor/edit");
+				final Locale l = LocaleContextHolder.getLocale();
+				final String lang = l.getLanguage();
+				res.addObject("lang", lang);
+
+				res.addObject("requestURI", "actor/edit.do");
+				res.addObject("message", "actor.commit.error");
+			}
+		return res;
+	}
 
 }

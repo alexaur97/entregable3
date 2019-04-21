@@ -54,7 +54,7 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 
 	@Query("select p from Position p where p.deadline <= ?1 ")
 	Collection<Position> searchPositionsDeadline(Date deadline);
-	@Query("select p from Position p where p.mode='FINAL' and p.cancelled is false and p.company.banned is false")
-	Collection<Position> findPositionsFinal();
+	@Query("select p from Position p where p.mode='FINAL' and p.cancelled is false and p.company.banned is false and p.deadline >= ?1")
+	Collection<Position> findPositionsFinal(Date deadline);
 
 }

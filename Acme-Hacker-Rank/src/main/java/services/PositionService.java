@@ -282,7 +282,8 @@ public class PositionService {
 		return res;
 	}
 	public Collection<Position> findPositionsFinal() {
-		final Collection<Position> result = this.positionRepository.findPositionsFinal();
+		final Date date = new Date();
+		final Collection<Position> result = this.positionRepository.findPositionsFinal(date);
 		return result;
 	}
 }

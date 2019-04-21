@@ -16,9 +16,10 @@ import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Administrator;
 import domain.CreditCard;
-import forms.ActorEditForm;
+import forms.AdministratorEditForm;
 import forms.AdministratorRegisterForm;
 
 @Service
@@ -131,13 +132,7 @@ public class AdministratorService {
 		result.setSurnames(r.getSurnames());
 		result.setPhoto(r.getPhoto());
 		result.setEmail(r.getEmail());
-		final String phoneNumber = r.getPhone();
-		final Boolean b = this.actorService.validateCountryCode(phoneNumber);
-		final String countryCode = this.configurationParametersService.find().getCountryCode();
-		if (b)
-			result.setPhone(countryCode + " " + phoneNumber);
-		else
-			result.setPhone(phoneNumber);
+		result.setPhone(this.actorService.addCountryCode(r.getPhone()));
 		result.setAddress(r.getAddress());
 
 		result.setBanned(false);
@@ -158,17 +153,29 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Administrator reconstructEdit(final ActorEditForm actorEditForm) {
+	public Administrator reconstructEdit(final AdministratorEditForm administratorEditForm) {
 		final Administrator res;
 		res = this.findByPrincipal();
-		res.setName(actorEditForm.getName());
-		res.setVAT(actorEditForm.getVAT());
-		res.setSurnames(actorEditForm.getSurnames());
-		res.setPhoto(actorEditForm.getPhoto());
-		res.setEmail(actorEditForm.getEmail());
-		res.setPhone(actorEditForm.getPhone());
-		res.setAddress(actorEditForm.getAddress());
+		res.setName(administratorEditForm.getName());
+		res.setVAT(administratorEditForm.getVAT());
+		res.setSurnames(administratorEditForm.getSurnames());
+		res.setPhoto(administratorEditForm.getPhoto());
+		res.setEmail(administratorEditForm.getEmail());
+		res.setPhone(this.actorService.addCountryCode(administratorEditForm.getPhone()));
+		res.setAddress(administratorEditForm.getAddress());
 		Assert.notNull(res);
+		return res;
+	}
+
+	public AdministratorEditForm toForm(final Actor actor) {
+		final AdministratorEditForm res = new AdministratorEditForm();
+		res.setName(actor.getName());
+		res.setSurnames(actor.getSurnames());
+		res.setVAT(actor.getVAT());
+		res.setPhoto(actor.getPhoto());
+		res.setEmail(actor.getEmail());
+		res.setPhone(actor.getPhone());
+		res.setAddress(actor.getAddress());
 		return res;
 	}
 
