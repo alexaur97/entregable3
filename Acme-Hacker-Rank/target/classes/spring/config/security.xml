@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- * security.xml * * Copyright (C) 2019 Universidad de Sevilla * * The
-	use of this project is hereby constrained to the conditions of the * TDG
+<!-- * security.xml * * Copyright (C) 2019 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
 	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -48,6 +48,8 @@
 		<security:intercept-url pattern="/stats/administrator/display.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/edit.do" access="hasRole('ADMINISTRATOR')" />
+				<security:intercept-url pattern="/message/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
+		
 		<security:intercept-url pattern="/position/company/myList.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/create.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/edit.do" access="hasRole('COMPANY')" />
@@ -57,7 +59,6 @@
 		
 		
 		<security:intercept-url pattern="/finder/hacker/**" access="hasRole('HACKER')" />
-
 		<security:intercept-url pattern="/stats/administrator/display.do"
 			access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/create.do"
@@ -67,13 +68,11 @@
 		<security:intercept-url pattern="/position/company/**"
 			access="hasRole('COMPANY')" />
 
+
 		<security:intercept-url pattern="/finder/hacker/**"
 			access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/personalData/hacker/**"
 			access="hasRole('HACKER')" />
-
-		<security:intercept-url pattern="/stats/administrator/display.do"
-			access="hasRole('ADMINISTRATOR')" />
 
 		<security:intercept-url pattern="/profile/action-1.do"
 			access="isAuthenticated()" />
@@ -99,10 +98,9 @@
 
 		<security:intercept-url pattern="/problem/company/**"
 			access="hasRole('COMPANY')" />
-
-			<security:intercept-url pattern="/application/company/**"
+		<security:intercept-url pattern="/application/company/**"
 			access="hasRole('COMPANY')" />
-			<security:intercept-url pattern="/application/hacker/**"
+		<security:intercept-url pattern="/application/hacker/**"
 			access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/position/list.do"
 			access="permitAll" />
