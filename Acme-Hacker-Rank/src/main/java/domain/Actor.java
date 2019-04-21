@@ -129,7 +129,7 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotNull
-	public Boolean isBanned() {
+	public Boolean getBanned() {
 		return this.banned;
 	}
 

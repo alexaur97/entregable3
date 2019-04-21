@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 import repositories.ApplicationRepository;
 import domain.Application;
 import domain.Company;
+import domain.Curriculum;
 import domain.Problem;
 
 @Service
@@ -29,6 +30,8 @@ public class ApplicationService {
 	private HackerService			hackerService;
 	@Autowired
 	private ProblemService			problemService;
+	@Autowired
+	private CurriculumService		curriculumService;
 	@Autowired
 	private Validator				validator;
 
@@ -132,6 +135,8 @@ public class ApplicationService {
 		return result;
 	}
 	public Application recostructionCreate(final Application application, final BindingResult binding) {
+		final Curriculum curriculumCopy = this.curriculumService.copyCurriculum(application.getCurriculum());
+		application.setCurriculum(curriculumCopy);
 		application.setHacker(this.hackerService.findByPrincipal());
 		final Date moment = new Date();
 		application.setMoment(moment);

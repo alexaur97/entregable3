@@ -94,7 +94,7 @@ public class PositionController {
 		try {
 			Assert.notNull(positionId);
 			position = this.positionService.findOne(positionId);
-			if (position.getCompany().isBanned()) {
+			if (position.getCompany().getBanned()) {
 				final Authority auth = new Authority();
 				auth.setAuthority(Authority.ADMINISTRATOR);
 				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
