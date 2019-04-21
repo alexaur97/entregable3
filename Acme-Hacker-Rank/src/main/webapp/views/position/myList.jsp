@@ -35,7 +35,7 @@
 		property="mode" />
 		
 	<display:column titleKey="position.showPosition">
-		<acme:cancel url="/position/show.do?positionId=${position.id}"
+		<acme:cancel url="/position/company/show.do?positionId=${position.id}"
 			code="position.show" />
 	</display:column>
 	<display:column titleKey="position.company">

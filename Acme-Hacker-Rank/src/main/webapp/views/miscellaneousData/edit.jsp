@@ -26,18 +26,16 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="positionData/hacker/edit.do?curriculumId=${curriculum.id}"
-					modelAttribute="positionData" class="form-horizontal" method="post">
+				<form:form action="miscellaneousData/hacker/edit.do?curriculumId=${curriculum.id}"
+					modelAttribute="miscellaniusData" class="form-horizontal" method="post">
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
 						<form:hidden path="version"/>
 								
-						<acme:textbox code="positionData.title" path="title" />
-						<acme:textarea code="positionData.description" path="description" />
-						<acme:textbox placeholder="dd/MM/yyyy" code="positionData.startDate" path="startDate" />
-						<acme:textbox placeholder="dd/MM/yyyy" code="positionData.endDate" path="endDate" />
-					
+						<acme:textbox code="miscellaneousData.text" path="text" />
+						<acme:textbox code="miscellaneousData.attachments" path="attachments" />
+						<spring:message code = "miscellaneousData.message.comma"/>
 						
 						
 						<br>
@@ -46,13 +44,13 @@
 					
 		
 						
-						<acme:submit name="save" code="positionData.save" />
-						<jstl:if test="${positionData.id!=0}">
-							<acme:submitConfirmation name="delete" code="positionData.delete"
-								onclick="positionData.delete.confirmation" />
+						<acme:submit name="save" code="miscellaneousData.save" />
+						<jstl:if test="${miscellaniusData.id!=0}">
+							<acme:submitConfirmation name="delete" code="miscellaneousData.delete"
+								onclick="miscellaneousData.delete.confirmation" />
 						</jstl:if>
 						<acme:cancel url="/curriculum/hacker/show.do?curriculumId=${curriculum.id}"
-							code="positionData.cancel" />
+							code="miscellaneousData.cancel" />
 					</div>
 				</form:form>
 			</fieldset>

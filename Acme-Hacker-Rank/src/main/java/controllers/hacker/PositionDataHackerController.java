@@ -3,11 +3,12 @@ package controllers.hacker;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,17 +35,20 @@ public class PositionDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
 
 		ModelAndView result;
 		PositionData positionData;
 		positionData = this.positionDataService.create();
+		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
 			this.hackerService.findByPrincipal();
 			positionData.setId(0);
 
-			result = this.createEditModelAndView(positionData);
+			result = new ModelAndView("positionData/edit");
+			result.addObject("positionData", positionData);
+			result.addObject("curriculum", c);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -74,22 +78,27 @@ public class PositionDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("positionData") final PositionData positionData, final BindingResult binding) {
+	public ModelAndView save(@Valid final PositionData positionData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(positionData);
 		else
 			try {
+				Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 				this.positionDataService.save(positionData);
 
-				if (positionData.getId() == 0)
-					this.curriculumService.savePositionData(positionData);
-
+				if (positionData.getId() == 0) {
+					final Curriculum c = this.curriculumService.findOne(curriculumId);
+					this.curriculumService.savePositionData(positionData, c);
+				}
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
+
+				if (positionData.getStartDate().after(positionData.getEndDate()))
+					res = this.createEditModelAndView(positionData, "positionData.error.date2");
 
 				res = this.createEditModelAndView(positionData, "positionData.commit.error");
 
@@ -97,7 +106,6 @@ public class PositionDataHackerController {
 
 		return res;
 	}
-
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final PositionData positionData, final BindingResult binding) {
 		ModelAndView result;
@@ -126,11 +134,35 @@ public class PositionDataHackerController {
 	}
 	protected ModelAndView createEditModelAndView(final PositionData positionData, final String messageCode) {
 		final ModelAndView res;
+		final Curriculum cu = this.curriculumService.findByPositionData(positionData.getId());
+
 		res = new ModelAndView("positionData/edit");
 		res.addObject("positionData", positionData);
 		res.addObject("message", messageCode);
+		res.addObject("curriculum", cu);
 
 		return res;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int positionDataId) {
+		ModelAndView result;
+		final PositionData positionData;
+
+		try {
+			this.hackerService.findByPrincipal();
+			Assert.notNull(positionDataId);
+			positionData = this.positionDataService.findOne(positionDataId);
+			final Curriculum cu = this.curriculumService.findByPositionData(positionData.getId());
+
+			result = new ModelAndView("positionData/show");
+			result.addObject("positionData", positionData);
+			result.addObject("curriculum", cu);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
 	}
 
 }

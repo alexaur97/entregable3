@@ -3,11 +3,12 @@ package controllers.hacker;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,17 +35,20 @@ public class MiscellaneousDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
 
 		ModelAndView result;
 		MiscellaniusData miscellaneousData;
 		miscellaneousData = this.miscellaneousDataService.create();
+		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
 			this.hackerService.findByPrincipal();
 			miscellaneousData.setId(0);
 
-			result = this.createEditModelAndView(miscellaneousData);
+			result = new ModelAndView("miscellaneousData/edit");
+			result.addObject("miscellaniusData", miscellaneousData);
+			result.addObject("curriculum", c);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -74,7 +78,7 @@ public class MiscellaneousDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("miscellaneousData") final MiscellaniusData miscellaneousData, final BindingResult binding) {
+	public ModelAndView save(@Valid final MiscellaniusData miscellaneousData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
@@ -84,8 +88,10 @@ public class MiscellaneousDataHackerController {
 
 				this.miscellaneousDataService.save(miscellaneousData);
 
-				if (miscellaneousData.getId() == 0)
-					this.curriculumService.saveMiscellaneousData(miscellaneousData);
+				if (miscellaneousData.getId() == 0) {
+					final Curriculum c = this.curriculumService.findOne(curriculumId);
+					this.curriculumService.saveMiscellaneousData(miscellaneousData, c);
+				}
 
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
@@ -121,14 +127,40 @@ public class MiscellaneousDataHackerController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int miscellaneousDataId) {
+		ModelAndView result;
+		final MiscellaniusData miscellaneousData;
+
+		try {
+			this.hackerService.findByPrincipal();
+			Assert.notNull(miscellaneousDataId);
+			miscellaneousData = this.miscellaneousDataService.findOne(miscellaneousDataId);
+
+			final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
+
+			result = new ModelAndView("miscellaneousData/show");
+			result.addObject("miscellaniusData", miscellaneousData);
+			result.addObject("curriculum", cu);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaneousData) {
 		return this.createEditModelAndView(miscellaneousData, null);
 	}
 	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaneousData, final String messageCode) {
 		final ModelAndView res;
+		final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
+
 		res = new ModelAndView("miscellaneousData/edit");
-		res.addObject("miscellaneousData", miscellaneousData);
+		res.addObject("miscellaniusData", miscellaneousData);
 		res.addObject("message", messageCode);
+		res.addObject("curriculum", cu);
 
 		return res;
 	}
