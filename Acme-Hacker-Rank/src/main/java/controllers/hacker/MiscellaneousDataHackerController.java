@@ -133,8 +133,11 @@ public class MiscellaneousDataHackerController {
 			Assert.notNull(miscellaneousDataId);
 			miscellaneousData = this.miscellaneousDataService.findOne(miscellaneousDataId);
 
+			final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
+
 			result = new ModelAndView("miscellaneousData/show");
 			result.addObject("miscellaneousData", miscellaneousData);
+			result.addObject("curriculum", cu);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -147,9 +150,12 @@ public class MiscellaneousDataHackerController {
 	}
 	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaneousData, final String messageCode) {
 		final ModelAndView res;
+		final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
+
 		res = new ModelAndView("miscellaneousData/edit");
 		res.addObject("miscellaneousData", miscellaneousData);
 		res.addObject("message", messageCode);
+		res.addObject("curriculum", cu);
 
 		return res;
 	}

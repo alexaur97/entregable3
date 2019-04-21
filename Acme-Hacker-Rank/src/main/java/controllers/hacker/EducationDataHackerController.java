@@ -135,12 +135,16 @@ public class EducationDataHackerController {
 		final EducationData educationData;
 
 		try {
+
 			this.hackerService.findByPrincipal();
 			Assert.notNull(educationDataId);
 			educationData = this.educationDataService.findOne(educationDataId);
 
+			final Curriculum cu = this.curriculumService.findByEducationData(educationData);
+
 			result = new ModelAndView("educationData/show");
 			result.addObject("educationData", educationData);
+			result.addObject("curriculum", cu);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -153,9 +157,12 @@ public class EducationDataHackerController {
 	}
 	protected ModelAndView createEditModelAndView(final EducationData educationData, final String messageCode) {
 		final ModelAndView res;
+		final Curriculum cu = this.curriculumService.findByEducationData(educationData);
+
 		res = new ModelAndView("educationData/edit");
 		res.addObject("educationData", educationData);
 		res.addObject("message", messageCode);
+		res.addObject("curriculum", cu);
 
 		return res;
 	}

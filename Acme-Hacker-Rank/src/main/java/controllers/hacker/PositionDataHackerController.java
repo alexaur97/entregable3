@@ -137,9 +137,12 @@ public class PositionDataHackerController {
 	}
 	protected ModelAndView createEditModelAndView(final PositionData positionData, final String messageCode) {
 		final ModelAndView res;
+		final Curriculum cu = this.curriculumService.findByPositionData(positionData.getId());
+
 		res = new ModelAndView("positionData/edit");
 		res.addObject("positionData", positionData);
 		res.addObject("message", messageCode);
+		res.addObject("curriculum", cu);
 
 		return res;
 	}
@@ -153,9 +156,11 @@ public class PositionDataHackerController {
 			this.hackerService.findByPrincipal();
 			Assert.notNull(positionDataId);
 			positionData = this.positionDataService.findOne(positionDataId);
+			final Curriculum cu = this.curriculumService.findByPositionData(positionData.getId());
 
 			result = new ModelAndView("positionData/show");
 			result.addObject("positionData", positionData);
+			result.addObject("curriculum", cu);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

@@ -52,7 +52,7 @@
 							<acme:submitConfirmation name="delete" code="educationData.delete"
 								onclick="educationData.delete.confirmation" />
 						</jstl:if>
-						<acme:cancel url="/curriculum/hacker/list.do"
+						<acme:cancel url="/curriculum/hacker/show.do?curriculumId=${curriculum.id}"
 							code="educationData.cancel" />
 					</div>
 				</form:form>

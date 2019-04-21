@@ -35,7 +35,7 @@
 <acme:button
 	url="educationData/hacker/edit.do?educationDataId=${educationData.id}"
 	code="educationData.edit" />
-<acme:button url="curriculum/hacker/list.do" code="educationData.back" />
+<acme:button url="/curriculum/hacker/show.do?curriculumId=${curriculum.id}" code="educationData.back" />
 
 
 	

@@ -33,7 +33,7 @@
 <acme:button
 	url="miscellaneousData/hacker/edit.do?miscellaneousDataId=${miscellaneousData.id}"
 	code="miscellaneousData.edit" />
-<acme:button url="curriculum/hacker/list.do" code="miscellaneousData.back" />
+<acme:button url="curriculum/hacker/show.do?curriculumId=${curriculum.id}" code="miscellaneousData.back" />
 
 
 	
