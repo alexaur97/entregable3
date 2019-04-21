@@ -31,6 +31,7 @@
 	<acme:textbox code="actor.phone" path="phone" />
 	<acme:textbox code="actor.address" path="address" />
 	<br />
+	<security:authorize access="hasAnyRole('HACKER','COMPANY')">
 	<jstl:choose>
 		<jstl:when test="${lang eq 'en'}">
 			<button type="submit" onclick="return validatePhoneNumber()" name="save">
@@ -43,6 +44,22 @@
 			</button>
 		</jstl:otherwise>
 	</jstl:choose>
+	</security:authorize>
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+	<jstl:choose>
+		<jstl:when test="${lang eq 'en'}">
+			<button type="submit" onclick="return validatePhoneNumber()" name="saveAdmin">
+				<spring:message code="actor.save" />
+			</button>
+		</jstl:when>
+		<jstl:otherwise>
+			<button type="submit" onclick="return validatePhoneNumberEs()" name="saveAdmin">
+				<spring:message code="actor.save" />
+			</button>
+		</jstl:otherwise>
+	</jstl:choose>
+	</security:authorize>
+	
 	<acme:cancel url="/#" code="actor.cancel" />
 	<script type="text/javascript">
 		function validatePhoneNumber() {
