@@ -50,7 +50,8 @@
 		<security:intercept-url pattern="/stats/administrator/display.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/edit.do" access="hasRole('ADMINISTRATOR')" />
-				<security:intercept-url pattern="/message/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/message/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/spam/administrator/spammer.do" access="hasRole('ADMINISTRATOR')" />
 		
 		<security:intercept-url pattern="/position/company/myList.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/create.do" access="hasRole('COMPANY')" />

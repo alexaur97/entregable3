@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
-import services.AdministratorService;
 import controllers.AbstractController;
 
 @Controller
@@ -16,10 +15,7 @@ import controllers.AbstractController;
 public class SpamAdministratorController extends AbstractController {
 
 	@Autowired
-	private ActorService			actorService;
-
-	@Autowired
-	private AdministratorService	administratorService;
+	private ActorService	actorService;
 
 
 	@RequestMapping(value = "/spammer", method = RequestMethod.GET)
@@ -29,7 +25,7 @@ public class SpamAdministratorController extends AbstractController {
 		try {
 
 			this.actorService.isSpammer();
-			result = new ModelAndView("spammer/spammer");
+			result = new ModelAndView("stats/display");
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

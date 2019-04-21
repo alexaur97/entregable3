@@ -171,3 +171,6 @@
 	</tr>
 </table>
 
+<acme:cancel url="/spam/administrator/spammer.do"
+							code="stats.spammer" />
+

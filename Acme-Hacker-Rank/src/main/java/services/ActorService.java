@@ -3,9 +3,6 @@ package services;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 import javax.transaction.Transactional;
 
@@ -18,8 +15,8 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Message;
 import domain.ConfigurationParameters;
+import domain.Message;
 import forms.ActorEditForm;
 
 @Service
@@ -33,7 +30,7 @@ public class ActorService {
 	private ConfigurationParametersService	configurationParametersService;
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageService					messageService;
 
 
 	public Actor save(final Actor a) {
@@ -125,7 +122,12 @@ public class ActorService {
 
 			final Collection<Message> messages = this.messageService.findSender(actorId);
 			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
-			if (messagesSpam.size() / messages.size() > 10)
+			final double m = messages.size();
+			final double ms = messagesSpam.size();
+			final double calculo = ((double) messagesSpam.size() / messages.size());
+			if (messages.isEmpty())
+				actores.get(i).setSpammer(false);
+			else if (calculo > 0.10)
 				actores.get(i).setSpammer(true);
 			else
 				actores.get(i).setSpammer(false);
