@@ -35,17 +35,20 @@ public class MiscellaneousDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
 
 		ModelAndView result;
 		MiscellaniusData miscellaneousData;
 		miscellaneousData = this.miscellaneousDataService.create();
+		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
 			this.hackerService.findByPrincipal();
 			miscellaneousData.setId(0);
 
-			result = this.createEditModelAndView(miscellaneousData);
+			result = new ModelAndView("miscellaneousData/edit");
+			result.addObject("miscellaniusData", miscellaneousData);
+			result.addObject("curriculum", c);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -75,7 +78,7 @@ public class MiscellaneousDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final MiscellaniusData miscellaneousData, final BindingResult binding) {
+	public ModelAndView save(@Valid final MiscellaniusData miscellaneousData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
@@ -85,8 +88,10 @@ public class MiscellaneousDataHackerController {
 
 				this.miscellaneousDataService.save(miscellaneousData);
 
-				if (miscellaneousData.getId() == 0)
-					this.curriculumService.saveMiscellaneousData(miscellaneousData);
+				if (miscellaneousData.getId() == 0) {
+					final Curriculum c = this.curriculumService.findOne(curriculumId);
+					this.curriculumService.saveMiscellaneousData(miscellaneousData, c);
+				}
 
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
@@ -136,7 +141,7 @@ public class MiscellaneousDataHackerController {
 			final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
 
 			result = new ModelAndView("miscellaneousData/show");
-			result.addObject("miscellaneousData", miscellaneousData);
+			result.addObject("miscellaniusData", miscellaneousData);
 			result.addObject("curriculum", cu);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -153,7 +158,7 @@ public class MiscellaneousDataHackerController {
 		final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
 
 		res = new ModelAndView("miscellaneousData/edit");
-		res.addObject("miscellaneousData", miscellaneousData);
+		res.addObject("miscellaniusData", miscellaneousData);
 		res.addObject("message", messageCode);
 		res.addObject("curriculum", cu);
 

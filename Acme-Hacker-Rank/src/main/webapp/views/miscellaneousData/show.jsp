@@ -21,17 +21,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<spring:message code="miscellaneousData.text"/>: <jstl:out value="${miscellaneousData.text}"></jstl:out>
+<spring:message code="miscellaneousData.text"/>: <jstl:out value="${miscellaniusData.text}"></jstl:out>
 <br/>
 <spring:message code="miscellaneousData.attachments"/>:
 <ul>
-<jstl:forEach items="${miscellaneousData.attachments}" var="x">
+<jstl:forEach items="${miscellaniusData.attachments}" var="x">
 <li><a href="${x}"><jstl:out value="${x}"/></a></li>
 </jstl:forEach>
 </ul>
 
 <acme:button
-	url="miscellaneousData/hacker/edit.do?miscellaneousDataId=${miscellaneousData.id}"
+	url="miscellaneousData/hacker/edit.do?miscellaneousDataId=${miscellaniusData.id}"
 	code="miscellaneousData.edit" />
 <acme:button url="curriculum/hacker/show.do?curriculumId=${curriculum.id}" code="miscellaneousData.back" />
 

@@ -55,7 +55,9 @@
 			code="curriculum.show" />
 	</display:column>
 </display:table>
-
+<acme:button url="/educationData/hacker/create.do?curriculumId=${curriculum.id}"
+			code="curriculum.create2" />
+<br>
 <h4><spring:message code="curriculum.miscellaniusData"/>:</h4>
 
 <display:table name="miscellaniusDatas" id="miscellaniusData"
@@ -69,7 +71,9 @@
 			code="curriculum.show" />
 	</display:column>
 </display:table>
-
+<acme:button url="/miscellaneousData/hacker/create.do?curriculumId=${curriculum.id}"
+			code="curriculum.create2" />
+<br>
 <h4><spring:message code="curriculum.positionData"/>:</h4>
 
 <display:table name="positionDatas" id="positionData"
@@ -87,12 +91,14 @@
 		<acme:button url="/positionData/hacker/show.do?positionDataId=${positionData.id}"
 			code="curriculum.show" />
 	</display:column>
-	
-	<acme:button
-	url="positionData/hacker/edit.do?positionDataId=${positionData.id}"
-	code="curriculum.edit" />
+
 	
 </display:table>
+	<acme:button url="/positionData/hacker/create.do?curriculumId=${curriculum.id}"
+			code="curriculum.create2" />
+<br>
+<br>
+<br>
 
 <acme:button
 	url="curriculum/hacker/edit.do?curriculumId=${curriculum.id}"

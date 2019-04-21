@@ -26,8 +26,8 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="miscellaneousData/hacker/edit.do"
-					modelAttribute="miscellaneousData" class="form-horizontal" method="post">
+				<form:form action="miscellaneousData/hacker/edit.do?curriculumId=${curriculum.id}"
+					modelAttribute="miscellaniusData" class="form-horizontal" method="post">
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
@@ -45,7 +45,7 @@
 		
 						
 						<acme:submit name="save" code="miscellaneousData.save" />
-						<jstl:if test="${miscellaneousData.id!=0}">
+						<jstl:if test="${miscellaniusData.id!=0}">
 							<acme:submitConfirmation name="delete" code="miscellaneousData.delete"
 								onclick="miscellaneousData.delete.confirmation" />
 						</jstl:if>

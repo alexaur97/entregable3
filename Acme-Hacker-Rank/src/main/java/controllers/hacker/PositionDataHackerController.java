@@ -2,7 +2,6 @@
 package controllers.hacker;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -36,17 +35,20 @@ public class PositionDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
 
 		ModelAndView result;
 		PositionData positionData;
 		positionData = this.positionDataService.create();
+		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
 			this.hackerService.findByPrincipal();
 			positionData.setId(0);
 
-			result = this.createEditModelAndView(positionData);
+			result = new ModelAndView("positionData/edit");
+			result.addObject("positionData", positionData);
+			result.addObject("curriculum", c);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -76,30 +78,26 @@ public class PositionDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final PositionData positionData, final BindingResult binding) {
+	public ModelAndView save(@Valid final PositionData positionData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(positionData);
 		else
 			try {
-				final Date date = new Date();
-				Assert.isTrue(positionData.getEndDate().after(date));
 				Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 				this.positionDataService.save(positionData);
 
-				if (positionData.getId() == 0)
-					this.curriculumService.savePositionData(positionData);
-
+				if (positionData.getId() == 0) {
+					final Curriculum c = this.curriculumService.findOne(curriculumId);
+					this.curriculumService.savePositionData(positionData, c);
+				}
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
 
-				if (!positionData.getEndDate().after(new Date()))
-					res = this.createEditModelAndView(positionData, "positionData.error.date");
-
-				else if (positionData.getStartDate().after(positionData.getEndDate()))
+				if (positionData.getStartDate().after(positionData.getEndDate()))
 					res = this.createEditModelAndView(positionData, "positionData.error.date2");
 
 				res = this.createEditModelAndView(positionData, "positionData.commit.error");
@@ -108,7 +106,6 @@ public class PositionDataHackerController {
 
 		return res;
 	}
-
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final PositionData positionData, final BindingResult binding) {
 		ModelAndView result;

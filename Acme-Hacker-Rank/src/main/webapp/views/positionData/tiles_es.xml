@@ -18,5 +18,9 @@
 		<put-attribute name="body" value="/views/positionData/show.jsp" />
 	</definition>
 	
+		<definition name="positionData/create" extends="master.page">
+		<put-attribute name="title" value="Datos de la Posicion" />
+		<put-attribute name="body" value="/views/positionData/edit.jsp" />
+	</definition>
 </tiles-definitions>
 	

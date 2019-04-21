@@ -35,17 +35,21 @@ public class EducationDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
 
 		ModelAndView result;
 		EducationData educationData;
 		educationData = this.educationDataService.create();
+		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
+
 			this.hackerService.findByPrincipal();
 			educationData.setId(0);
 
-			result = this.createEditModelAndView(educationData);
+			result = new ModelAndView("educationData/edit");
+			result.addObject("educationData", educationData);
+			result.addObject("curriculum", c);
 
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -66,7 +70,7 @@ public class EducationDataHackerController {
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 			final Curriculum curriculum = this.curriculumService.findByEducationData(educationData);
 			Assert.isTrue(curriculums.contains(curriculum));
-			res = this.createEditModelAndView(educationData);
+			res = this.createEditModelAndView(educationData, null);
 
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -75,11 +79,12 @@ public class EducationDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final EducationData educationData, final BindingResult binding) {
+	public ModelAndView save(@Valid final EducationData educationData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
 		ModelAndView res;
+		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(educationData);
+			res = this.createEditModelAndView(educationData, c);
 		else
 			try {
 
@@ -88,17 +93,16 @@ public class EducationDataHackerController {
 				this.educationDataService.save(educationData);
 
 				if (educationData.getId() == 0)
-					this.curriculumService.saveEducationData(educationData);
-
+					this.curriculumService.saveEducationData(educationData, c);
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
 
 				if (educationData.getStartDate().after(educationData.getEndDate()))
-					res = this.createEditModelAndView(educationData, "educationData.error.date2");
+					res = this.createEditModelAndView(educationData, "educationData.error.date2", c);
 
 				else
-					res = this.createEditModelAndView(educationData, "educationData.commit.error");
+					res = this.createEditModelAndView(educationData, "educationData.commit.error", c);
 
 			}
 
@@ -117,7 +121,7 @@ public class EducationDataHackerController {
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(ed, oops.getMessage());
+			result = this.createEditModelAndView(ed, oops.getMessage(), null);
 
 			final String msg = oops.getMessage();
 			if (msg.equals("educationDatacannotDelete")) {
@@ -152,17 +156,17 @@ public class EducationDataHackerController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final EducationData educationData) {
-		return this.createEditModelAndView(educationData, null);
+	protected ModelAndView createEditModelAndView(final EducationData educationData, final Curriculum c) {
+		return this.createEditModelAndView(educationData, null, c);
 	}
-	protected ModelAndView createEditModelAndView(final EducationData educationData, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final EducationData educationData, final String messageCode, Curriculum c) {
 		final ModelAndView res;
-		final Curriculum cu = this.curriculumService.findByEducationData(educationData);
-
+		if (c.equals(null))
+			c = this.curriculumService.findByEducationData(educationData);
 		res = new ModelAndView("educationData/edit");
 		res.addObject("educationData", educationData);
 		res.addObject("message", messageCode);
-		res.addObject("curriculum", cu);
+		res.addObject("curriculum", c);
 
 		return res;
 	}

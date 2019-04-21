@@ -26,7 +26,7 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="positionData/hacker/edit.do"
+				<form:form action="positionData/hacker/edit.do?curriculumId=${curriculum.id}"
 					modelAttribute="positionData" class="form-horizontal" method="post">
 					<div class="form-group ">
 
