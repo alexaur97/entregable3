@@ -206,10 +206,13 @@ public class MessageService {
 		final String[] mensaje = message.getBody().trim().split(" ");
 		final List<String> lista = Arrays.asList(mensaje);
 
+		final String[] titulo = message.getSubject().trim().split(" ");
+		final List<String> list = Arrays.asList(titulo);
+
 		final List<String> sw = this.spamwords(spamwords);
 
 		for (int j = 0; j < lista.size(); j++)
-			if (sw.contains(lista.get(j))) {
+			if (sw.contains(lista.get(j)) || sw.contains(list.get(j))) {
 				message.setSpam(true);
 				final Collection<String> tags = new ArrayList<>();
 				tags.add("SPAM");

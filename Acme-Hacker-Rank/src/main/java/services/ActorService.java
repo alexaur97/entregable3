@@ -125,8 +125,6 @@ public class ActorService {
 
 			final Collection<Message> messages = this.messageService.findSender(actorId);
 			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
-			final double m = messages.size();
-			final double ms = messagesSpam.size();
 			final double calculo = ((double) messagesSpam.size() / messages.size());
 			if (messages.isEmpty())
 				actores.get(i).setSpammer(false);
