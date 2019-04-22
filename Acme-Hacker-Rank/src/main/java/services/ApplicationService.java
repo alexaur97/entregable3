@@ -34,6 +34,8 @@ public class ApplicationService {
 	@Autowired
 	private CurriculumService		curriculumService;
 	@Autowired
+	private MessageService			messageService;
+	@Autowired
 	private Validator				validator;
 
 
@@ -72,8 +74,9 @@ public class ApplicationService {
 
 	public void save(final Application application) {
 		Assert.notNull(application);
-
-		this.applicationRepository.saveAndFlush(application);
+		if (application.getId() != 0)
+			this.messageService.changedStatus(application.getProblem().getCompany());
+		this.applicationRepository.save(application);
 	}
 	public Application saveCompany(final Application application) {
 		final Application result;
@@ -81,6 +84,7 @@ public class ApplicationService {
 		final Company company = this.companyService.findByPrincipal();
 		Assert.isTrue(company.equals(application.getPosition().getCompany()));
 		result = this.applicationRepository.save(application);
+		this.messageService.changedStatus(application.getHacker());
 		return result;
 
 	}
