@@ -33,7 +33,16 @@
 			<jstl:if test="${ac.banned}">
 			<acme:cancel url="/actor/administrador/unban.do?actorId=${ac.id}" code="actor.unban" />
 		</jstl:if>
-	</display:column>	
+	</display:column>
+	<display:column titleKey="actor.spammer">
+			<jstl:if test="${ac.spammer}">
+			<h3 style="color: #CB3234;"><spring:message code="actor.spam"/></h3>
+		</jstl:if>
+		<jstl:if test="${!ac.spammer}">
+			<h3 style="color: #008000;"><spring:message code="actor.nospam"/></h3>
+		</jstl:if>
+		
+	</display:column>		
 	
 		
 </display:table>
