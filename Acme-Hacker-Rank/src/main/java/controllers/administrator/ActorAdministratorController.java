@@ -42,8 +42,8 @@ public class ActorAdministratorController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView ban(@RequestParam final int actorId) {
+	@RequestMapping(value = "/banned", method = RequestMethod.GET)
+	public ModelAndView banned(@RequestParam final int actorId) {
 		ModelAndView result;
 		final Collection<Actor> actors;
 		try {
@@ -60,8 +60,8 @@ public class ActorAdministratorController extends AbstractController {
 		}
 		return result;
 	}
-	@RequestMapping(value = "/unban", method = RequestMethod.GET)
-	public ModelAndView unban(@RequestParam final int actorId) {
+	@RequestMapping(value = "/unbanned", method = RequestMethod.GET)
+	public ModelAndView unbanned(@RequestParam final int actorId) {
 		ModelAndView result;
 		final Collection<Actor> actors;
 		try {

@@ -49,7 +49,9 @@
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/edit.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/message/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
-		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/actor/administrator/list.do" access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/actor/administrator/banned.do" access="hasRole('ADMINISTRATOR')" />
+		<security:intercept-url pattern="/actor/administrator/unbanned.do" access="hasRole('ADMINISTRATOR')" />
 				
 		
 		<security:intercept-url pattern="/position/company/myList.do" access="hasRole('COMPANY')" />
