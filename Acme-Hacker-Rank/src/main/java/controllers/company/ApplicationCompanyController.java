@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,21 @@ public class ApplicationCompanyController extends AbstractController {
 	private ApplicationService	applicationService;
 
 
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int applicationId) {
+		ModelAndView result;
+		try {
+			final Company company = this.companyService.findByPrincipal();
+			final Application application = this.applicationService.findOne(applicationId);
+			Assert.isTrue(company.equals(application.getPosition().getCompany()));
+			result = new ModelAndView("application/show");
+			result.addObject("application", application);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;

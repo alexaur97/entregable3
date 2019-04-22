@@ -15,6 +15,7 @@ import repositories.ApplicationRepository;
 import domain.Application;
 import domain.Company;
 import domain.Curriculum;
+import domain.Hacker;
 import domain.Problem;
 
 @Service
@@ -72,7 +73,7 @@ public class ApplicationService {
 	public void save(final Application application) {
 		Assert.notNull(application);
 
-		this.applicationRepository.save(application);
+		this.applicationRepository.saveAndFlush(application);
 	}
 	public Application saveCompany(final Application application) {
 		final Application result;
@@ -82,6 +83,23 @@ public class ApplicationService {
 		result = this.applicationRepository.save(application);
 		return result;
 
+	}
+	public void saveHacker(final Application application) {
+		Assert.notNull(application);
+		final Hacker hacker = this.hackerService.findByPrincipal();
+		Assert.isTrue(application.getHacker().equals(hacker));
+		if (application.getId() == 0)
+			Assert.isTrue(application.getStatus().equals("PENDING"));
+		else {
+			Assert.isTrue(!(application.getExplanation() == null));
+			if (!(application.getExplanation() == null))
+				Assert.isTrue(!(application.getExplanation().isEmpty()));
+			Assert.isTrue(!(application.getCodeLink() == null));
+			if (!(application.getCodeLink() == null))
+				Assert.isTrue(!(application.getCodeLink().isEmpty()));
+
+		}
+		this.applicationRepository.save(application);
 	}
 
 	public void delete(final Application application) {

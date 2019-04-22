@@ -42,6 +42,21 @@ public class ApplicationHackerController extends AbstractController {
 	private CurriculumService	curriculumService;
 
 
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int applicationId) {
+		ModelAndView result;
+		try {
+			final Hacker hacker = this.hackerService.findByPrincipal();
+			final Application application = this.applicationService.findOne(applicationId);
+			Assert.isTrue(application.getHacker().equals(hacker));
+			result = new ModelAndView("application/show");
+			result.addObject("application", application);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;

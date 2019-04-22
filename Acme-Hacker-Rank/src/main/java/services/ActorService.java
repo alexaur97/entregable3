@@ -63,7 +63,10 @@ public class ActorService {
 
 		result = this.actorRepository.findOne(id);
 		Assert.notNull(result);
-		return null;
+		return result;
+	}
+	public Collection<Actor> findOthersActors(final int actorId) {
+		return this.actorRepository.findOthersActor(actorId);
 	}
 
 	public Collection<Actor> findAll() {

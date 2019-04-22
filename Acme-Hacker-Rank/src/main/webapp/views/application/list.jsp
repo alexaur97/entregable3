@@ -33,7 +33,7 @@
 	<display:column property="submitMoment" titleKey="application.submitMoment" />
 	<display:column property="status" titleKey="application.status" />
 	<display:column titleKey="problem.show">
-		<acme:button url="/application/company/show.do?appicationId=${app.id}"
+			<acme:button url="/application/company/show.do?applicationId=${app.id}"
 			code="application.show" />
 	</display:column>
 		<display:column titleKey="application.accept">
@@ -58,7 +58,7 @@
 	<display:column property="submitMoment" titleKey="application.submitMoment" />
 	<display:column property="status" titleKey="application.status" />
 	<display:column titleKey="problem.show">
-		<acme:button url="/application/hacker/show.do?appicationId=${app.id}"
+		<acme:button url="/application/hacker/show.do?applicationId=${app.id}"
 			code="application.show" />
 	</display:column>
 		<display:column titleKey="application.edit">
