@@ -54,15 +54,12 @@
 		<security:intercept-url pattern="/spam/administrator/spammer.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMINISTRATOR')" />
 				
-				<security:intercept-url pattern="/message/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		
 		<security:intercept-url pattern="/position/company/myList.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/create.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/edit.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/editMode.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/cancel.do" access="hasRole('COMPANY')" />
-
-		
 		<security:intercept-url pattern="/position/company/show.do" access="hasRole('COMPANY')" />
 		
 
@@ -98,8 +95,7 @@
 			access="hasRole('COMPANY')" />
 
 
-		<security:intercept-url pattern="/finder/hacker/**"
-			access="hasRole('HACKER')" />
+		
 		<security:intercept-url pattern="/personalData/hacker/**"
 			access="hasRole('HACKER')" />
 

@@ -34,6 +34,7 @@ public class Message extends DomainEntity {
 	public Actor				recipient;
 	public Actor				sender;
 	public Integer				owner;
+	public Boolean				copy;
 
 
 	@NotNull
@@ -96,6 +97,14 @@ public class Message extends DomainEntity {
 	}
 	public void setSpam(final Boolean spam) {
 		this.spam = spam;
+	}
+
+	@NotNull
+	public Boolean getCopy() {
+		return this.copy;
+	}
+	public void setCopy(final Boolean copy) {
+		this.copy = copy;
 	}
 
 	@NotNull

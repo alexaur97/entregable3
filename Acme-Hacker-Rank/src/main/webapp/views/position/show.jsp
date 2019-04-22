@@ -35,6 +35,9 @@
 <br/>
 <h2><spring:message code="position.company"/>:</h2>
 <a href="company/show.do?companyId=${position.company.id}"><jstl:out value="${position.company.commercialName}" /></a>
+<jstl:if test="${position.cancelled eq true}">
+<h3 style="color: #DD8833;"><spring:message code="position.cancele"/></h3>
+</jstl:if>
 
 
 

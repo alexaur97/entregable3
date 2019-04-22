@@ -1159,7 +1159,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor6" />
 		<property name="sender" ref="actor1" />
-		<property name="owner" value="526"/>
+		<property name="copy" value="true" />
+		<property name="owner" value="193"/>
 	</bean>
 	
 	<bean id="message7" class="domain.Message">
@@ -1172,7 +1173,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor6" />
 		<property name="sender" ref="actor1" />
-		<property name="owner" value="520"/>
+		<property name="owner" value="187"/>
+		<property name="copy" value="false" />
 	</bean>
 	
 	<bean id="message2" class="domain.Message">
@@ -1185,7 +1187,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor7" />
 		<property name="sender" ref="actor3" />
-		<property name="owner" value="527"/>
+		<property name="owner" value="194"/>
+		<property name="copy" value="true" />
 	</bean>
 	
 	<bean id="message8" class="domain.Message">
@@ -1198,7 +1201,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor7" />
 		<property name="sender" ref="actor3" />
-		<property name="owner" value="522"/>
+		<property name="owner" value="189"/>
+		<property name="copy" value="false" />
 	</bean>
 	
 	<bean id="message3" class="domain.Message">
@@ -1211,7 +1215,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor1" />
 		<property name="sender" ref="actor2" />
-		<property name="owner" value="520"/>
+		<property name="owner" value="187"/>
+		<property name="copy" value="true" />
 	</bean>
 	
 	<bean id="message9" class="domain.Message">
@@ -1224,7 +1229,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor1" />
 		<property name="sender" ref="actor2" />
-		<property name="owner" value="521"/>
+		<property name="owner" value="188"/>
+		<property name="copy" value="false" />
 	</bean>
 	
 	
@@ -1238,7 +1244,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor6" />
 		<property name="sender" ref="actor1" />
-		<property name="owner" value="526"/>
+		<property name="owner" value="193"/>
+		<property name="copy" value="true" />
 	</bean>
 	
 	<bean id="message10" class="domain.Message">
@@ -1251,7 +1258,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor6" />
 		<property name="sender" ref="actor1" />
-		<property name="owner" value="520"/>
+		<property name="owner" value="187"/>
+		<property name="copy" value="false" />
 	</bean>
 	
 	<bean id="message5" class="domain.Message">
@@ -1264,7 +1272,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor6" />
 		<property name="sender" ref="actor8" />
-		<property name="owner" value="526"/>
+		<property name="owner" value="193"/>
+		<property name="copy" value="true" />
 	</bean>
 	
 	<bean id="message11" class="domain.Message">
@@ -1277,7 +1286,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor6" />
 		<property name="sender" ref="actor8" />
-		<property name="owner" value="524"/>
+		<property name="owner" value="191"/>
+		<property name="copy" value="false" />
 	</bean>
 	
 	<bean id="message6" class="domain.Message">
@@ -1290,7 +1300,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor3" />
 		<property name="sender" ref="actor8" />
-		<property name="owner" value="522"/>
+		<property name="owner" value="189"/>
+		<property name="copy" value="true" />
 	</bean>
 	
 	<bean id="message12" class="domain.Message">
@@ -1303,7 +1314,8 @@
 		<property name="tags" value="" />
 		<property name="recipient" ref="actor3" />
 		<property name="sender" ref="actor8" />
-		<property name="owner" value="524"/>
+		<property name="owner" value="191"/>
+		<property name="copy" value="false" />
 	</bean>
 	
 	<!-- Spamwords -->
