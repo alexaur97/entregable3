@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -18,6 +20,7 @@ import services.CurriculumService;
 import services.HackerService;
 import services.MiscellaniusDataService;
 import domain.Curriculum;
+import domain.Hacker;
 import domain.MiscellaniusData;
 
 @Controller
@@ -35,7 +38,7 @@ public class MiscellaneousDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
+	public ModelAndView create(@RequestParam final int curriculumId) {
 
 		ModelAndView result;
 		MiscellaniusData miscellaneousData;
@@ -43,7 +46,9 @@ public class MiscellaneousDataHackerController {
 		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
-			this.hackerService.findByPrincipal();
+			final Hacker h = this.hackerService.findByPrincipal();
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
+			Assert.isTrue(curriculums.contains(c));
 			miscellaneousData.setId(0);
 
 			result = new ModelAndView("miscellaneousData/edit");
@@ -66,10 +71,11 @@ public class MiscellaneousDataHackerController {
 			final MiscellaniusData miscellaneousData = this.miscellaneousDataService.findOne(miscellaneousDataId);
 			Assert.notNull(miscellaneousData);
 			final Integer idH = this.hackerService.findByPrincipal().getId();
+
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 			final Curriculum curriculum = this.curriculumService.findByMiscellaneousData(miscellaneousData);
 			Assert.isTrue(curriculums.contains(curriculum));
-			res = this.createEditModelAndView(miscellaneousData);
+			res = this.createEditModelAndView(miscellaneousData, null, curriculum);
 
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -78,26 +84,41 @@ public class MiscellaneousDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final MiscellaniusData miscellaneousData, final BindingResult binding, @RequestParam("curriculumId") final int curriculumId) {
+	public ModelAndView save(@Valid final MiscellaniusData miscellaniusData, final BindingResult binding, @RequestParam("curriculumId") final int curriculumId) {
 		ModelAndView res;
 
-		if (binding.hasErrors())
-			res = this.createEditModelAndView(miscellaneousData);
-		else
+		if (binding.hasErrors()) {
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
+
+			res = this.createEditModelAndView(miscellaniusData, c);
+		} else
 			try {
+				final Curriculum c = this.curriculumService.findOne(curriculumId);
 
-				this.miscellaneousDataService.save(miscellaneousData);
+				final Integer idH = this.hackerService.findByPrincipal().getId();
+				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+				Assert.isTrue(curriculums.contains(c));
+				final Collection<String> attach = miscellaniusData.getAttachments();
 
-				if (miscellaneousData.getId() == 0) {
-					final Curriculum c = this.curriculumService.findOne(curriculumId);
-					this.curriculumService.saveMiscellaneousData(miscellaneousData, c);
-				}
+				Assert.isTrue(Utils.validateURL(attach));
+
+				this.miscellaneousDataService.save(miscellaniusData);
+
+				if (miscellaniusData.getId() == 0)
+					this.curriculumService.saveMiscellaneousData(miscellaniusData, c);
 
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
 
-				res = this.createEditModelAndView(miscellaneousData, "miscellaneousData.commit.error");
+				final Curriculum c = this.curriculumService.findOne(curriculumId);
+				final Collection<String> attach = miscellaniusData.getAttachments();
+
+				if (!Utils.validateURL(attach))
+					res = this.createEditModelAndView(miscellaniusData, "miscellaneousData.commit.errorURL", c);
+
+				else
+					res = this.createEditModelAndView(miscellaniusData, "miscellaneousData.commit.error", c);
 
 			}
 
@@ -116,7 +137,7 @@ public class MiscellaneousDataHackerController {
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(misc, oops.getMessage());
+			result = this.createEditModelAndView(misc, oops.getMessage(), null);
 
 			final String msg = oops.getMessage();
 			if (msg.equals("miscellaneousDatacannotDelete")) {
@@ -135,10 +156,15 @@ public class MiscellaneousDataHackerController {
 
 		try {
 			this.hackerService.findByPrincipal();
+
 			Assert.notNull(miscellaneousDataId);
 			miscellaneousData = this.miscellaneousDataService.findOne(miscellaneousDataId);
 
 			final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
+
+			final Integer idH = this.hackerService.findByPrincipal().getId();
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+			Assert.isTrue(curriculums.contains(cu));
 
 			result = new ModelAndView("miscellaneousData/show");
 			result.addObject("miscellaniusData", miscellaneousData);
@@ -150,17 +176,17 @@ public class MiscellaneousDataHackerController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaneousData) {
-		return this.createEditModelAndView(miscellaneousData, null);
+	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaniusData, final Curriculum c) {
+		return this.createEditModelAndView(miscellaniusData, null, c);
 	}
-	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaneousData, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaniusData, final String messageCode, Curriculum c) {
 		final ModelAndView res;
-		final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
-
+		if (c.equals(null))
+			c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
 		res = new ModelAndView("miscellaneousData/edit");
-		res.addObject("miscellaniusData", miscellaneousData);
+		res.addObject("miscellaniusData", miscellaniusData);
 		res.addObject("message", messageCode);
-		res.addObject("curriculum", cu);
+		res.addObject("curriculum", c);
 
 		return res;
 	}

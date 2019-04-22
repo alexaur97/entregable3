@@ -74,6 +74,7 @@ public class PositionService {
 	}
 
 	public void delete(final Position position) {
+		Assert.isTrue(position.getMode().equals("DRAFT"));
 		this.positionRepository.delete(position);
 	}
 
@@ -271,6 +272,7 @@ public class PositionService {
 	}
 
 	public Position saveMode(final Position position) {
+		Assert.isTrue(position.getProblems().size() > 1);
 		final Position res = position;
 		res.setMode("FINAL");
 		return res;

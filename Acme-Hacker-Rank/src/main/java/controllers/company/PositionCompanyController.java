@@ -137,7 +137,6 @@ public class PositionCompanyController extends AbstractController {
 			final Integer idC = this.companyService.findByPrincipal().getId();
 			final Collection<Position> positions = this.positionService.findByCompany(idC);
 			Assert.isTrue(positions.contains(position));
-
 			position = this.positionService.saveMode(position);
 			this.positionService.save(position);
 

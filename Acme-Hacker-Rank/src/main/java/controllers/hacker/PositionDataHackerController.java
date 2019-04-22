@@ -18,6 +18,7 @@ import services.CurriculumService;
 import services.HackerService;
 import services.PositionDataService;
 import domain.Curriculum;
+import domain.Hacker;
 import domain.PositionData;
 
 @Controller
@@ -43,7 +44,9 @@ public class PositionDataHackerController {
 		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
-			this.hackerService.findByPrincipal();
+			final Hacker h = this.hackerService.findByPrincipal();
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
+			Assert.isTrue(curriculums.contains(c));
 			positionData.setId(0);
 
 			result = new ModelAndView("positionData/edit");
@@ -69,7 +72,7 @@ public class PositionDataHackerController {
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 			final Curriculum curriculum = this.curriculumService.findByPositionData(positionDataId);
 			Assert.isTrue(curriculums.contains(curriculum));
-			res = this.createEditModelAndView(positionData);
+			res = this.createEditModelAndView(positionData, null, curriculum);
 
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -81,26 +84,33 @@ public class PositionDataHackerController {
 	public ModelAndView save(@Valid final PositionData positionData, final BindingResult binding, @RequestParam("curriculumId") final int curriculumId) {
 		ModelAndView res;
 
-		if (binding.hasErrors())
-			res = this.createEditModelAndView(positionData);
-		else
+		if (binding.hasErrors()) {
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
+
+			res = this.createEditModelAndView(positionData, c);
+		} else
 			try {
+				final Curriculum c = this.curriculumService.findOne(curriculumId);
+				final Integer idH = this.hackerService.findByPrincipal().getId();
+
+				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+				Assert.isTrue(curriculums.contains(c));
+
 				Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 				this.positionDataService.save(positionData);
 
-				if (positionData.getId() == 0) {
-					final Curriculum c = this.curriculumService.findOne(curriculumId);
+				if (positionData.getId() == 0)
 					this.curriculumService.savePositionData(positionData, c);
-				}
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
+				final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 				if (positionData.getStartDate().after(positionData.getEndDate()))
-					res = this.createEditModelAndView(positionData, "positionData.error.date2");
+					res = this.createEditModelAndView(positionData, "positionData.error.date2", c);
 
-				res = this.createEditModelAndView(positionData, "positionData.commit.error");
+				res = this.createEditModelAndView(positionData, "positionData.commit.error", c);
 
 			}
 
@@ -118,7 +128,7 @@ public class PositionDataHackerController {
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(pos, oops.getMessage());
+			result = this.createEditModelAndView(pos, oops.getMessage(), null);
 
 			final String msg = oops.getMessage();
 			if (msg.equals("positionDatacannotDelete")) {
@@ -129,17 +139,19 @@ public class PositionDataHackerController {
 		}
 		return result;
 	}
-	protected ModelAndView createEditModelAndView(final PositionData positionData) {
-		return this.createEditModelAndView(positionData, null);
+	protected ModelAndView createEditModelAndView(final PositionData positionData, final Curriculum c) {
+		return this.createEditModelAndView(positionData, null, c);
 	}
-	protected ModelAndView createEditModelAndView(final PositionData positionData, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final PositionData positionData, final String messageCode, Curriculum c) {
 		final ModelAndView res;
-		final Curriculum cu = this.curriculumService.findByPositionData(positionData.getId());
+
+		if (c.equals(null))
+			c = this.curriculumService.findByPositionData(positionData.getId());
 
 		res = new ModelAndView("positionData/edit");
 		res.addObject("positionData", positionData);
 		res.addObject("message", messageCode);
-		res.addObject("curriculum", cu);
+		res.addObject("curriculum", c);
 
 		return res;
 	}
@@ -154,6 +166,9 @@ public class PositionDataHackerController {
 			Assert.notNull(positionDataId);
 			positionData = this.positionDataService.findOne(positionDataId);
 			final Curriculum cu = this.curriculumService.findByPositionData(positionData.getId());
+			final Integer idH = this.hackerService.findByPrincipal().getId();
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+			Assert.isTrue(curriculums.contains(cu));
 
 			result = new ModelAndView("positionData/show");
 			result.addObject("positionData", positionData);
