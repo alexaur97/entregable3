@@ -39,7 +39,7 @@
 <h2><spring:message code="position.problems"/>:</h2>
 <ul>
 	<jstl:forEach items="${position.problems}" var="x">
-		<li><a href="problem/company/show.do?problemId=${x.id}"><jstl:out value="${x.title}" /></a></li>
+		<li><a href="problem/display.do?problemId=${x.id}"><jstl:out value="${x.title}" /></a></li>
 	</jstl:forEach>
 </ul>
 <br/>
