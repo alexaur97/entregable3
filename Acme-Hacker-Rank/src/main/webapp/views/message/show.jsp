@@ -34,10 +34,11 @@
 <h2><spring:message code="message.attachments"/>:</h2>
 <ul>
 	<jstl:forEach items="${msg.attachments}" var="x">
-		<li><jstl:out value="${x}"></jstl:out></li>
+		<li><a href="${x}"><jstl:out value="${x}"></jstl:out></a></li>
 	</jstl:forEach>
 </ul>
 <br/>
+
 <h2><spring:message code="message.tags"/>:</h2>
 <ul>
 	<jstl:forEach items="${msg.tags}" var="x">

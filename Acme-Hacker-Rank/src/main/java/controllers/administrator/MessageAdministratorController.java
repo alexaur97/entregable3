@@ -62,6 +62,7 @@ public class MessageAdministratorController extends AbstractController {
 			res = new ModelAndView("message/create");
 		else
 			try {
+				final Boolean b = this.messageService.validateAttachments(msg.getAttachments());
 				final Collection<Actor> actors = this.actorService.findAll();
 				for (final Actor actor : actors) {
 					final Message m = this.messageService.reconstructAdmnistrator2(messageF, actor, binding);

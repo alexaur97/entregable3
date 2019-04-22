@@ -2,7 +2,6 @@
 package controllers.all;
 
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +60,7 @@ public class MessageController extends AbstractController {
 			final int id = this.actorService.findByPrincipal().getId();
 			Assert.notNull(messageId);
 			msg = this.messageService.findOne(messageId);
-			Assert.isTrue(msg.getOwner() == id);
+			Assert.isTrue(msg.getOwner().getId() == id);
 			result = new ModelAndView("message/show");
 			result.addObject("msg", msg);
 		} catch (final Exception e) {
@@ -80,7 +79,7 @@ public class MessageController extends AbstractController {
 			final int id = this.actorService.findByPrincipal().getId();
 			Assert.notNull(messageId);
 			msg = this.messageService.findOne(messageId);
-			Assert.isTrue(msg.getOwner() == id);
+			Assert.isTrue(msg.getOwner().getId() == id);
 			if (!msg.getDeleted()) {
 				final String tag = "DELETED";
 				msg.getTags().add(tag);
@@ -114,12 +113,6 @@ public class MessageController extends AbstractController {
 		try {
 			final Actor a = this.actorService.findByPrincipal();
 			msg.setId(0);
-			msg.setSender(a);
-			msg.setOwner(a.getId());
-			final Date moment = new Date();
-			msg.setMoment(moment);
-			msg.setSpam(false);
-			msg.setDeleted(false);
 			result = new ModelAndView("message/list");
 			result.addObject("msg", msg);
 			result = this.createEditModelAndView(msg);
@@ -153,23 +146,29 @@ public class MessageController extends AbstractController {
 			res = this.createEditModelAndView(msg);
 		else
 			try {
-				this.messageService.save(msg);
-				Message copy;
-				copy = new Message();
-				copy.setAttachments(msg.getAttachments());
-				copy.setBody(msg.getBody());
-				copy.setDeleted(msg.getDeleted());
-				copy.setMoment(msg.getMoment());
-				copy.setOwner(msg.getRecipient().getId());
-				copy.setRecipient(msg.getRecipient());
-				copy.setSender(msg.getSender());
-				copy.setSubject(msg.getSubject());
-				copy.setTags(msg.getTags());
-				this.messageService.isSpam(msg);
-				copy.setSpam(msg.getSpam());
-				this.messageService.save(copy);
-				res = new ModelAndView("redirect:/message/list.do");
-
+				final Boolean b = this.messageService.validateAttachments(msg.getAttachments());
+				if (!b) {
+					res = this.createEditModelAndView(msg, "msg.attachment.error");
+					res.addObject("b", b);
+				} else {
+					this.messageService.save(msg);
+					Message copy;
+					copy = new Message();
+					copy.setAttachments(msg.getAttachments());
+					copy.setBody(msg.getBody());
+					copy.setDeleted(msg.getDeleted());
+					copy.setMoment(msg.getMoment());
+					copy.setOwner(msg.getRecipient());
+					copy.setRecipient(msg.getRecipient());
+					copy.setSender(msg.getSender());
+					copy.setSubject(msg.getSubject());
+					copy.setTags(msg.getTags());
+					copy.setCopy(true);
+					this.messageService.isSpam(msg);
+					copy.setSpam(msg.getSpam());
+					this.messageService.save(copy);
+					res = new ModelAndView("redirect:/message/list.do");
+				}
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(msg, "msg.commit.error");
 			}

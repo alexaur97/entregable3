@@ -21,6 +21,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<security:authorize access="hasRole('ADMINISTRATOR')">
+<jstl:if test="${company.spammer eq true}">
+<h3 style="color: #CB3234;"><spring:message code="company.spammer"/></h3>
+</jstl:if>
+<jstl:if test="${company.spammer eq false}">
+<h3 style="color: #008000;"><spring:message code="company.nospammer"/></h3>
+</jstl:if>
+</security:authorize>
 <spring:message code="company.commercialName"/>: <jstl:out value="${company.commercialName}"></jstl:out>
 <br/>
 <spring:message code="company.name"/>: <jstl:out value="${company.name}"></jstl:out>

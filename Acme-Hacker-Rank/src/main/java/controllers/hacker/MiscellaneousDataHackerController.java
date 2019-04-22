@@ -78,7 +78,7 @@ public class MiscellaneousDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final MiscellaniusData miscellaneousData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
+	public ModelAndView save(@Valid final MiscellaniusData miscellaneousData, final BindingResult binding, @RequestParam("curriculumId") final int curriculumId) {
 		ModelAndView res;
 
 		if (binding.hasErrors())

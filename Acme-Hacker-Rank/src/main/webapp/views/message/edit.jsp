@@ -34,12 +34,7 @@
 					<div class="form-group ">
 
 						<form:hidden path="id"/>
-						<form:hidden path="version"/>
-						<form:hidden path="sender"/>
-						<form:hidden path="moment"/>
-						<form:hidden path="spam"/>
-						<form:hidden path="owner"/>	
-						<form:hidden path="deleted"/>		
+						<form:hidden path="version"/>	
 						<acme:textbox code="message.subject" path="subject" />
 						<acme:textarea code="message.body" path="body" />
 						<acme:textbox code="message.attachments" path="attachments" />
@@ -49,6 +44,9 @@
 						<acme:submit name="save" code="msg.save" />						
 						<acme:cancel url="/message/list.do"
 							code="msg.cancel" />
+						<jstl:if test="${b eq false}">
+							<h3 style="color: #CB3234;"><spring:message code="msg.attachment.error"/></h3>
+						</jstl:if>
 					</div>
 				</form:form>
 			</fieldset>

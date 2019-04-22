@@ -26,7 +26,7 @@
 
 <td><acme:cancel url="/message/create.do" code="message.create" /></td>
 <security:authorize access="hasRole('ADMINISTRATOR')">
-<td><acme:cancel url="/message/administrator/create.do" code="message.create" /></td>
+<td><acme:cancel url="/message/administrator/create.do" code="message.admin.create" /></td>
 		</security:authorize>
 
 <h4>

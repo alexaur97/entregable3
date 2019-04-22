@@ -66,10 +66,7 @@ public class ProblemService {
 	}
 
 	public Problem findOne(final int problemId) {
-		final Company principal = this.companyService.findByPrincipal();
-		final Collection<Problem> problems = this.problemRepository.findAllByPrincipalId(principal.getId());
 		final Problem result = this.problemRepository.findOne(problemId);
-		Assert.isTrue(problems.contains(result));
 		return result;
 	}
 

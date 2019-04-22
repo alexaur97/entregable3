@@ -35,6 +35,17 @@
 <br/>
 <h2><spring:message code="position.company"/>:</h2>
 <a href="company/show.do?companyId=${position.company.id}"><jstl:out value="${position.company.commercialName}" /></a>
+<br/>
+<h2><spring:message code="position.problems"/>:</h2>
+<ul>
+	<jstl:forEach items="${position.problems}" var="x">
+		<li><a href="problem/display.do?problemId=${x.id}"><jstl:out value="${x.title}" /></a></li>
+	</jstl:forEach>
+</ul>
+<br/>
+<jstl:if test="${position.cancelled eq true}">
+<h3 style="color: #DD8833;"><spring:message code="position.cancele"/></h3>
+</jstl:if>
 
 
 
