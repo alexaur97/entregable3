@@ -141,7 +141,7 @@ public class MessageService {
 		final Message res = msg;
 		final Actor a = this.actorService.findByPrincipal();
 		msg.setSender(a);
-		msg.setOwner(a.getId());
+		msg.setOwner(a);
 		final Date moment = new Date();
 		msg.setMoment(moment);
 		msg.setSpam(false);
@@ -174,7 +174,7 @@ public class MessageService {
 		tags.add("SYSTEM");
 		msg.setTags(tags);
 		msg.setSpam(this.spam(msg));
-		msg.setOwner(admin.getId());
+		msg.setOwner(admin);
 		this.validator.validate(msg, binding);
 		return msg;
 	}
