@@ -26,7 +26,7 @@
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<fieldset class="col-md-6 col-md-offset-3">
 
-				<form:form action="positionData/hacker/edit.do"
+				<form:form action="positionData/hacker/edit.do?curriculumId=${curriculum.id}"
 					modelAttribute="positionData" class="form-horizontal" method="post">
 					<div class="form-group ">
 
@@ -47,11 +47,11 @@
 		
 						
 						<acme:submit name="save" code="positionData.save" />
-						<jstl:if test="${position.id!=0}">
-							<acme:submitConfirmation name="delete" code="position.delete"
-								onclick="position.delete.confirmation" />
+						<jstl:if test="${positionData.id!=0}">
+							<acme:submitConfirmation name="delete" code="positionData.delete"
+								onclick="positionData.delete.confirmation" />
 						</jstl:if>
-						<acme:cancel url="/curriculum/hacker/list.do"
+						<acme:cancel url="/curriculum/hacker/show.do?curriculumId=${curriculum.id}"
 							code="positionData.cancel" />
 					</div>
 				</form:form>

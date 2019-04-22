@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SocialProfileRepository;
+import domain.Actor;
 import domain.SocialProfile;
 
 @Service
@@ -19,8 +22,14 @@ public class SocialProfileService {
 	@Autowired
 	private SocialProfileRepository	socialProfileRepository;
 
-
 	//Supporting Services ------------------
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private Validator				validator;
+
 
 	//COnstructors -------------------------
 	public SocialProfileService() {
@@ -55,12 +64,34 @@ public class SocialProfileService {
 
 	public void save(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
+		final int id = this.actorService.findByPrincipal().getId();
+		Assert.isTrue(socialProfile.getActor().getId() == id);
 
 		this.socialProfileRepository.save(socialProfile);
 	}
 
 	public void delete(final SocialProfile socialProfile) {
+
+		final int id = this.actorService.findByPrincipal().getId();
+		Assert.isTrue(socialProfile.getActor().getId() == id);
+
 		this.socialProfileRepository.delete(socialProfile);
+	}
+
+	public Collection<SocialProfile> findByActor(final Integer actorId) {
+		final Collection<SocialProfile> result = this.socialProfileRepository.findByActor(actorId);
+		return result;
+
+	}
+
+	public SocialProfile reconstruct(final SocialProfile socialProfile, final BindingResult binding) {
+		final SocialProfile res = socialProfile;
+		final Actor a = this.actorService.findByPrincipal();
+
+		res.setActor(a);
+
+		this.validator.validate(res, binding);
+		return res;
 	}
 
 	//Other Methods--------------------

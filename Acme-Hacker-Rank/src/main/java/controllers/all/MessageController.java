@@ -155,7 +155,6 @@ public class MessageController extends AbstractController {
 			try {
 				this.messageService.save(msg);
 				Message copy;
-
 				copy = new Message();
 				copy.setAttachments(msg.getAttachments());
 				copy.setBody(msg.getBody());
@@ -164,9 +163,10 @@ public class MessageController extends AbstractController {
 				copy.setOwner(msg.getRecipient().getId());
 				copy.setRecipient(msg.getRecipient());
 				copy.setSender(msg.getSender());
-				copy.setSpam(msg.getSpam());
 				copy.setSubject(msg.getSubject());
 				copy.setTags(msg.getTags());
+				this.messageService.isSpam(msg);
+				copy.setSpam(msg.getSpam());
 				this.messageService.save(copy);
 				res = new ModelAndView("redirect:/message/list.do");
 

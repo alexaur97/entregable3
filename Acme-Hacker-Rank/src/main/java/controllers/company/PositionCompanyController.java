@@ -213,4 +213,23 @@ public class PositionCompanyController extends AbstractController {
 		return res;
 	}
 
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int positionId) {
+		ModelAndView result;
+		final Position position;
+
+		try {
+			this.companyService.findByPrincipal();
+			Assert.notNull(positionId);
+			position = this.positionService.findOne(positionId);
+
+			result = new ModelAndView("position/show");
+			result.addObject("position", position);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
+
 }

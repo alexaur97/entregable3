@@ -223,10 +223,8 @@ public class CurriculumService {
 		return res;
 	}
 
-	public Curriculum savePositionData(final PositionData positionData) {
-		final Curriculum res = this.findByPositionData(positionData.getId());
-		res.getPositionData().add(positionData);
-		return res;
+	public void savePositionData(final PositionData positionData, final Curriculum c) {
+		c.getPositionData().add(positionData);
 
 	}
 
@@ -246,10 +244,8 @@ public class CurriculumService {
 		res.getMiscellaniusData().remove(miscellaneousData);
 		return res;
 	}
-	public Curriculum saveMiscellaneousData(final MiscellaniusData miscellaneousData) {
-		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
-		res.getMiscellaniusData().add(miscellaneousData);
-		return res;
+	public void saveMiscellaneousData(final MiscellaniusData miscellaneousData, final Curriculum c) {
+		c.getMiscellaniusData().add(miscellaneousData);
 
 	}
 
@@ -262,10 +258,8 @@ public class CurriculumService {
 		res.getEducationData().remove(educationData);
 		return res;
 	}
-	public Curriculum saveEducationData(final EducationData educationData) {
-		final Curriculum res = this.findByPositionData(educationData.getId());
-		res.getEducationData().add(educationData);
-		return res;
+	public void saveEducationData(final EducationData educationData, final Curriculum c) {
+		c.getEducationData().add(educationData);
 
 	}
 }

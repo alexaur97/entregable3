@@ -24,7 +24,7 @@
 	pagesize="5" class="displaytag table">
 	<display:column property="name" titleKey="actor.name" />
 	<display:column property="surnames" titleKey="actor.surnames" />
-<display:column titleKey="actor.ban">
+	<display:column titleKey="actor.ban">
 			<jstl:if test="${!ac.banned}">
 			<acme:cancel url="/actor/administrador/banned.do?actorId=${ac.id}" code="actor.ban" />
 		</jstl:if>
@@ -34,5 +34,9 @@
 			<acme:cancel url="/actor/administrador/unbanned.do?actorId=${ac.id}" code="actor.unban" />
 		</jstl:if>
 	</display:column>	
+	
 		
 </display:table>
+
+<acme:cancel url="/spam/administrator/spammer.do"
+							code="actor.isspammer" />

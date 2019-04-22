@@ -2,8 +2,10 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import repositories.MessageRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.Message;
+import domain.SpamWord;
 
 @Service
 @Transactional
@@ -27,6 +30,9 @@ public class MessageService {
 
 	@Autowired
 	private AdministratorService	administratorService;
+
+	@Autowired
+	private SpamWordService			spamWordService;
 
 	@Autowired
 	private Validator				validator;
@@ -97,6 +103,25 @@ public class MessageService {
 		result = this.messageRepository.findSpam(id);
 		Assert.notNull(result);
 		return result;
+
+	}
+
+	public Collection<Message> findSender(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSender(id);
+		Assert.notNull(result);
+		return result;
+
+	}
+
+	public Collection<Message> findSenderSpam(final int id) {
+		Collection<Message> result;
+		Assert.notNull(id);
+		result = this.messageRepository.findSenderSpam(id);
+		Assert.notNull(result);
+		return result;
+
 	}
 
 	public Collection<Message> findDeleted(final int id) {
@@ -114,6 +139,7 @@ public class MessageService {
 	}
 	//CUANDO EXISTA LAS SPAM WORDS
 	public Boolean spam(final Message msg) {
+
 		Boolean res = false;
 		final Collection<String> sw = new ArrayList<>();
 		for (final String s : sw) {
@@ -143,5 +169,40 @@ public class MessageService {
 		msg.setRecipient(actor);
 		this.validator.validate(msg, binding);
 		return msg;
+	}
+
+	public List<String> spamwords(final Collection<SpamWord> sw) {
+
+		Collection<SpamWord> spamwords = new ArrayList<>();
+		spamwords = this.spamWordService.findAll();
+		final List<SpamWord> list = new ArrayList<>(spamwords);
+		final List<String> res = new ArrayList<>();
+
+		for (int i = 0; i < list.size(); i++) {
+			final String palabra = list.get(i).getWord();
+			res.add(palabra);
+		}
+
+		return res;
+
+	}
+
+	public void isSpam(final Message message) {
+		Collection<SpamWord> spamwords = new ArrayList<>();
+		spamwords = this.spamWordService.findAll();
+		final String[] mensaje = message.getBody().trim().split(" ");
+		final List<String> lista = Arrays.asList(mensaje);
+
+		final List<String> sw = this.spamwords(spamwords);
+
+		for (int j = 0; j < lista.size(); j++)
+			if (sw.contains(lista.get(j))) {
+				message.setSpam(true);
+				final Collection<String> tags = new ArrayList<>();
+				tags.add("SPAM");
+				message.setTags(tags);
+				break;
+			} else
+				message.setSpam(false);
 	}
 }

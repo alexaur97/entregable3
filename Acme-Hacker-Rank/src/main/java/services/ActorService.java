@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +16,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.ConfigurationParameters;
+import domain.Message;
 import forms.ActorEditForm;
 
 @Service
@@ -26,6 +28,9 @@ public class ActorService {
 
 	@Autowired
 	private ConfigurationParametersService	configurationParametersService;
+
+	@Autowired
+	private MessageService					messageService;
 
 
 	public Actor save(final Actor a) {
@@ -109,6 +114,25 @@ public class ActorService {
 		return res;
 	}
 
+	public void isSpammer() {
+
+		final List<Actor> actores = this.actorRepository.findAll();
+		for (int i = 0; i < actores.size(); i++) {
+			final int actorId = actores.get(i).getId();
+
+			final Collection<Message> messages = this.messageService.findSender(actorId);
+			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
+			final double m = messages.size();
+			final double ms = messagesSpam.size();
+			final double calculo = ((double) messagesSpam.size() / messages.size());
+			if (messages.isEmpty())
+				actores.get(i).setSpammer(false);
+			else if (calculo > 0.10)
+				actores.get(i).setSpammer(true);
+			else
+				actores.get(i).setSpammer(false);
+		}
+	}
 	public String addCountryCode(String phoneNumber) {
 		if (phoneNumber.charAt(0) != '+') {
 			final ConfigurationParameters cp = this.configurationParametersService.find();
