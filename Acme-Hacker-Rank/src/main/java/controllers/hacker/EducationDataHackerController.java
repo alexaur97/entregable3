@@ -35,7 +35,7 @@ public class EducationDataHackerController {
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam("curriculumId") final int curriculumId) {
+	public ModelAndView create(@RequestParam final int curriculumId) {
 
 		ModelAndView result;
 		EducationData educationData;
@@ -79,14 +79,15 @@ public class EducationDataHackerController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final EducationData educationData, @RequestParam("curriculumId") final int curriculumId, final BindingResult binding) {
+	public ModelAndView save(@Valid final EducationData educationData, final BindingResult binding, @RequestParam("curriculumId") final int curriculumId) {
 		ModelAndView res;
-		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
 			res = this.createEditModelAndView(educationData, c);
-		else
+		} else
 			try {
+				final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 				Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
@@ -97,6 +98,7 @@ public class EducationDataHackerController {
 				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 			} catch (final Throwable oops) {
+				final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 				if (educationData.getStartDate().after(educationData.getEndDate()))
 					res = this.createEditModelAndView(educationData, "educationData.error.date2", c);
@@ -108,7 +110,6 @@ public class EducationDataHackerController {
 
 		return res;
 	}
-
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final EducationData educationData, final BindingResult binding) {
 		ModelAndView result;
