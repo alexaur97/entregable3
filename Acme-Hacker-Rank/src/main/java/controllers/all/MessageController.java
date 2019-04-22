@@ -60,7 +60,7 @@ public class MessageController extends AbstractController {
 			final int id = this.actorService.findByPrincipal().getId();
 			Assert.notNull(messageId);
 			msg = this.messageService.findOne(messageId);
-			Assert.isTrue(msg.getOwner() == id);
+			Assert.isTrue(msg.getOwner().getId() == id);
 			result = new ModelAndView("message/show");
 			result.addObject("msg", msg);
 		} catch (final Exception e) {
@@ -79,7 +79,7 @@ public class MessageController extends AbstractController {
 			final int id = this.actorService.findByPrincipal().getId();
 			Assert.notNull(messageId);
 			msg = this.messageService.findOne(messageId);
-			Assert.isTrue(msg.getOwner() == id);
+			Assert.isTrue(msg.getOwner().getId() == id);
 			if (!msg.getDeleted()) {
 				final String tag = "DELETED";
 				msg.getTags().add(tag);
@@ -158,7 +158,7 @@ public class MessageController extends AbstractController {
 					copy.setBody(msg.getBody());
 					copy.setDeleted(msg.getDeleted());
 					copy.setMoment(msg.getMoment());
-					copy.setOwner(msg.getRecipient().getId());
+					copy.setOwner(msg.getRecipient());
 					copy.setRecipient(msg.getRecipient());
 					copy.setSender(msg.getSender());
 					copy.setSubject(msg.getSubject());

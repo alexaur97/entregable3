@@ -33,16 +33,17 @@ public class Message extends DomainEntity {
 	public Boolean				deleted;
 	public Actor				recipient;
 	public Actor				sender;
-	public Integer				owner;
+	public Actor				owner;
 	public Boolean				copy;
 
 
 	@NotNull
-	public Integer getOwner() {
+	@ManyToOne(optional = false)
+	public Actor getOwner() {
 		return this.owner;
 	}
 
-	public void setOwner(final Integer owner) {
+	public void setOwner(final Actor owner) {
 		this.owner = owner;
 	}
 
