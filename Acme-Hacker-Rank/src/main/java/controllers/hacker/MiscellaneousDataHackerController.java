@@ -181,13 +181,12 @@ public class MiscellaneousDataHackerController {
 	}
 	protected ModelAndView createEditModelAndView(final MiscellaniusData miscellaniusData, final String messageCode, Curriculum c) {
 		final ModelAndView res;
-		final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaniusData);
 		if (c.equals(null))
 			c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
 		res = new ModelAndView("miscellaneousData/edit");
 		res.addObject("miscellaniusData", miscellaniusData);
 		res.addObject("message", messageCode);
-		res.addObject("curriculum", cu);
+		res.addObject("curriculum", c);
 
 		return res;
 	}

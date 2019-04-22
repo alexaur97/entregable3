@@ -117,6 +117,12 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	//	Para el caso negativo estamos intentando que una Empresa elimine una posicion
+	// en modo FINAL , esto debe provocar un error porque en estado final solo se podria cancelar,
+	//pero no eliminar la posicion.
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "delete" comprueba
+	// que el la posicion esta en modo borrador.
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeletePositionError() {
 		super.authenticate("company1");
