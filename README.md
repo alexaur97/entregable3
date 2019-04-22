@@ -1,4 +1,4 @@
-#En el presente documento recogeremos todas las aclaraciones necesarias para el proyecto Acme Hacker-Rank.
+﻿#En el presente documento recogeremos todas las aclaraciones necesarias para el proyecto Acme Hacker-Rank.
 
 #1 Cread un paquete llamado "miscellaneous" y una clase llamada "Utils.java" en la que definimos
 métodos que necesitemos utilizar en momentos determinados y que se reutilizan numerosas veces.
@@ -16,6 +16,8 @@ para dejar constancia de que existe.
 - Cuando un mensaje recibido por un usuario contiene en el cuerpo alguna de las palabras spam.
 Además lo que conlleva el marcar un mensaje como spam, es que su booleano "SPAM" se ponga a "true"
 
-#6
+#6 Hemos considerado que el sender de un Message puede ser nulo para cuando se dé el caso en
+que un Actor reciba una notificación automática del sistema, en cuyo caso ese mensaje no lo ha enviado
+ningún Actor.
 
 #7

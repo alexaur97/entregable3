@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -219,20 +217,23 @@ public class MessageService {
 				message.setSpam(false);
 	}
 
-	public Boolean validateAttachments(final Collection<String> attachments) {
-		final String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=_|!:,.;]*[-a-zA-Z0-9+&@#/%=_|]";
-		final Pattern patt = Pattern.compile(regex);
-		Boolean b = true;
+	public void changedStatus(final Actor actor) {
+		final Message message = this.create();
+		message.setRecipient(actor);
+		message.setOwner(actor);
+		final Date moment = new Date();
+		message.setMoment(moment);
+		message.setCopy(true);
+		message.setDeleted(false);
+		message.setSender(null);
+		message.setSpam(false);
+		message.setSubject("System message");
+		message.setBody("One of your applications has changed its status / Una de tus aplicaciones ha cambiado su estado.");
+		final Collection<String> tags = new ArrayList<>();
+		tags.add("SYSTEM");
+		message.setTags(tags);
+		this.save(message);
 
-		if (!attachments.isEmpty())
-			for (final String s : attachments) {
-				final Matcher matcher = patt.matcher(s);
-				if (!matcher.matches()) {
-					b = false;
-					break;
-				}
-			}
-		return b;
 	}
 
 }

@@ -30,13 +30,7 @@
 <spring:message code="message.recipient"/>: <jstl:out value="${msg.recipient.name} ${msg.recipient.surnames}"></jstl:out>
 <br/>
 <spring:message code="message.sender"/>: <jstl:out value="${msg.sender.name} ${msg.sender.surnames}"></jstl:out>
-<br/>
-<h2><spring:message code="message.attachments"/>:</h2>
-<ul>
-	<jstl:forEach items="${msg.attachments}" var="x">
-		<li><a href="${x}"><jstl:out value="${x}"></jstl:out></a></li>
-	</jstl:forEach>
-</ul>
+
 <br/>
 
 <h2><spring:message code="message.tags"/>:</h2>

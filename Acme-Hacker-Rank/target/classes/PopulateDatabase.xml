@@ -885,7 +885,7 @@
 		<property name="techRequired" value="High tech skills required" />
 		<property name="salaryOffered" value="45000" />
 		<property name="ticker" value="HACK-1234" />
-		<property name="mode" value="FINAL" />
+		<property name="mode" value="DRAFT" />
 		<property name="cancelled" value="false" />
 		<property name="company" ref="actor2" />
 		<property name="problems">
@@ -1153,7 +1153,6 @@
 		<property name="subject" value="Message 1" />
 		<property name="body" value="This is message 1 sex" />
 		<property name="moment" value="08/08/2018 00:54" />
-		<property name="attachments" value="" />
 		<property name="spam" value="false" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1167,7 +1166,6 @@
 		<property name="subject" value="Message 1" />
 		<property name="body" value="This is message 1 viagra" />
 		<property name="moment" value="08/08/2018 00:54" />
-		<property name="attachments" value="" />
 		<property name="spam" value="false" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1181,7 +1179,6 @@
 		<property name="subject" value="Message 2" />
 		<property name="body" value="This is message 2" />
 		<property name="moment" value="01/04/2018 05:58" />
-		<property name="attachments" value="" />
 		<property name="spam" value="false" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1195,7 +1192,6 @@
 		<property name="subject" value="Message 2" />
 		<property name="body" value="This is message 2" />
 		<property name="moment" value="01/04/2018 05:58" />
-		<property name="attachments" value="" />
 		<property name="spam" value="false" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1209,7 +1205,6 @@
 		<property name="subject" value="Message 3" />
 		<property name="body" value="This is message 3" />
 		<property name="moment" value="02/02/2019 11:14" />
-		<property name="attachments" value="" />
 		<property name="spam" value="false" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1223,7 +1218,6 @@
 		<property name="subject" value="Message 3" />
 		<property name="body" value="This is message 3" />
 		<property name="moment" value="02/02/2019 11:14" />
-		<property name="attachments" value="" />
 		<property name="spam" value="false" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1238,7 +1232,6 @@
 		<property name="subject" value="Message 4 sex" />
 		<property name="body" value="This is message 4" />
 		<property name="moment" value="03/01/2018 50:11" />
-		<property name="attachments" value="" />
 		<property name="spam" value="true" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1252,7 +1245,6 @@
 		<property name="subject" value="Message 4 sex" />
 		<property name="body" value="This is message 4" />
 		<property name="moment" value="03/01/2018 50:11" />
-		<property name="attachments" value="" />
 		<property name="spam" value="true" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1266,7 +1258,6 @@
 		<property name="subject" value="Message with a big viagra" />
 		<property name="body" value="has sido elegido enhorabuena! eres el mejor" />
 		<property name="moment" value="09/15/2016 10:11" />
-		<property name="attachments" value="" />
 		<property name="spam" value="true" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1280,7 +1271,6 @@
 		<property name="subject" value="Message with a big viagra" />
 		<property name="body" value="has sido elegido enhorabuena! eres el mejor" />
 		<property name="moment" value="09/15/2016 10:11" />
-		<property name="attachments" value="" />
 		<property name="spam" value="true" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1294,7 +1284,6 @@
 		<property name="subject" value="Message 4 sex" />
 		<property name="body" value="cialis cialis cialis" />
 		<property name="moment" value="03/12/2018 18:11" />
-		<property name="attachments" value="" />
 		<property name="spam" value="true" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
@@ -1308,7 +1297,6 @@
 		<property name="subject" value="Message 4 sex" />
 		<property name="body" value="cialis cialis cialis" />
 		<property name="moment" value="03/12/2018 18:11" />
-		<property name="attachments" value="" />
 		<property name="spam" value="true" />
 		<property name="deleted" value="false" />
 		<property name="tags" value="" />
