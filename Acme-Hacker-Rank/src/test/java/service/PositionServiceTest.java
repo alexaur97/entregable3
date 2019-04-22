@@ -52,6 +52,11 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	//	Para el caso negativo estamos intentando que un Hacker modifique una posicion
+	//esto debe provocar un fallo en el sistema porque solo puede modificarlo una empresa
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "reconstruct" comprueba
+	// que el usuario logueado sea una empresa.
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreatePositionError() throws ParseException {
 		super.authenticate("hacker1");
@@ -68,6 +73,58 @@ public class PositionServiceTest extends AbstractTest {
 		position.setSalaryOffered(200);
 		position = this.positionService.reconstruct(position, null);
 		this.positionService.save(position);
+		super.unauthenticate();
+	}
+	//Requisito 9.1 Un Actor autenticado como Empresa puede editar una posicion.
+
+	@Test
+	public void testEditPositionGood() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position1");
+		Position position = this.positionService.findOne(IdPosition);
+
+		position = this.positionService.saveMode(position);
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo estamos intentando que una Empresa modifique una posicion
+	// cambiando su modo a FINAL sin tener al menos dos problemas asociados
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "saveMode" comprueba
+	// que el la posicion tenga dos o mas problemas asociados.
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testEditPositionError() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position2");
+		Position position = this.positionService.findOne(IdPosition);
+
+		position = this.positionService.saveMode(position);
+		super.unauthenticate();
+	}
+
+	//Requisito 9.1 Un Actor autenticado como Empresa puede borrar una posicion.
+
+	@Test
+	public void testDeletePositionGood() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position1");
+		final Position position = this.positionService.findOne(IdPosition);
+
+		this.positionService.delete(position);
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeletePositionError() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position8");
+		final Position position = this.positionService.findOne(IdPosition);
+
+		this.positionService.delete(position);
 		super.unauthenticate();
 	}
 

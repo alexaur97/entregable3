@@ -885,7 +885,7 @@
 		<property name="techRequired" value="High tech skills required" />
 		<property name="salaryOffered" value="45000" />
 		<property name="ticker" value="HACK-1234" />
-		<property name="mode" value="FINAL" />
+		<property name="mode" value="DRAFT" />
 		<property name="cancelled" value="false" />
 		<property name="company" ref="actor2" />
 		<property name="problems">
