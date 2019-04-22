@@ -19,7 +19,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-
+<security:authorize access="hasRole('ADMINISTRATOR')">
+<jstl:if test="${socialProfile.actor.spammer eq true}">
+<h3 style="color: #CB3234;"><spring:message code="actor.spammer"/></h3>
+</jstl:if>
+<jstl:if test="${socialProfile.actor.spammer eq false}">
+<h3 style="color: #008000;"><spring:message code="actor.nospammer"/></h3>
+</jstl:if>
+</security:authorize>
 <acme:display code="socialProfile.nick" path="${socialProfile.nick}"/>
 <acme:display code="socialProfile.link" path="${socialProfile.link}"/>
 <acme:display code="socialProfile.socialNetwork" path="${socialProfile.socialNetwork}"/>

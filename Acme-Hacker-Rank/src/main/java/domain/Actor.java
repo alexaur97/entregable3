@@ -120,7 +120,7 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotNull
-	public Boolean isSpammer() {
+	public Boolean getSpammer() {
 		return this.spammer;
 	}
 
