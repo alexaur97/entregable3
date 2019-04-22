@@ -30,10 +30,13 @@ public class PositionService {
 	private ConfigurationParametersService	configParamsService;
 
 	@Autowired
-	private Validator						validator;
+	private CompanyService					companyService;
 
 	@Autowired
-	private CompanyService					companyService;
+	private MessageService					messageService;
+
+	@Autowired
+	private Validator						validator;
 
 
 	//COnstructors -------------------------
@@ -69,10 +72,10 @@ public class PositionService {
 
 	public void save(final Position position) {
 		Assert.notNull(position);
-
+		if (position.getMode() == "FINAL")
+			this.messageService.newPositionFinder(position);
 		this.positionRepository.save(position);
 	}
-
 	public void delete(final Position position) {
 		Assert.isTrue(position.getMode().equals("DRAFT"));
 		this.positionRepository.delete(position);

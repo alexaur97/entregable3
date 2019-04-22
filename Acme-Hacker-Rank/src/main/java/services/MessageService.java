@@ -17,7 +17,10 @@ import org.springframework.validation.Validator;
 import repositories.MessageRepository;
 import domain.Actor;
 import domain.Administrator;
+import domain.Finder;
+import domain.Hacker;
 import domain.Message;
+import domain.Position;
 import domain.SpamWord;
 
 @Service
@@ -36,6 +39,15 @@ public class MessageService {
 
 	@Autowired
 	private SpamWordService			spamWordService;
+
+	@Autowired
+	private HackerService			hackerService;
+
+	@Autowired
+	private FinderService			finderService;
+
+	@Autowired
+	private PositionService			positionService;
 
 	@Autowired
 	private Validator				validator;
@@ -231,7 +243,7 @@ public class MessageService {
 		message.setSender(null);
 		message.setSpam(false);
 		message.setSubject("System message");
-		message.setBody("One of your applications has changed its status / Una de tus aplicaciones ha cambiado su estado.");
+		message.setBody("One of your applications has changed its status. / Una de tus aplicaciones ha cambiado su estado.");
 		final Collection<String> tags = new ArrayList<>();
 		tags.add("SYSTEM");
 		message.setTags(tags);
@@ -239,4 +251,29 @@ public class MessageService {
 
 	}
 
+	public void newPositionFinder(final Position position) {
+		final Collection<Hacker> allHackers = this.hackerService.findAll();
+		for (final Hacker h : allHackers) {
+			final Finder finder = this.finderService.getFinderFromHacker(h.getId());
+			final Collection<Position> positions = this.positionService.searchPositions(finder.getKeyword(), finder.getMinSalary(), finder.getMaxSalary(), finder.getDeadline());
+			if (positions.contains(position)) {
+				final Message message = this.create();
+				message.setRecipient(h);
+				message.setOwner(h);
+				final Date moment = new Date();
+				message.setMoment(moment);
+				message.setCopy(true);
+				message.setDeleted(false);
+				message.setSender(null);
+				message.setSpam(false);
+				message.setSubject("System message");
+				message.setBody("Refresh your finder to find a new position that may interest you. / Refresca tu buscador para encontrar una nueva posición que te pueda interesar.");
+				final Collection<String> tags = new ArrayList<>();
+				tags.add("SYSTEM");
+				message.setTags(tags);
+				this.save(message);
+			}
+
+		}
+	}
 }
