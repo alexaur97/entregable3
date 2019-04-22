@@ -38,6 +38,7 @@ public class SocialProfileController extends AbstractController {
 			final Collection<SocialProfile> socialProfiles = this.socialProfileService.findByActor(id);
 			result = new ModelAndView("socialprofile/list");
 			result.addObject("socialProfiles", socialProfiles);
+			result.addObject("requestURI", "socialprofile/list.do");
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
