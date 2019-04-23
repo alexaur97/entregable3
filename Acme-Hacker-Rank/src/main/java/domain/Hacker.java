@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -15,6 +16,7 @@ public class Hacker extends Actor {
 	private Collection<Curriculum>	curriculums;
 
 
+	@JoinColumn
 	@OneToMany
 	public Collection<Curriculum> getCurriculums() {
 		return this.curriculums;
