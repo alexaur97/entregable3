@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,7 +26,6 @@ public class Message extends DomainEntity {
 	private String				subject;
 	private String				body;
 	public Date					moment;
-	private Collection<String>	attachments;
 	private Collection<String>	tags;
 	public Boolean				spam;
 	public Boolean				deleted;
@@ -76,15 +74,6 @@ public class Message extends DomainEntity {
 	}
 
 	@ElementCollection
-	@NotEmpty
-	public Collection<String> getAttachments() {
-		return this.attachments;
-	}
-	public void setAttachments(final Collection<String> attachments) {
-		this.attachments = attachments;
-	}
-
-	@ElementCollection
 	public Collection<String> getTags() {
 		return this.tags;
 	}
@@ -125,8 +114,7 @@ public class Message extends DomainEntity {
 		this.recipient = recipient;
 	}
 
-	@NotNull
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Actor getSender() {
 		return this.sender;
 	}
