@@ -160,19 +160,7 @@ public class MessageService {
 		this.validator.validate(res, binding);
 		return res;
 	}
-	//CUANDO EXISTA LAS SPAM WORDS
-	public Boolean spam(final Message msg) {
 
-		Boolean res = false;
-		final Collection<String> sw = new ArrayList<>();
-		for (final String s : sw) {
-			if (msg.getBody().contains(s))
-				res = true;
-			if (msg.getSubject().contains(s))
-				res = true;
-		}
-		return res;
-	}
 	public Message reconstructAdmnistrator(final Message msg, final BindingResult binding) {
 		final Administrator admin = this.administratorService.findByPrincipal();
 		msg.setDeleted(false);
@@ -182,19 +170,21 @@ public class MessageService {
 		final Collection<String> tags = new ArrayList<>();
 		tags.add("SYSTEM");
 		msg.setTags(tags);
-		msg.setSpam(this.spam(msg));
+		this.isSpam(msg);
+		msg.setRecipient(admin);
+		msg.setOwner(admin);
+		this.validator.validate(msg, binding);
+
 		return msg;
 	}
 	public Message reconstructAdmnistrator2(final Message msg, final Actor actor, final BindingResult binding) {
 		msg.setRecipient(actor);
 		msg.setOwner(msg.getSender());
-		this.validator.validate(msg, binding);
 		return msg;
 	}
 	public Message reconstructAdmnistrator2Copy(final Message msg, final Actor actor, final BindingResult binding) {
 		msg.setRecipient(actor);
 		msg.setOwner(actor);
-		this.validator.validate(msg, binding);
 		return msg;
 	}
 
