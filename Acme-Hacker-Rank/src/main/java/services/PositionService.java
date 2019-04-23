@@ -189,6 +189,9 @@ public class PositionService {
 
 		final Position res = position;
 
+		if (res.getMode() != null)
+			Assert.isTrue(!(position.getMode().equals("FINAL")));
+
 		final Company c = this.companyService.findByPrincipal();
 
 		res.setCompany(c);
@@ -285,6 +288,8 @@ public class PositionService {
 	}
 
 	public Position cancel(final Position position) {
+		Assert.isTrue(position.getMode().equals("FINAL"));
+
 		final Position res = position;
 		res.setCancelled(true);
 		return res;

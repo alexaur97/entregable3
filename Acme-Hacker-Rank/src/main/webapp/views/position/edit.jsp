@@ -35,7 +35,7 @@
 								
 						<acme:textbox code="position.title" path="title" />
 						<acme:textarea code="position.description" path="description" />
-						<acme:textbox placeholder="dd/MM/yyyy hh:ss" code="position.deadline" path="deadline" />
+						<acme:textbox placeholder="dd/MM/yyyy hh:mm" code="position.deadline" path="deadline" />
 						<acme:textbox code="position.profileRequired" path="profileRequired" />
 						<acme:textarea code="position.skillRequired" path="skillRequired" />
 						<acme:textarea code="position.techRequired" path="techRequired" />
