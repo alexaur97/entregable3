@@ -61,15 +61,16 @@ public class MessageController extends AbstractController {
 			Assert.notNull(messageId);
 			msg = this.messageService.findOne(messageId);
 			Assert.isTrue(msg.getOwner().getId() == id);
+			final Boolean b = msg.getTags().isEmpty();
 			result = new ModelAndView("message/show");
 			result.addObject("msg", msg);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int messageId) {
 		ModelAndView result;
