@@ -173,6 +173,7 @@ public class MessageService {
 		this.isSpam(msg);
 		msg.setRecipient(admin);
 		msg.setOwner(admin);
+		msg.setCopy(false);
 		this.validator.validate(msg, binding);
 
 		return msg;
@@ -185,6 +186,7 @@ public class MessageService {
 	public Message reconstructAdmnistrator2Copy(final Message msg, final Actor actor, final BindingResult binding) {
 		msg.setRecipient(actor);
 		msg.setOwner(actor);
+		msg.setCopy(true);
 		return msg;
 	}
 

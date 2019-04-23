@@ -63,6 +63,7 @@
 		<security:intercept-url pattern="/position/company/editMode.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/cancel.do" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/position/company/show.do" access="hasRole('COMPANY')" />
+		<security:intercept-url pattern="/curriculum/company/show.do" access="hasRole('COMPANY')" />
 
 
 		<security:intercept-url pattern="/positionData/hacker/show.do" access="hasRole('HACKER')" />

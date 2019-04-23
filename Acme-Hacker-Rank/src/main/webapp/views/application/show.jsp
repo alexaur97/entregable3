@@ -28,6 +28,8 @@
 <br/><spring:message code="application.submitMoment"/>: <jstl:out value="${application.submitMoment}"></jstl:out>
 <br/><spring:message code="application.hacker"/>: <jstl:out value="${application.hacker.name}"></jstl:out>
 <br/><spring:message code="application.curriculum"/>: <jstl:out value="${application.curriculum.idName}"></jstl:out>
+<acme:button url="/curriculum/company/show.do?applicationId=${application.id}" code="application.show"/>
+
 <br/><spring:message code="application.problem"/>: <jstl:out value="${application.problem.title}"></jstl:out>
 <br/><spring:message code="application.position"/>: <jstl:out value="${application.position.title}"></jstl:out>
 <br/><spring:message code="application.company"/>: <jstl:out value="${application.position.company.name}"></jstl:out>
