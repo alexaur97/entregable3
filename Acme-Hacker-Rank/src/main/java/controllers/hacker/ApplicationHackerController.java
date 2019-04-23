@@ -117,7 +117,7 @@ public class ApplicationHackerController extends AbstractController {
 			try {
 				final Hacker hacker = this.hackerService.findByPrincipal();
 				final String p = "PENDING";
-				this.applicationService.save(applicationFinal);
+				this.applicationService.saveHacker(applicationFinal);
 				applications = this.applicationService.findApplicationsByHacker(hacker.getId());
 				res = new ModelAndView("application/list");
 
@@ -170,14 +170,14 @@ public class ApplicationHackerController extends AbstractController {
 			try {
 				final Hacker hacker = this.hackerService.findByPrincipal();
 				final String p = "PENDING";
-				Assert.isTrue(!(applicationFinal.getExplanation() == null));
-				if (!(applicationFinal.getExplanation() == null))
-					Assert.isTrue(!(applicationFinal.getExplanation().isEmpty()));
-				Assert.isTrue(!(applicationFinal.getCodeLink() == null));
-				if (!(applicationFinal.getCodeLink() == null))
-					Assert.isTrue(!(applicationFinal.getCodeLink().isEmpty()));
+				//				Assert.isTrue(!(applicationFinal.getExplanation() == null));
+				//				if (!(applicationFinal.getExplanation() == null))
+				//					Assert.isTrue(!(applicationFinal.getExplanation().isEmpty()));
+				//				Assert.isTrue(!(applicationFinal.getCodeLink() == null));
+				//				if (!(applicationFinal.getCodeLink() == null))
+				//					Assert.isTrue(!(applicationFinal.getCodeLink().isEmpty()));
 
-				this.applicationService.save(applicationFinal);
+				this.applicationService.saveHacker(applicationFinal);
 				applications = this.applicationService.findApplicationsByHacker(hacker.getId());
 				res = new ModelAndView("application/list");
 

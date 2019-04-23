@@ -65,8 +65,11 @@ public class MessageAdministratorController extends AbstractController {
 				final Boolean b = this.messageService.validateAttachments(msg.getAttachments());
 				final Collection<Actor> actors = this.actorService.findAll();
 				for (final Actor actor : actors) {
+
 					final Message m = this.messageService.reconstructAdmnistrator2(messageF, actor, binding);
 					this.messageService.save(m);
+					final Message mCopy = this.messageService.reconstructAdmnistrator2Copy(messageF, actor, binding);
+					this.messageService.save(mCopy);
 				}
 				final int id = this.actorService.findByPrincipal().getId();
 				final Collection<Message> messagesRecived = this.messageService.findRecives(id);

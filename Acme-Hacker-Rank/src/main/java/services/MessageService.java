@@ -168,18 +168,22 @@ public class MessageService {
 		msg.setDeleted(false);
 		final Date moment = new Date();
 		msg.setMoment(moment);
-		msg.setRecipient(admin);
 		msg.setSender(admin);
 		final Collection<String> tags = new ArrayList<>();
 		tags.add("SYSTEM");
 		msg.setTags(tags);
 		msg.setSpam(this.spam(msg));
-		msg.setOwner(admin);
-		this.validator.validate(msg, binding);
 		return msg;
 	}
 	public Message reconstructAdmnistrator2(final Message msg, final Actor actor, final BindingResult binding) {
 		msg.setRecipient(actor);
+		msg.setOwner(msg.getSender());
+		this.validator.validate(msg, binding);
+		return msg;
+	}
+	public Message reconstructAdmnistrator2Copy(final Message msg, final Actor actor, final BindingResult binding) {
+		msg.setRecipient(actor);
+		msg.setOwner(actor);
 		this.validator.validate(msg, binding);
 		return msg;
 	}
