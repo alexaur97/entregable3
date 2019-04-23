@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
+import services.HackerService;
 import domain.Curriculum;
 import domain.EducationData;
+import domain.Hacker;
 import domain.MiscellaniusData;
 import domain.PositionData;
 import forms.CurriculumCreateForm;
@@ -29,6 +32,9 @@ public class CurriculumHackerController {
 
 	@Autowired
 	private CurriculumService	curriculumService;
+
+	@Autowired
+	private HackerService		hackerService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -61,7 +67,10 @@ public class CurriculumHackerController {
 	public ModelAndView edit(@RequestParam final int curriculumId) {
 		ModelAndView result;
 		try {
+			final Hacker h = this.hackerService.findByPrincipal();
 			final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
+			Assert.isTrue(curriculums.contains(curriculum));
 			result = this.editModelAndView(curriculum);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
@@ -73,7 +82,11 @@ public class CurriculumHackerController {
 	public ModelAndView show(@RequestParam final int curriculumId) {
 		ModelAndView result;
 		try {
+			final Hacker h = this.hackerService.findByPrincipal();
 			final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
+			Assert.isTrue(curriculums.contains(curriculum));
+
 			final Collection<EducationData> educationData = curriculum.getEducationData();
 			final Collection<MiscellaniusData> miscellaniusData = curriculum.getMiscellaniusData();
 			final Collection<PositionData> positionData = curriculum.getPositionData();

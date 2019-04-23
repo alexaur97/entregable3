@@ -4,7 +4,9 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,11 +72,12 @@ public class PositionService {
 		return result;
 	}
 
-	public void save(final Position position) {
+	public Position save(final Position position) {
 		Assert.notNull(position);
-		if (position.getMode() == "FINAL")
-			this.messageService.newPositionFinder(position);
-		this.positionRepository.save(position);
+		final Position result = this.positionRepository.save(position);
+		if (result.getMode() == "FINAL")
+			this.messageService.newPositionFinder(result);
+		return result;
 	}
 	public void delete(final Position position) {
 		Assert.isTrue(position.getMode().equals("DRAFT"));
@@ -291,4 +294,47 @@ public class PositionService {
 		final Collection<Position> result = this.positionRepository.findPositionsFinal(date);
 		return result;
 	}
+
+	public Collection<Position> searchPositionsForNotifications(final String keyword, final Integer minSalary, final Integer maxSalary, final Date deadline) {
+		Collection<Position> positionsByKeyWord = new ArrayList<>();
+		Collection<Position> positionsByMinSalary = new ArrayList<>();
+		Collection<Position> positionsByMaxSalary = new ArrayList<>();
+		Collection<Position> positionsByDeadline = new ArrayList<>();
+		Collection<Position> result = new ArrayList<>();
+
+		positionsByKeyWord = this.positionRepository.searchPositionsKeyWord(keyword);
+
+		if (!Objects.equals(null, minSalary))
+			positionsByMinSalary = this.positionRepository.searchPositionsMinSalary(minSalary);
+
+		if (!Objects.equals(null, maxSalary))
+			positionsByMaxSalary = this.positionRepository.searchPositionsMaxSalary(maxSalary);
+
+		if (!Objects.equals(null, deadline))
+			positionsByDeadline = this.positionRepository.searchPositionsDeadline(deadline);
+
+		final Set<Position> set = new HashSet<>();
+		set.addAll(positionsByDeadline);
+		set.addAll(positionsByKeyWord);
+		set.addAll(positionsByMaxSalary);
+		set.addAll(positionsByMinSalary);
+
+		if (!positionsByKeyWord.isEmpty())
+			set.retainAll(positionsByKeyWord);
+		if (!positionsByMinSalary.isEmpty())
+			set.retainAll(positionsByMinSalary);
+		if (!positionsByMaxSalary.isEmpty())
+			set.retainAll(positionsByMaxSalary);
+		if (!positionsByDeadline.isEmpty())
+			set.retainAll(positionsByDeadline);
+
+		if (this.configParamsService.find().getFinderMaxResults() < positionsByKeyWord.size())
+			for (int i = 0; i < this.configParamsService.find().getFinderMaxResults(); i++)
+				result.add((Position) positionsByKeyWord.toArray()[i]);
+		else
+			result = positionsByKeyWord;
+		return result;
+
+	}
+
 }

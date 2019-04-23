@@ -173,6 +173,7 @@ public class MessageService {
 		this.isSpam(msg);
 		msg.setRecipient(admin);
 		msg.setOwner(admin);
+		msg.setCopy(false);
 		this.validator.validate(msg, binding);
 
 		return msg;
@@ -185,6 +186,7 @@ public class MessageService {
 	public Message reconstructAdmnistrator2Copy(final Message msg, final Actor actor, final BindingResult binding) {
 		msg.setRecipient(actor);
 		msg.setOwner(actor);
+		msg.setCopy(true);
 		return msg;
 	}
 
@@ -249,7 +251,7 @@ public class MessageService {
 		final Collection<Hacker> allHackers = this.hackerService.findAll();
 		for (final Hacker h : allHackers) {
 			final Finder finder = this.finderService.getFinderFromHacker(h.getId());
-			final Collection<Position> positions = this.positionService.searchPositions(finder.getKeyword(), finder.getMinSalary(), finder.getMaxSalary(), finder.getDeadline());
+			final Collection<Position> positions = this.positionService.searchPositionsForNotifications(finder.getKeyword(), finder.getMinSalary(), finder.getMaxSalary(), finder.getDeadline());
 			if (positions.contains(position)) {
 				final Message message = this.create();
 				message.setRecipient(h);

@@ -174,6 +174,7 @@ public class ApplicationService {
 
 	}
 	public Application recostructionEdit(final Application application, final BindingResult binding) {
+
 		final Application a = this.applicationRepository.findOne(application.getId());
 		application.setCurriculum(a.getCurriculum());
 		application.setHacker(a.getHacker());

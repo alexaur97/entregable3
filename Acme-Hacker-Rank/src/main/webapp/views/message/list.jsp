@@ -31,7 +31,7 @@
 </security:authorize>
 
 <h4>
-	<spring:message code="message.recived" />
+	<spring:message code="message.received" />
 </h4>
 <table>
 	<tr>
