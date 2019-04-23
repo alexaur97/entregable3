@@ -21,4 +21,5 @@
 <h3><spring:message code="welcome.name" />: <jstl:out value="${name}"/></h3>
 <p> ${sysMessage}</p>
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
-
+<jstl:if test="${Banned}">
+<p>Es posible que usted este baneado</p>		</jstl:if>

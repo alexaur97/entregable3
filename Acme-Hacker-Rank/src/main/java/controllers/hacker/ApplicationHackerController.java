@@ -87,7 +87,7 @@ public class ApplicationHackerController extends AbstractController {
 		try {
 
 			final Collection<Position> positions = this.positionService.findPositionsFinal();
-			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipal();
+			final Collection<Curriculum> curriculums = this.curriculumService.findAllNotCopyByPrincipal();
 			final Hacker hacker = this.hackerService.findByPrincipal();
 			result = new ModelAndView("application/create");
 			result.addObject("application", application);

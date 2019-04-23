@@ -86,8 +86,11 @@
 					</security:authorize>
 	
 </display:table>
+			<security:authorize access="hasRole('HACKER')">
+
 <acme:button url="/miscellaneousData/hacker/create.do?curriculumId=${curriculum.id}"
 			code="curriculum.create2" />
+			</security:authorize>
 <br>
 <h4><spring:message code="curriculum.positionData"/>:</h4>
 
@@ -129,5 +132,5 @@
 				</security:authorize>
 <security:authorize access="hasRole('COMPANY')">
 
-<acme:button url="apllication/company/show.do?applicationId=${application.id }" code="curriculum.back" />
+<acme:button url="application/company/show.do?applicationId=${application.id }" code="curriculum.back" />
 				</security:authorize>

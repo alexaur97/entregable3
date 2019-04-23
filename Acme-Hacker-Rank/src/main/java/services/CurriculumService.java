@@ -114,6 +114,12 @@ public class CurriculumService {
 		return result;
 	}
 
+	public Collection<Curriculum> findAllNotCopyByPrincipal() {
+		final Hacker principal = this.hackerService.findByPrincipal();
+		final Collection<Curriculum> result = this.curriculumRepository.findAllNotCopyByPrincipal(principal.getId());
+		return result;
+	}
+
 	public Curriculum constructByForm(final CurriculumCreateForm c) {
 		final Curriculum result = this.create();
 		result.setIdName(c.getIdName());

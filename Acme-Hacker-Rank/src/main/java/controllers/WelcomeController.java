@@ -25,6 +25,7 @@ import services.CompanyService;
 import services.ConfigurationParametersService;
 import services.FinderService;
 import services.HackerService;
+import domain.Actor;
 import domain.Company;
 import domain.ConfigurationParameters;
 import domain.Hacker;
@@ -47,9 +48,10 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	CompanyService							companyService;
-	
+
 	@Autowired
 	FinderService							finderService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -87,10 +89,18 @@ public class WelcomeController extends AbstractController {
 		result.addObject("sysMessage", sysMessage);
 		result.addObject("moment", moment);
 		result.addObject("lang", lang);
+		try {
+			final Actor actor = this.actorService.findByPrincipal();
+			result.addObject("Banned", actor.getBanned());
 
+		} catch (final Exception e) {
+			System.out.println(e);
+		}
 		try {
 			final Hacker hacker = this.hackerService.findByPrincipal();
 			result.addObject("hacker", hacker);
+			if (hacker.getBanned() == true)
+				result = new ModelAndView("redirect:/j_spring_security_logout");
 
 		} catch (final Exception e) {
 			System.out.println(e);
@@ -99,6 +109,8 @@ public class WelcomeController extends AbstractController {
 		try {
 			final Company company = this.companyService.findByPrincipal();
 			result.addObject("company", company);
+			if (company.getBanned() == true)
+				result = new ModelAndView("redirect:/j_spring_security_logout");
 
 		} catch (final Exception e) {
 		}

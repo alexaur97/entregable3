@@ -29,4 +29,7 @@ public interface CurriculumRepository extends JpaRepository<Curriculum, Integer>
 	@Query("select c from Curriculum c join c.miscellaniusData p  where p.id=?1")
 	Curriculum findByMiscellaneousData(int id);
 
+	@Query("select c from Hacker h join h.curriculums c where h.id=?1 and c.copy is false")
+	Collection<Curriculum> findAllNotCopyByPrincipal(int id);
+
 }
