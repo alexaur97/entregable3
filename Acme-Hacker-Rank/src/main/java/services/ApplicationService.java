@@ -1,9 +1,6 @@
 
 package services;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -159,18 +156,13 @@ public class ApplicationService {
 		final Collection<Application> result = this.applicationRepository.findApplicationsByHacker(id);
 		return result;
 	}
-	public Application recostructionCreate(final Application application, final BindingResult binding) throws ParseException {
+	public Application recostructionCreate(final Application application, final BindingResult binding) {
 		if (application.getCurriculum() != null) {
 			final Curriculum curriculumCopy = this.curriculumService.copyCurriculum(application.getCurriculum());
 			application.setCurriculum(curriculumCopy);
 		}
 		application.setHacker(this.hackerService.findByPrincipal());
 		final Date moment = new Date();
-		final String pattern = "YYMMdd";
-		final DateFormat df = new SimpleDateFormat(pattern);
-		final String fechaFormateada = df.format(moment);
-		final Date fecha = df.parse(fechaFormateada);
-
 		application.setMoment(moment);
 		application.setStatus("PENDING");
 		if (!(application.getPosition() == null)) {
