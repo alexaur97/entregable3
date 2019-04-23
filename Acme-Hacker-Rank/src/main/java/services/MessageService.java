@@ -220,7 +220,7 @@ public class MessageService {
 		for (int j = 0; j < lista.size(); j++)
 			if (sw.contains(lista.get(j)) || sw.contains(list.get(j))) {
 				message.setSpam(true);
-				final Collection<String> tags = new ArrayList<>();
+				final Collection<String> tags = message.getTags();
 				tags.add("SPAM");
 				message.setTags(tags);
 				break;
