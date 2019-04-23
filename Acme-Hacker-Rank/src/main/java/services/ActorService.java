@@ -130,12 +130,18 @@ public class ActorService {
 			final Collection<Message> messages = this.messageService.findSender(actorId);
 			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
 			final double calculo = ((double) messagesSpam.size() / messages.size());
-			if (messages.isEmpty())
+			if (messages.isEmpty()) {
 				actores.get(i).setSpammer(false);
-			else if (calculo > 0.10)
+				this.save(actores.get(i));
+			} else if (calculo > 0.10) {
 				actores.get(i).setSpammer(true);
-			else
+				this.save(actores.get(i));
+
+			} else {
 				actores.get(i).setSpammer(false);
+				this.save(actores.get(i));
+
+			}
 		}
 	}
 	public String addCountryCode(String phoneNumber) {
