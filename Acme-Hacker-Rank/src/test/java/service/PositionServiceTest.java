@@ -78,10 +78,10 @@ public class PositionServiceTest extends AbstractTest {
 	//Requisito 9.1 Un Actor autenticado como Empresa puede editar una posicion.
 
 	@Test
-	public void testEditPositionGood() {
+	public void testEditModePositionGood() {
 		super.authenticate("company1");
 
-		final int IdPosition = super.getEntityId("position1");
+		final int IdPosition = super.getEntityId("position3");
 		Position position = this.positionService.findOne(IdPosition);
 
 		position = this.positionService.saveMode(position);
@@ -94,7 +94,7 @@ public class PositionServiceTest extends AbstractTest {
 	// que el la posicion tenga dos o mas problemas asociados.
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testEditPositionError() {
+	public void testEditModePositionError() {
 		super.authenticate("company1");
 
 		final int IdPosition = super.getEntityId("position2");
@@ -110,13 +110,12 @@ public class PositionServiceTest extends AbstractTest {
 	public void testDeletePositionGood() {
 		super.authenticate("company1");
 
-		final int IdPosition = super.getEntityId("position1");
+		final int IdPosition = super.getEntityId("position2");
 		final Position position = this.positionService.findOne(IdPosition);
 
 		this.positionService.delete(position);
 		super.unauthenticate();
 	}
-
 	//	Para el caso negativo estamos intentando que una Empresa elimine una posicion
 	// en modo FINAL , esto debe provocar un error porque en estado final solo se podria cancelar,
 	//pero no eliminar la posicion.
@@ -131,6 +130,63 @@ public class PositionServiceTest extends AbstractTest {
 		final Position position = this.positionService.findOne(IdPosition);
 
 		this.positionService.delete(position);
+		super.unauthenticate();
+	}
+	//Requisito 9.1 Un Actor autenticado como Empresa puede cancelar una posicion cuando esta en modo FINAL.
+
+	@Test
+	public void testCancelPositionGood() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position1");
+		final Position position = this.positionService.findOne(IdPosition);
+
+		this.positionService.cancel(position);
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo estamos intentando que una Empresa cancele una posicion
+	// en modo borrador , esto debe provocar un error porque en estado borrador solo se podria eliminar.
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "cancel" comprueba
+	// que el la posicion esta en modo final.
+	@Test(expected = IllegalArgumentException.class)
+	public void testCancelPositionError() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position2");
+		final Position position = this.positionService.findOne(IdPosition);
+
+		this.positionService.cancel(position);
+		super.unauthenticate();
+	}
+
+	//Requisito 9.1 Un Actor autenticado como Empresa puede editar una posicion cuando esta en modo Borrador.
+
+	@Test
+	public void testEditPositionGood() {
+		super.authenticate("company1");
+		final int IdPosition = super.getEntityId("position2");
+		Position position = this.positionService.findOne(IdPosition);
+		position.setDescription("nueva descripcion");
+		position = this.positionService.reconstruct(position, null);
+		this.positionService.save(position);
+		super.unauthenticate();
+	}
+
+	//	Para el caso negativo estamos intentando que una Empresa cancele una posicion
+	// en modo borrador , esto debe provocar un error porque en estado borrador solo se podria eliminar.
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "cancel" comprueba
+	// que el la posicion esta en modo final.
+	@Test(expected = IllegalArgumentException.class)
+	public void testEditPositionError() {
+		super.authenticate("company1");
+
+		final int IdPosition = super.getEntityId("position1");
+		Position position = this.positionService.findOne(IdPosition);
+
+		position.setDescription("nueva descripcion");
+		position = this.positionService.reconstruct(position, null);
+		this.positionService.save(position);
 		super.unauthenticate();
 	}
 

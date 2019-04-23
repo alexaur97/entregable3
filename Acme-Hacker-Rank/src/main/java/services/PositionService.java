@@ -75,8 +75,8 @@ public class PositionService {
 	public Position save(final Position position) {
 		Assert.notNull(position);
 		final Position result = this.positionRepository.save(position);
-		if (result.getMode() == "FINAL")
-			this.messageService.newPositionFinder(result);
+		if (position.getMode() == "FINAL")
+			this.messageService.newPositionFinder(position);
 		return result;
 	}
 	public void delete(final Position position) {
@@ -189,6 +189,9 @@ public class PositionService {
 
 		final Position res = position;
 
+		if (res.getMode() != null)
+			Assert.isTrue(!(position.getMode().equals("FINAL")));
+
 		final Company c = this.companyService.findByPrincipal();
 
 		res.setCompany(c);
@@ -285,6 +288,8 @@ public class PositionService {
 	}
 
 	public Position cancel(final Position position) {
+		Assert.isTrue(position.getMode().equals("FINAL"));
+
 		final Position res = position;
 		res.setCancelled(true);
 		return res;
@@ -302,7 +307,8 @@ public class PositionService {
 		Collection<Position> positionsByDeadline = new ArrayList<>();
 		Collection<Position> result = new ArrayList<>();
 
-		positionsByKeyWord = this.positionRepository.searchPositionsKeyWord(keyword);
+		if (!keyword.isEmpty())
+			positionsByKeyWord = this.positionRepository.searchPositionsKeyWord(keyword);
 
 		if (!Objects.equals(null, minSalary))
 			positionsByMinSalary = this.positionRepository.searchPositionsMinSalary(minSalary);
