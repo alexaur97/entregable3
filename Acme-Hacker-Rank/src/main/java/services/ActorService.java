@@ -32,6 +32,9 @@ public class ActorService {
 	@Autowired
 	private MessageService					messageService;
 
+	@Autowired
+	private AdministratorService			adminsitradorService;
+
 
 	public Actor save(final Actor a) {
 		Assert.notNull(a);
@@ -122,6 +125,7 @@ public class ActorService {
 		final List<Actor> actores = this.actorRepository.findAll();
 		for (int i = 0; i < actores.size(); i++) {
 			final int actorId = actores.get(i).getId();
+			this.adminsitradorService.findByPrincipal();
 
 			final Collection<Message> messages = this.messageService.findSender(actorId);
 			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
