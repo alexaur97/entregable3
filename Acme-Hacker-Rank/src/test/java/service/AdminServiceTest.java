@@ -54,10 +54,10 @@ public class AdminServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//	Para el caso negativo estamos intentando que una Empresa cree un nuevo administrador
-	//esto debe provocar un fallo en el sistema porque solo puede crearlo otro usuario registrado como administrador
-	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "reconstruct" comprueba
-	// que el usuario logueado sea una empresa.
+	//	Para el caso negativo estamos intentando crear un nuevo Administrador con un email incorrecto
+	//esto debe provocar un fallo en el sistema porque tiene un formato especifico
+	//Análisis del data coverage: el sistema comprueba que los datos introducidos cumplen los formatos
+	//especificados.
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreatePositionError() {
@@ -68,12 +68,12 @@ public class AdminServiceTest extends AbstractTest {
 		form.setVAT("ES66666668");
 		form.setSurnames("surnames");
 		form.setPhoto("https://img.lovepik.com/element/40025/1507.png_860.png");
-		form.setEmail("name@adm.com");
+		form.setEmail("fallo");
 		form.setPhone("667890477");
 		form.setAddress("Reina Mercedes");
 		form.setUsername("username");
 		form.setPassword("Ertuuuuuu7888");
-		form.setConfirmPassword("Ertuuu7888");
+		form.setConfirmPassword("Ertuuuuuu7888");
 		form.setBrandName("Visa");
 		form.setCvv(194);
 		form.setExpirationMonth(02);

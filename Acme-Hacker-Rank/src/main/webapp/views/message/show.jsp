@@ -32,13 +32,17 @@
 <spring:message code="message.sender"/>: <jstl:out value="${msg.sender.name} ${msg.sender.surnames}"></jstl:out>
 
 <br/>
-
+<jstl:if test="${b eq true}">
+<h2><spring:message code="message.notags"/></h2>
+</jstl:if>
+<jstl:if test="${b eq false}">
 <h2><spring:message code="message.tags"/>:</h2>
 <ul>
 	<jstl:forEach items="${msg.tags}" var="x">
 		<li><jstl:out value="${x}"></jstl:out></li>
 	</jstl:forEach>
 </ul>
+</jstl:if>
 <br/>
 
 
