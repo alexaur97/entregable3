@@ -60,7 +60,7 @@ public class Position extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy hh:ss")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDeadline() {
 		return this.deadline;
 	}

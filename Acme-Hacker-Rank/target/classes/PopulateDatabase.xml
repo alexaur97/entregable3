@@ -607,7 +607,7 @@
 		<property name="creditCard" ref="creditCard1" />
 		<property name="photo"
 			value="https://img.lovepik.com/element/40025/1507.png_860.png" />
-		<property name="email" value="admin@gmail.com" />
+		<property name="email" value="admin@" />
 		<property name="phone" value="698765432" />
 		<property name="address" value="" />
 		<property name="spammer" value="false" />
@@ -885,7 +885,7 @@
 		<property name="techRequired" value="High tech skills required" />
 		<property name="salaryOffered" value="45000" />
 		<property name="ticker" value="HACK-1234" />
-		<property name="mode" value="DRAFT" />
+		<property name="mode" value="FINAL" />
 		<property name="cancelled" value="false" />
 		<property name="company" ref="actor2" />
 		<property name="problems">
@@ -928,6 +928,8 @@
 		<property name="company" ref="actor3" />
 		<property name="problems">
 			<list>
+			<ref bean="problem2"/>
+				<ref bean="problem3"/>
 			</list>
 		</property>	
 	</bean>
