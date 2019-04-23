@@ -16,7 +16,6 @@ import services.AdministratorService;
 import services.MessageService;
 import controllers.AbstractController;
 import domain.Actor;
-import domain.Administrator;
 import domain.Message;
 
 @Controller
@@ -41,7 +40,7 @@ public class MessageAdministratorController extends AbstractController {
 		msg = new Message();
 
 		try {
-			final Administrator admin = this.administratorService.findByPrincipal();
+			this.administratorService.findByPrincipal();
 			result = new ModelAndView("message/create");
 			result.addObject("msg", msg);
 		} catch (final Throwable oops) {
@@ -62,7 +61,6 @@ public class MessageAdministratorController extends AbstractController {
 			res = new ModelAndView("message/create");
 		else
 			try {
-				final Boolean b = this.messageService.validateAttachments(msg.getAttachments());
 				final Collection<Actor> actors = this.actorService.findAll();
 				for (final Actor actor : actors) {
 
