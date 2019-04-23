@@ -1,6 +1,7 @@
 
 package controllers.hacker;
 
+import java.util.Collection;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
+import services.HackerService;
 import services.PersonalDataService;
 import domain.Curriculum;
 import domain.PersonalData;
@@ -29,12 +32,22 @@ public class PersonalDataHackerController {
 	@Autowired
 	private CurriculumService	curriculumService;
 
+	@Autowired
+	private HackerService		hackerService;
+
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int personalDataId) {
 		ModelAndView result;
 		try {
+
 			final PersonalData personalData = this.personalDataService.findOne(personalDataId);
+			Assert.notNull(personalData);
+			final Integer idH = this.hackerService.findByPrincipal().getId();
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+			final Curriculum curriculum = this.curriculumService.findByPersonalData(personalData.getId());
+			Assert.isTrue(curriculums.contains(curriculum));
+
 			result = this.editModelAndView(personalData);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");

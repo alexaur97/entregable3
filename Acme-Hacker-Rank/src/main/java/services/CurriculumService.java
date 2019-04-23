@@ -92,7 +92,7 @@ public class CurriculumService {
 		final Curriculum result = this.curriculumRepository.save(curriculum);
 		final Collection<Curriculum> curriculums = principal.getCurriculums();
 		curriculums.add(result);
-		principal.getCurriculums();
+		principal.setCurriculums(curriculums);
 		this.hackerService.save(principal);
 		return result;
 	}
@@ -128,8 +128,15 @@ public class CurriculumService {
 	}
 
 	public Curriculum reconstruct(final Curriculum curriculum, final BindingResult binding) {
-		final Curriculum result = this.findOne(curriculum.getId());
-		result.setIdName(curriculum.getIdName());
+		final Curriculum c = this.findOne(curriculum.getId());
+		//result.setIdName(curriculum.getIdName());
+		final Curriculum result = curriculum;
+		result.setCopy(c.getCopy());
+		result.setEducationData(c.getEducationData());
+		result.setMiscellaniusData(c.getMiscellaniusData());
+		result.setPersonalData(c.getPersonalData());
+		result.setPositionData(c.getPositionData());
+
 		this.validator.validate(result, binding);
 		return result;
 	}
