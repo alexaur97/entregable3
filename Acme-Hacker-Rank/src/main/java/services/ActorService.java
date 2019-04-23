@@ -135,7 +135,7 @@ public class ActorService {
 		}
 	}
 	public String addCountryCode(String phoneNumber) {
-		if (phoneNumber.charAt(0) != '+') {
+		if (phoneNumber.length() > 0 && phoneNumber.charAt(0) != '+') {
 			final ConfigurationParameters cp = this.configurationParametersService.find();
 			final String cc = cp.getCountryCode();
 			phoneNumber = cc + " " + phoneNumber;
