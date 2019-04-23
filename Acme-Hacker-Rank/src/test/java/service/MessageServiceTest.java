@@ -44,10 +44,6 @@ public class MessageServiceTest extends AbstractTest {
 		final ArrayList<String> tags = new ArrayList<>();
 		tags.add("tag1");
 		tags.add("tag2");
-		final ArrayList<String> attachments = new ArrayList<>();
-		attachments.add("tag1");
-		attachments.add("tag2");
-		msg.setAttachments(attachments);
 		msg.setTags(tags);
 		msg.setRecipient(recipient);
 
@@ -68,10 +64,6 @@ public class MessageServiceTest extends AbstractTest {
 		tags.add("tag2");
 		msg.setTags(tags);
 		msg.setRecipient(recipient);
-		final ArrayList<String> attachments = new ArrayList<>();
-		attachments.add("tag1");
-		attachments.add("tag2");
-		msg.setAttachments(attachments);
 		final Message message = this.messageService.reconstruct(msg, null);
 		this.messageService.save(message);
 		super.unauthenticate();
