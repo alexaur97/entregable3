@@ -44,9 +44,12 @@
 							code="socialProfile.cancel" />
 							
 						
+						<jstl:if test="${socialProfile.id!=0}">
+						
 						<acme:button url="/socialprofile/delete.do?socialProfileId=${socialProfile.id}"
 						code="socialProfile.delete"/>
 			
+						</jstl:if>
 			
 					</div>
 				</form:form>

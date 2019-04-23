@@ -111,7 +111,7 @@ public class MessageController extends AbstractController {
 		msg = new Message();
 
 		try {
-			final Actor a = this.actorService.findByPrincipal();
+			this.actorService.findByPrincipal();
 			msg.setId(0);
 			result = new ModelAndView("message/list");
 			result.addObject("msg", msg);
@@ -146,29 +146,23 @@ public class MessageController extends AbstractController {
 			res = this.createEditModelAndView(msg);
 		else
 			try {
-				final Boolean b = this.messageService.validateAttachments(msg.getAttachments());
-				if (!b) {
-					res = this.createEditModelAndView(msg, "msg.attachment.error");
-					res.addObject("b", b);
-				} else {
-					this.messageService.save(msg);
-					Message copy;
-					copy = new Message();
-					copy.setAttachments(msg.getAttachments());
-					copy.setBody(msg.getBody());
-					copy.setDeleted(msg.getDeleted());
-					copy.setMoment(msg.getMoment());
-					copy.setOwner(msg.getRecipient());
-					copy.setRecipient(msg.getRecipient());
-					copy.setSender(msg.getSender());
-					copy.setSubject(msg.getSubject());
-					copy.setTags(msg.getTags());
-					copy.setCopy(true);
-					this.messageService.isSpam(msg);
-					copy.setSpam(msg.getSpam());
-					this.messageService.save(copy);
-					res = new ModelAndView("redirect:/message/list.do");
-				}
+				this.messageService.save(msg);
+				Message copy;
+				copy = new Message();
+				copy.setBody(msg.getBody());
+				copy.setDeleted(msg.getDeleted());
+				copy.setMoment(msg.getMoment());
+				copy.setOwner(msg.getRecipient());
+				copy.setRecipient(msg.getRecipient());
+				copy.setSender(msg.getSender());
+				copy.setSubject(msg.getSubject());
+				copy.setTags(msg.getTags());
+				copy.setCopy(true);
+				this.messageService.isSpam(msg);
+				copy.setSpam(msg.getSpam());
+				this.messageService.save(copy);
+				res = new ModelAndView("redirect:/message/list.do");
+
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(msg, "msg.commit.error");
 			}

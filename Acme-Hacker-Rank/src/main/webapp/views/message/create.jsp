@@ -36,7 +36,6 @@
 						<form:hidden path="version"/>
 						<acme:textbox code="message.subject" path="subject" />
 						<acme:textarea code="message.body" path="body" />
-						<acme:textbox code="message.attachments" path="attachments" />					
 						<acme:submit name="save" code="msg.save" />						
 						<acme:cancel url="/message/list.do"
 							code="msg.cancel" />

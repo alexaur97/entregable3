@@ -15,6 +15,7 @@ import repositories.ApplicationRepository;
 import domain.Application;
 import domain.Company;
 import domain.Curriculum;
+import domain.Hacker;
 import domain.Problem;
 
 @Service
@@ -32,6 +33,8 @@ public class ApplicationService {
 	private ProblemService			problemService;
 	@Autowired
 	private CurriculumService		curriculumService;
+	@Autowired
+	private MessageService			messageService;
 	@Autowired
 	private Validator				validator;
 
@@ -71,7 +74,8 @@ public class ApplicationService {
 
 	public void save(final Application application) {
 		Assert.notNull(application);
-
+		if (application.getId() != 0)
+			this.messageService.changedStatus(application.getProblem().getCompany());
 		this.applicationRepository.save(application);
 	}
 	public Application saveCompany(final Application application) {
@@ -80,8 +84,26 @@ public class ApplicationService {
 		final Company company = this.companyService.findByPrincipal();
 		Assert.isTrue(company.equals(application.getPosition().getCompany()));
 		result = this.applicationRepository.save(application);
+		this.messageService.changedStatus(application.getHacker());
 		return result;
 
+	}
+	public void saveHacker(final Application application) {
+		Assert.notNull(application);
+		final Hacker hacker = this.hackerService.findByPrincipal();
+		Assert.isTrue(application.getHacker().equals(hacker));
+		if (application.getId() == 0)
+			Assert.isTrue(application.getStatus().equals("PENDING"));
+		else {
+			Assert.isTrue(!(application.getExplanation() == null));
+			if (!(application.getExplanation() == null))
+				Assert.isTrue(!(application.getExplanation().isEmpty()));
+			Assert.isTrue(!(application.getCodeLink() == null));
+			if (!(application.getCodeLink() == null))
+				Assert.isTrue(!(application.getCodeLink().isEmpty()));
+
+		}
+		this.applicationRepository.save(application);
 	}
 
 	public void delete(final Application application) {
@@ -135,8 +157,10 @@ public class ApplicationService {
 		return result;
 	}
 	public Application recostructionCreate(final Application application, final BindingResult binding) {
-		final Curriculum curriculumCopy = this.curriculumService.copyCurriculum(application.getCurriculum());
-		application.setCurriculum(curriculumCopy);
+		if (application.getCurriculum() != null) {
+			final Curriculum curriculumCopy = this.curriculumService.copyCurriculum(application.getCurriculum());
+			application.setCurriculum(curriculumCopy);
+		}
 		application.setHacker(this.hackerService.findByPrincipal());
 		final Date moment = new Date();
 		application.setMoment(moment);

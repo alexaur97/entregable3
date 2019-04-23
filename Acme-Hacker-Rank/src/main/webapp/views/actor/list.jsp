@@ -25,27 +25,41 @@
 	<display:column property="name" titleKey="actor.name" />
 	<display:column property="surnames" titleKey="actor.surnames" />
 	<display:column titleKey="actor.ban">
-			<jstl:if test="${!ac.banned}">
-			<acme:cancel url="/actor/administrador/ban.do?actorId=${ac.id}" code="actor.ban" />
+		<jstl:if test="${!ac.banned}">
+			<acme:cancel url="/actor/administrator/banned.do?actorId=${ac.id}"
+				code="actor.ban" />
 		</jstl:if>
 	</display:column>
 	<display:column titleKey="actor.unban">
-			<jstl:if test="${ac.banned}">
-			<acme:cancel url="/actor/administrador/unban.do?actorId=${ac.id}" code="actor.unban" />
+		<jstl:if test="${ac.banned}">
+			<acme:cancel url="/actor/administrator/unbanned.do?actorId=${ac.id}"
+				code="actor.unban" />
 		</jstl:if>
 	</display:column>
 	<display:column titleKey="actor.spammer">
-			<jstl:if test="${ac.spammer}">
-			<h3 style="color: #CB3234;"><spring:message code="actor.spam"/></h3>
+		<jstl:if test="${ac.spammer}">
+			<h3 style="color: #CB3234;">
+				<spring:message code="actor.spam" />
+			</h3>
 		</jstl:if>
 		<jstl:if test="${!ac.spammer}">
-			<h3 style="color: #008000;"><spring:message code="actor.nospam"/></h3>
+			<h3 style="color: #008000;">
+				<spring:message code="actor.nospam" />
+			</h3>
 		</jstl:if>
-		
-	</display:column>		
-	
-		
+
+	</display:column>
+
+
 </display:table>
 
-<acme:cancel url="/spam/administrator/spammer.do"
-							code="actor.isspammer" />
+<acme:cancel url="/spam/administrator/spammer.do" code="actor.isspammer" />
+
+<jstl:if test="${msg eq 'true'}">
+<h3 style="color: #008000;">
+		<spring:message code="actor.msg" />
+	</h3>
+
+</jstl:if>
+
+

@@ -42,6 +42,21 @@ public class ApplicationHackerController extends AbstractController {
 	private CurriculumService	curriculumService;
 
 
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int applicationId) {
+		ModelAndView result;
+		try {
+			final Hacker hacker = this.hackerService.findByPrincipal();
+			final Application application = this.applicationService.findOne(applicationId);
+			Assert.isTrue(application.getHacker().equals(hacker));
+			result = new ModelAndView("application/show");
+			result.addObject("application", application);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -102,7 +117,7 @@ public class ApplicationHackerController extends AbstractController {
 			try {
 				final Hacker hacker = this.hackerService.findByPrincipal();
 				final String p = "PENDING";
-				this.applicationService.save(applicationFinal);
+				this.applicationService.saveHacker(applicationFinal);
 				applications = this.applicationService.findApplicationsByHacker(hacker.getId());
 				res = new ModelAndView("application/list");
 
@@ -155,14 +170,14 @@ public class ApplicationHackerController extends AbstractController {
 			try {
 				final Hacker hacker = this.hackerService.findByPrincipal();
 				final String p = "PENDING";
-				Assert.isTrue(!(applicationFinal.getExplanation() == null));
-				if (!(applicationFinal.getExplanation() == null))
-					Assert.isTrue(!(applicationFinal.getExplanation().isEmpty()));
-				Assert.isTrue(!(applicationFinal.getCodeLink() == null));
-				if (!(applicationFinal.getCodeLink() == null))
-					Assert.isTrue(!(applicationFinal.getCodeLink().isEmpty()));
+				//				Assert.isTrue(!(applicationFinal.getExplanation() == null));
+				//				if (!(applicationFinal.getExplanation() == null))
+				//					Assert.isTrue(!(applicationFinal.getExplanation().isEmpty()));
+				//				Assert.isTrue(!(applicationFinal.getCodeLink() == null));
+				//				if (!(applicationFinal.getCodeLink() == null))
+				//					Assert.isTrue(!(applicationFinal.getCodeLink().isEmpty()));
 
-				this.applicationService.save(applicationFinal);
+				this.applicationService.saveHacker(applicationFinal);
 				applications = this.applicationService.findApplicationsByHacker(hacker.getId());
 				res = new ModelAndView("application/list");
 

@@ -19,6 +19,7 @@ import services.EducationDataService;
 import services.HackerService;
 import domain.Curriculum;
 import domain.EducationData;
+import domain.Hacker;
 
 @Controller
 @RequestMapping("/educationData/hacker/")
@@ -44,7 +45,11 @@ public class EducationDataHackerController {
 
 		try {
 
-			this.hackerService.findByPrincipal();
+			final Hacker h = this.hackerService.findByPrincipal();
+
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
+			Assert.isTrue(curriculums.contains(c));
+
 			educationData.setId(0);
 
 			result = new ModelAndView("educationData/edit");
@@ -70,7 +75,7 @@ public class EducationDataHackerController {
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 			final Curriculum curriculum = this.curriculumService.findByEducationData(educationData);
 			Assert.isTrue(curriculums.contains(curriculum));
-			res = this.createEditModelAndView(educationData, null);
+			res = this.createEditModelAndView(educationData, null, curriculum);
 
 		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/#");
@@ -89,7 +94,12 @@ public class EducationDataHackerController {
 			try {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
 
-				Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
+				final Integer idH = this.hackerService.findByPrincipal().getId();
+				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+				Assert.isTrue(curriculums.contains(c));
+
+				if (educationData.getEndDate() != null)
+					Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
 				this.educationDataService.save(educationData);
 
@@ -143,13 +153,17 @@ public class EducationDataHackerController {
 
 			this.hackerService.findByPrincipal();
 			Assert.notNull(educationDataId);
+
 			educationData = this.educationDataService.findOne(educationDataId);
 
-			final Curriculum cu = this.curriculumService.findByEducationData(educationData);
+			final Integer idH = this.hackerService.findByPrincipal().getId();
+			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
+			final Curriculum curriculum = this.curriculumService.findByEducationData(educationData);
+			Assert.isTrue(curriculums.contains(curriculum));
 
 			result = new ModelAndView("educationData/show");
 			result.addObject("educationData", educationData);
-			result.addObject("curriculum", cu);
+			result.addObject("curriculum", curriculum);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

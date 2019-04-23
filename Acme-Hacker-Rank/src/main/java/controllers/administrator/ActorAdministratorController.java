@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import services.ActorService;
 import services.AdministratorService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Administrator;
 
 @Controller
 @RequestMapping("actor/administrator")
@@ -30,8 +32,8 @@ public class ActorAdministratorController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		try {
-			this.administratorService.findByPrincipal();
-			final Collection<Actor> actors = this.actorService.findAll();
+			final Administrator admin = this.administratorService.findByPrincipal();
+			final Collection<Actor> actors = this.actorService.findOthersActors(admin.getId());
 			result = new ModelAndView("actor/list");
 			result.addObject("requestURI", "actor/administrator/list.do");
 			result.addObject("actors", actors);
@@ -42,12 +44,13 @@ public class ActorAdministratorController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView ban(@RequestParam final int actorId) {
+	@RequestMapping(value = "/banned", method = RequestMethod.GET)
+	public ModelAndView banned(@RequestParam final int actorId) {
 		ModelAndView result;
 		final Collection<Actor> actors;
 		try {
-			this.administratorService.findByPrincipal();
+			final Administrator admin = this.administratorService.findByPrincipal();
+			Assert.isTrue(!(admin.getId() == actorId));
 			final Actor actor = this.actorService.findOne(actorId);
 			actor.setBanned(true);
 			this.actorService.save(actor);
@@ -60,12 +63,13 @@ public class ActorAdministratorController extends AbstractController {
 		}
 		return result;
 	}
-	@RequestMapping(value = "/unban", method = RequestMethod.GET)
-	public ModelAndView unban(@RequestParam final int actorId) {
+	@RequestMapping(value = "/unbanned", method = RequestMethod.GET)
+	public ModelAndView unbanned(@RequestParam final int actorId) {
 		ModelAndView result;
 		final Collection<Actor> actors;
 		try {
-			this.administratorService.findByPrincipal();
+			final Administrator admin = this.administratorService.findByPrincipal();
+			Assert.isTrue(!(admin.getId() == actorId));
 			final Actor actor = this.actorService.findOne(actorId);
 			actor.setBanned(false);
 			this.actorService.save(actor);

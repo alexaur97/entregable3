@@ -26,8 +26,9 @@
 
 <td><acme:cancel url="/message/create.do" code="message.create" /></td>
 <security:authorize access="hasRole('ADMINISTRATOR')">
-<td><acme:cancel url="/message/administrator/create.do" code="message.admin.create" /></td>
-		</security:authorize>
+	<td><acme:cancel url="/message/administrator/create.do"
+			code="message.admin.create" /></td>
+</security:authorize>
 
 <h4>
 	<spring:message code="message.recived" />
@@ -40,17 +41,26 @@
 		<th><spring:message code="message.showMessage" /></th>
 		<th><spring:message code="message.delete" /></th>
 	</tr>
-	
-		<jstl:forEach items="${messagesRecived}" var="x">
+
+	<jstl:forEach items="${messagesRecived}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
-			<td><jstl:out value="${x.sender.name} ${x.sender.surnames}" /></td>
-			<td><acme:cancel url="/message/show.do?messageId=${x.id}" code="message.show" /></td>
-			<td><acme:cancel url="/message/delete.do?messageId=${x.id}" code="message.delete" /></td>
+			<jstl:choose>
+				<jstl:when test="${not empty x.sender}">
+					<td><jstl:out value="${x.sender.name} ${x.sender.surnames}" /></td>
+				</jstl:when>
+				<jstl:otherwise>
+				<td><jstl:out value="SYSTEM" /></td>
+				</jstl:otherwise>
+			</jstl:choose>
+			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
+					code="message.show" /></td>
+			<td><acme:cancel url="/message/delete.do?messageId=${x.id}"
+					code="message.delete" /></td>
 		</tr>
-		</jstl:forEach>
-	
+	</jstl:forEach>
+
 </table>
 
 <h4>
@@ -64,16 +74,19 @@
 		<th><spring:message code="message.showMessage" /></th>
 		<th><spring:message code="message.delete" /></th>
 	</tr>
-		<jstl:forEach items="${messagesSend}" var="x">
+	<jstl:forEach items="${messagesSend}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
-			<td><jstl:out value="${x.recipient.name} ${x.recipient.surnames}" /></td>
-			<td><acme:cancel url="/message/show.do?messageId=${x.id}" code="message.show" /></td>
-			<td><acme:cancel url="/message/delete.do?messageId=${x.id}" code="message.delete" /></td>
+			<td><jstl:out
+					value="${x.recipient.name} ${x.recipient.surnames}" /></td>
+			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
+					code="message.show" /></td>
+			<td><acme:cancel url="/message/delete.do?messageId=${x.id}"
+					code="message.delete" /></td>
 		</tr>
-		</jstl:forEach>
-	
+	</jstl:forEach>
+
 </table>
 
 <h4>
@@ -87,16 +100,18 @@
 		<th><spring:message code="message.showMessage" /></th>
 		<th><spring:message code="message.delete" /></th>
 	</tr>
-		<jstl:forEach items="${messagesSpam}" var="x">
+	<jstl:forEach items="${messagesSpam}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.sender.name} ${x.sender.surnames}" /></td>
-			<td><acme:cancel url="/message/show.do?messageId=${x.id}" code="message.show" /></td>
-			<td><acme:cancel url="/message/delete.do?messageId=${x.id}" code="message.delete" /></td>
+			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
+					code="message.show" /></td>
+			<td><acme:cancel url="/message/delete.do?messageId=${x.id}"
+					code="message.delete" /></td>
 		</tr>
-		</jstl:forEach>
-	
+	</jstl:forEach>
+
 </table>
 
 <h4>
@@ -111,16 +126,19 @@
 		<th><spring:message code="message.showMessage" /></th>
 		<th><spring:message code="message.delete" /></th>
 	</tr>
-		<jstl:forEach items="${messagesDeleted}" var="x">
+	<jstl:forEach items="${messagesDeleted}" var="x">
 		<tr>
 			<td><jstl:out value="${x.subject}" /></td>
 			<td><jstl:out value="${x.moment}" /></td>
 			<td><jstl:out value="${x.sender.name} ${x.sender.surnames}" /></td>
-			<td><jstl:out value="${x.recipient.name} ${x.recipient.surnames}" /></td>
-			<td><acme:cancel url="/message/show.do?messageId=${x.id}" code="message.show" /></td>
-			<td><acme:cancel url="/message/delete.do?messageId=${x.id}" code="message.delete" /></td>
+			<td><jstl:out
+					value="${x.recipient.name} ${x.recipient.surnames}" /></td>
+			<td><acme:cancel url="/message/show.do?messageId=${x.id}"
+					code="message.show" /></td>
+			<td><acme:cancel url="/message/delete.do?messageId=${x.id}"
+					code="message.delete" /></td>
 		</tr>
-		</jstl:forEach>
-	
+	</jstl:forEach>
+
 </table>
 
