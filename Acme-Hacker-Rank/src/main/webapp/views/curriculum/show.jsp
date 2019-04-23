@@ -35,7 +35,10 @@
 	path="${curriculum.personalData.phone}" />
 <acme:display code="curriculum.personalData.statement"
 	path="${curriculum.personalData.statement}" />
+	<security:authorize access="hasRole('HACKER')">
 <acme:button url="personalData/hacker/edit.do?personalDataId=${curriculum.personalData.id}" code="curriculum.edit"/>
+				</security:authorize>
+
 <h4><spring:message code="curriculum.educationData"/>:</h4>
 
 <display:table name="educationDatas" id="educationData"
@@ -50,14 +53,22 @@
 		property="startDate" />
 	<display:column titleKey="curriculum.educationData.endDate"
 		property="endDate" />
+			<security:authorize access="hasRole('HACKER')">
+		
 	<display:column titleKey="curriculum.show">
 		<acme:button url="/educationData/hacker/show.do?educationDataId=${educationData.id}"
 			code="curriculum.show" />
 	</display:column>
+					</security:authorize>
+	
 </display:table>
+	<security:authorize access="hasRole('HACKER')">
+
 <acme:button url="/educationData/hacker/create.do?curriculumId=${curriculum.id}"
 			code="curriculum.create2" />
 <br>
+				</security:authorize>
+
 <h4><spring:message code="curriculum.miscellaniusData"/>:</h4>
 
 <display:table name="miscellaniusDatas" id="miscellaniusData"
@@ -66,10 +77,14 @@
 		property="attachments" />
 	<display:column titleKey="curriculum.miscellaniusData.text"
 		property="text" />
+			<security:authorize access="hasRole('HACKER')">
+		
 	<display:column titleKey="curriculum.show">
 		<acme:button url="/miscellaneousData/hacker/show.do?miscellaneousDataId=${miscellaniusData.id}"
 			code="curriculum.show" />
 	</display:column>
+					</security:authorize>
+	
 </display:table>
 <acme:button url="/miscellaneousData/hacker/create.do?curriculumId=${curriculum.id}"
 			code="curriculum.create2" />
@@ -87,21 +102,32 @@
 		property="startDate" />
 	<display:column titleKey="curriculum.positionData.endDate"
 		property="endDate" />
+			<security:authorize access="hasRole('HACKER')">
+		
 		<display:column titleKey="curriculum.show">
 		<acme:button url="/positionData/hacker/show.do?positionDataId=${positionData.id}"
 			code="curriculum.show" />
 	</display:column>
-
+					</security:authorize>
 	
 </display:table>
+	<security:authorize access="hasRole('HACKER')">
+
 	<acme:button url="/positionData/hacker/create.do?curriculumId=${curriculum.id}"
 			code="curriculum.create2" />
+							</security:authorize>
+			
 <br>
 <br>
 <br>
+	<security:authorize access="hasRole('HACKER')">
 
 <acme:button
 	url="curriculum/hacker/edit.do?curriculumId=${curriculum.id}"
 	code="curriculum.edit" />
 <acme:button url="curriculum/hacker/list.do" code="curriculum.back" />
+				</security:authorize>
+<security:authorize access="hasRole('COMPANY')">
 
+<acme:button url="apllication/company/show.do?applicationId=${application.id }" code="curriculum.back" />
+				</security:authorize>

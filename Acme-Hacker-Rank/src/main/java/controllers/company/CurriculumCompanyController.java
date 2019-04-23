@@ -53,6 +53,7 @@ public class CurriculumCompanyController extends AbstractController {
 			final Collection<PositionData> positionData = curriculum.getPositionData();
 			result = new ModelAndView("curriculum/show");
 			result.addObject("curriculum", curriculum);
+			result.addObject("application", application);
 			result.addObject("educationDatas", educationData);
 			result.addObject("miscellaniusDatas", miscellaniusData);
 			result.addObject("positionDatas", positionData);
