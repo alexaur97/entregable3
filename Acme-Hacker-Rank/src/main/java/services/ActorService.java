@@ -33,7 +33,7 @@ public class ActorService {
 	private MessageService					messageService;
 
 	@Autowired
-	private AdministratorService			adminsitradorService;
+	private AdministratorService			administratorService;
 
 
 	public Actor save(final Actor a) {
@@ -122,26 +122,21 @@ public class ActorService {
 
 	public void isSpammer() {
 
+		this.administratorService.findByPrincipal();
+
 		final List<Actor> actores = this.actorRepository.findAll();
 		for (int i = 0; i < actores.size(); i++) {
 			final int actorId = actores.get(i).getId();
-			this.adminsitradorService.findByPrincipal();
 
 			final Collection<Message> messages = this.messageService.findSender(actorId);
 			final Collection<Message> messagesSpam = this.messageService.findSenderSpam(actorId);
 			final double calculo = ((double) messagesSpam.size() / messages.size());
-			if (messages.isEmpty()) {
+			if (messages.isEmpty())
 				actores.get(i).setSpammer(false);
-				this.save(actores.get(i));
-			} else if (calculo > 0.10) {
+			else if (calculo > 0.10)
 				actores.get(i).setSpammer(true);
-				this.save(actores.get(i));
-
-			} else {
+			else
 				actores.get(i).setSpammer(false);
-				this.save(actores.get(i));
-
-			}
 		}
 	}
 	public String addCountryCode(String phoneNumber) {
