@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.CurriculumRepository;
+import security.Authority;
+import domain.Actor;
 import domain.Curriculum;
 import domain.EducationData;
 import domain.Hacker;
@@ -42,6 +44,9 @@ public class CurriculumService {
 
 	@Autowired
 	private PositionDataService		positionDataService;
+
+	@Autowired
+	private ActorService			actorService;
 
 	@Autowired
 	private Validator				validator;
@@ -80,13 +85,19 @@ public class CurriculumService {
 
 	public Curriculum findOne(final int curriculumId) {
 		Curriculum result;
-
+		final Actor principal = this.actorService.findByPrincipal();
 		result = this.curriculumRepository.findOne(curriculumId);
+		final Authority auth = new Authority();
+		auth.setAuthority(Authority.HACKER);
+		if (principal.getUserAccount().getAuthorities().contains(auth))
+			Assert.isTrue(result.getCopy() == false);
 
 		return result;
 	}
 
 	public Curriculum save(final Curriculum curriculum) {
+		if (curriculum.getId() != 0)
+			Assert.isTrue(curriculum.getCopy() == false);
 		final Hacker principal = this.hackerService.findByPrincipal();
 		Assert.notNull(curriculum);
 		final Curriculum result = this.curriculumRepository.save(curriculum);
@@ -150,6 +161,7 @@ public class CurriculumService {
 	public Curriculum findByPersonalData(final int id) {
 		this.hackerService.findByPrincipal();
 		final Curriculum result = this.curriculumRepository.findByPersonalData(id);
+		Assert.isTrue(result.getCopy() == false);
 		return result;
 	}
 
@@ -233,10 +245,14 @@ public class CurriculumService {
 
 	public Curriculum findByPositionData(final int positionDataId) {
 		final Curriculum res = this.curriculumRepository.findByPositonData(positionDataId);
+		Assert.isTrue(res.getCopy() == false);
 		return res;
 	}
 
 	public void savePositionData(final PositionData positionData, final Curriculum c) {
+		final Hacker principal = this.hackerService.findByPrincipal();
+		final Collection<Curriculum> curriculums = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
+		Assert.isTrue(curriculums.contains(c));
 		c.getPositionData().add(positionData);
 
 	}
@@ -249,6 +265,7 @@ public class CurriculumService {
 
 	public Curriculum findByMiscellaneousData(final MiscellaniusData miscellaneousData) {
 		final Curriculum res = this.curriculumRepository.findByMiscellaneousData(miscellaneousData.getId());
+		Assert.isTrue(res.getCopy() == false);
 		return res;
 	}
 
@@ -258,12 +275,16 @@ public class CurriculumService {
 		return res;
 	}
 	public void saveMiscellaneousData(final MiscellaniusData miscellaneousData, final Curriculum c) {
+		final Hacker principal = this.hackerService.findByPrincipal();
+		final Collection<Curriculum> curriculums = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
+		Assert.isTrue(curriculums.contains(c));
 		c.getMiscellaniusData().add(miscellaneousData);
 
 	}
 
 	public Curriculum findByEducationData(final EducationData educationData) {
 		final Curriculum res = this.curriculumRepository.findByEducationData(educationData.getId());
+		Assert.isTrue(res.getCopy() == false);
 		return res;
 	}
 	public Curriculum deleteEductationData(final EducationData educationData) {
@@ -272,7 +293,16 @@ public class CurriculumService {
 		return res;
 	}
 	public void saveEducationData(final EducationData educationData, final Curriculum c) {
+		final Hacker principal = this.hackerService.findByPrincipal();
+		final Collection<Curriculum> curriculums = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
+		Assert.isTrue(curriculums.contains(c));
 		c.getEducationData().add(educationData);
 
+	}
+
+	public Collection<Curriculum> findAllByPrincipalNoCopy() {
+		final Hacker principal = this.hackerService.findByPrincipal();
+		final Collection<Curriculum> result = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
+		return result;
 	}
 }

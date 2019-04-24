@@ -20,7 +20,6 @@ import services.CurriculumService;
 import services.HackerService;
 import services.MiscellaniusDataService;
 import domain.Curriculum;
-import domain.Hacker;
 import domain.MiscellaniusData;
 
 @Controller
@@ -41,16 +40,12 @@ public class MiscellaneousDataHackerController {
 	public ModelAndView create(@RequestParam final int curriculumId) {
 
 		ModelAndView result;
-		MiscellaniusData miscellaneousData;
-		miscellaneousData = this.miscellaneousDataService.create();
-		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
-			final Hacker h = this.hackerService.findByPrincipal();
-			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
-			Assert.isTrue(curriculums.contains(c));
-			miscellaneousData.setId(0);
-
+			this.hackerService.findByPrincipal();
+			MiscellaniusData miscellaneousData;
+			miscellaneousData = this.miscellaneousDataService.create();
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
 			result = new ModelAndView("miscellaneousData/edit");
 			result.addObject("miscellaniusData", miscellaneousData);
 			result.addObject("curriculum", c);

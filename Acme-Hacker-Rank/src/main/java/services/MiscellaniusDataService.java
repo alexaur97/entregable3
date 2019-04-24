@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MiscellaniusDataRepository;
+import domain.Curriculum;
 import domain.MiscellaniusData;
 
 @Service
@@ -23,6 +24,9 @@ public class MiscellaniusDataService {
 
 	@Autowired
 	private HackerService				hackerService;
+
+@Autowired
+	private CurriculumService			curriculumService;
 
 
 	//Supporting Services ------------------
@@ -63,18 +67,18 @@ public class MiscellaniusDataService {
 		final Collection<String> attach = miscellaniusData.getAttachments();
 
 		Assert.isTrue(Utils.validateURL(attach));
-
+		if (miscellaniusData.getId() != 0) {
+			final Curriculum c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
+			Assert.isTrue(c.getCopy() == false);
+		}
 		this.miscellaniusDataRepository.save(miscellaniusData);
 	}
 
 	public void delete(final MiscellaniusData miscellaniusData) {
 		this.hackerService.findByPrincipal();
+		final Curriculum c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
+		Assert.isTrue(c.getCopy() == false);
 		this.miscellaniusDataRepository.delete(miscellaniusData);
-	}
-
-	public void delete(final Collection<MiscellaniusData> miscellaniusDatas) {
-		this.miscellaniusDataRepository.delete(miscellaniusDatas);
-
 	}
 
 	//Other Methods--------------------

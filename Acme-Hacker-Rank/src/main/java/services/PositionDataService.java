@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.PositionDataRepository;
+import domain.Curriculum;
 import domain.PositionData;
 
 @Service
@@ -21,6 +22,9 @@ public class PositionDataService {
 
 	@Autowired
 	private HackerService			hackerService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	//Supporting Services ------------------
@@ -60,17 +64,18 @@ public class PositionDataService {
 		Assert.notNull(positionData);
 		Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
+		if (positionData.getId() != 0) {
+			final Curriculum c = this.curriculumService.findByPositionData(positionData.getId());
+			Assert.isTrue(c.getCopy() == false);
+		}
 		this.positionDataRepository.save(positionData);
 	}
 
 	public void delete(final PositionData positionData) {
 		this.hackerService.findByPrincipal();
+		final Curriculum c = this.curriculumService.findByPositionData(positionData.getId());
+		Assert.isTrue(c.getCopy() == false);
 		this.positionDataRepository.delete(positionData);
-	}
-
-	public void delete(final Collection<PositionData> positionDatas) {
-		this.positionDataRepository.delete(positionDatas);
-
 	}
 
 	//Other Methods--------------------

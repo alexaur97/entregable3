@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.EducationDataRepository;
+import domain.Curriculum;
 import domain.EducationData;
 
 @Service
@@ -21,6 +22,9 @@ public class EducationDataService {
 
 	@Autowired
 	private HackerService			hackerService;
+
+	@Autowired
+	CurriculumService				curriculumService;
 
 
 	//Supporting Services ------------------
@@ -61,17 +65,18 @@ public class EducationDataService {
 		if (educationData.getEndDate() != null)
 			Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
+		if (educationData.getId() != 0) {
+			final Curriculum c = this.curriculumService.findByEducationData(educationData);
+			Assert.isTrue(c.getCopy() == false);
+		}
 		this.educationDataRepository.save(educationData);
 	}
 
 	public void delete(final EducationData educationData) {
 		this.hackerService.findByPrincipal();
+		final Curriculum c = this.curriculumService.findByEducationData(educationData);
+		Assert.isTrue(c.getCopy() == false);
 		this.educationDataRepository.delete(educationData);
-	}
-
-	public void delete(final Collection<EducationData> educationDatas) {
-		this.educationDataRepository.delete(educationDatas);
-
 	}
 
 	//Other Methods--------------------
