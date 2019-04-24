@@ -83,6 +83,7 @@ public class ProblemService {
 	}
 	public void delete(final Problem problem) {
 		Assert.notNull(problem);
+		Assert.isTrue(!problem.getMode().equals("FINAL"));
 		final Collection<Problem> problems = this.findAllByPrincipalId();
 		Assert.isTrue(problems.contains(problem));
 		final Collection<Application> applications = this.applicationService.findAllByProblem(problem.getId());
