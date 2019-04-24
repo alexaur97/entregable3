@@ -3,6 +3,8 @@ package services;
 
 import java.util.Collection;
 
+import miscellaneous.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,9 @@ public class MiscellaniusDataService {
 	//Managed repository -------------------
 	@Autowired
 	private MiscellaniusDataRepository	miscellaniusDataRepository;
+
+	@Autowired
+	private HackerService				hackerService;
 
 
 	//Supporting Services ------------------
@@ -55,11 +60,15 @@ public class MiscellaniusDataService {
 
 	public void save(final MiscellaniusData miscellaniusData) {
 		Assert.notNull(miscellaniusData);
+		final Collection<String> attach = miscellaniusData.getAttachments();
+
+		Assert.isTrue(Utils.validateURL(attach));
 
 		this.miscellaniusDataRepository.save(miscellaniusData);
 	}
 
 	public void delete(final MiscellaniusData miscellaniusData) {
+		this.hackerService.findByPrincipal();
 		this.miscellaniusDataRepository.delete(miscellaniusData);
 	}
 

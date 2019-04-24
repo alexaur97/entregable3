@@ -253,7 +253,7 @@ public class CurriculumService {
 	}
 
 	public Curriculum deleteMiscellaneousData(final MiscellaniusData miscellaneousData) {
-		final Curriculum res = this.findByPositionData(miscellaneousData.getId());
+		final Curriculum res = this.findByMiscellaneousData(miscellaneousData);
 		res.getMiscellaniusData().remove(miscellaneousData);
 		return res;
 	}

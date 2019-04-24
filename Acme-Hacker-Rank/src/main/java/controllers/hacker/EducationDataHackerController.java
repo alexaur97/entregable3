@@ -98,14 +98,14 @@ public class EducationDataHackerController {
 				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 				Assert.isTrue(curriculums.contains(c));
 
-				if (educationData.getEndDate() != null)
-					Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
+				//				if (educationData.getEndDate() != null)
+				//					Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
 				this.educationDataService.save(educationData);
 
 				if (educationData.getId() == 0)
 					this.curriculumService.saveEducationData(educationData, c);
-				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
+				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
