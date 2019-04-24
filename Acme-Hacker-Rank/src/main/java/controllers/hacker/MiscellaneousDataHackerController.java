@@ -98,9 +98,9 @@ public class MiscellaneousDataHackerController {
 				final Integer idH = this.hackerService.findByPrincipal().getId();
 				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 				Assert.isTrue(curriculums.contains(c));
-				final Collection<String> attach = miscellaniusData.getAttachments();
+				//				final Collection<String> attach = miscellaniusData.getAttachments();
 
-				Assert.isTrue(Utils.validateURL(attach));
+				//Assert.isTrue(Utils.validateURL(attach));
 
 				this.miscellaneousDataService.save(miscellaniusData);
 

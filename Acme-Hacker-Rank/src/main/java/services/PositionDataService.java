@@ -19,6 +19,9 @@ public class PositionDataService {
 	@Autowired
 	private PositionDataRepository	positionDataRepository;
 
+	@Autowired
+	private HackerService			hackerService;
+
 
 	//Supporting Services ------------------
 
@@ -55,11 +58,13 @@ public class PositionDataService {
 
 	public void save(final PositionData positionData) {
 		Assert.notNull(positionData);
+		Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 		this.positionDataRepository.save(positionData);
 	}
 
 	public void delete(final PositionData positionData) {
+		this.hackerService.findByPrincipal();
 		this.positionDataRepository.delete(positionData);
 	}
 

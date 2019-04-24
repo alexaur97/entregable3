@@ -13,83 +13,83 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.EducationDataService;
+import services.PositionDataService;
 import utilities.AbstractTest;
-import domain.EducationData;
+import domain.PositionData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @Transactional
-public class EducationDataServiceTest extends AbstractTest {
+public class PositionDataServiceTest extends AbstractTest {
 
 	@Autowired
-	private EducationDataService	educationDataService;
+	private PositionDataService	positionDataService;
 
 
 	//Requisito 17.1 Un hacker puede editar los Datos Academicos de su curriculum
 	@Test
-	public void testEditEducationDataGood() {
+	public void testEditPositionDataGood() {
 		super.authenticate("hacker1");
 
-		final int IdEducationData = super.getEntityId("educationData1");
-		final EducationData edData = this.educationDataService.findOne(IdEducationData);
+		final int IdPositionData = super.getEntityId("positionData1");
+		final PositionData posData = this.positionDataService.findOne(IdPositionData);
 
-		edData.setMark("10");
-		this.educationDataService.save(edData);
+		posData.setDescription("description");
+		this.positionDataService.save(posData);
 		super.unauthenticate();
 	}
 
 	//	Para el caso negativo estamos intentando que un Hacker modifique los datos
-	// Academicos con una fecha de inicio posterior a la de final,
+	// de la Posicion con una fecha de inicio posterior a la de final,
 	//esto debe provocar un error.
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
 	// que las fechas tengan sentido logico.
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testEditEducationDataError() throws ParseException {
+	public void testEditPositionDataError() throws ParseException {
 		super.authenticate("hacker1");
 
-		final int IdEducationData = super.getEntityId("educationData1");
-		final EducationData edData = this.educationDataService.findOne(IdEducationData);
+		final int IdPositionData = super.getEntityId("positionData1");
+		final PositionData posData = this.positionDataService.findOne(IdPositionData);
 
 		final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		final String stringFecha = "02/09/2026";
 		final Date fecha = sdf.parse(stringFecha);
 
-		edData.setEndDate(fecha);
-		this.educationDataService.save(edData);
+		posData.setStartDate(fecha);
+		this.positionDataService.save(posData);
 		super.unauthenticate();
 	}
 
-	//Requisito 17.1 Un Actor autenticado como Hacker puede borrar los datos Academicos.
+	//Requisito 17.1 Un Actor autenticado como Hacker puede borrar los datos de una posicion.
 
 	@Test
-	public void testDeleteEducationDataGood() {
+	public void testDeletePositionDataGood() {
 		super.authenticate("hacker1");
 
-		final int IdEducationData = super.getEntityId("educationData1");
-		final EducationData edData = this.educationDataService.findOne(IdEducationData);
+		final int IdPositionData = super.getEntityId("positionData1");
+		final PositionData posData = this.positionDataService.findOne(IdPositionData);
 
-		this.educationDataService.delete(edData);
+		this.positionDataService.delete(posData);
 		super.unauthenticate();
 	}
 
-	//	Para el caso negativo estamos intentando que una Empresa elimine los datos academicos
+	//	Para el caso negativo estamos intentando que una Empresa elimine los datos de una posicion
 	// del curriculum de un Hacker, esto debe provocar un error porque solo esta autorizado
 	//para esta accion un Hacker.
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "delete" comprueba
 	// que el Actor es un hacker.
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testDeleteEducationDataError() {
+	public void testDeletePositionDataError() {
 		super.authenticate("company1");
 
-		final int IdEducationData = super.getEntityId("educationData1");
-		final EducationData edData = this.educationDataService.findOne(IdEducationData);
+		final int IdPositionData = super.getEntityId("positionData1");
+		final PositionData posData = this.positionDataService.findOne(IdPositionData);
 
-		this.educationDataService.delete(edData);
+		this.positionDataService.delete(posData);
 		super.unauthenticate();
 	}
 

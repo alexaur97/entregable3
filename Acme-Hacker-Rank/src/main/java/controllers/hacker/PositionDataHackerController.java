@@ -97,7 +97,7 @@ public class PositionDataHackerController {
 				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 				Assert.isTrue(curriculums.contains(c));
 
-				Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
+				//	Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 				this.positionDataService.save(positionData);
 
