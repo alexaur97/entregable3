@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import services.CurriculumService;
 import services.MiscellaniusDataService;
 import utilities.AbstractTest;
+import domain.Curriculum;
 import domain.MiscellaniusData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,6 +28,9 @@ public class MiscellaneousDataServiceTest extends AbstractTest {
 
 	@Autowired
 	private MiscellaniusDataService	miscellaneousDataService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	//Requisito 17.1 Un hacker puede editar los Datos Miscelaneos de su curriculum
@@ -40,12 +45,14 @@ public class MiscellaneousDataServiceTest extends AbstractTest {
 		attachment.add("http://otroEjemplo.com");
 		misData.setAttachments(attachment);
 		misData.setText("text");
-		this.miscellaneousDataService.save(misData);
+		final Curriculum curriculum = (Curriculum) this.curriculumService.findAllByPrincipal().toArray()[0];
+		this.miscellaneousDataService.save(misData, curriculum);
 		super.unauthenticate();
 	}
 
-	//	Para el caso negativo estamos intentando que un Hacker modifique los datos
-	// Miscelaneos, esto debe provocar un error porque los archivos adjuntos no tienen 
+	//	Para el caso negativo estamos intentando que un Hacker cree datos
+	// Miscelaneos con archivos adjuntos erróneos, esto debe provocar un error porque 
+	// los archivos adjuntos no tienen 
 	//formato URL
 
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
@@ -61,7 +68,8 @@ public class MiscellaneousDataServiceTest extends AbstractTest {
 		attachment.add("fallo");
 		misData.setAttachments(attachment);
 		misData.setText("text");
-		this.miscellaneousDataService.save(misData);
+		final Curriculum curriculum = (Curriculum) this.curriculumService.findAllByPrincipal().toArray()[0];
+		this.miscellaneousDataService.save(misData, curriculum);
 		super.unauthenticate();
 	}
 
