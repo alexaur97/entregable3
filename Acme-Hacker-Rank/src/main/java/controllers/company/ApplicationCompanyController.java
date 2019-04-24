@@ -83,7 +83,7 @@ public class ApplicationCompanyController extends AbstractController {
 			applications = this.applicationService.findApplicationsCompany(company.getId());
 			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/accept.do");
+			result.addObject("requestURI", "application/company/list.do");
 			result.addObject("applications", applications);
 			result.addObject("applicationsPending", applicationsPending);
 			result.addObject("s", s);
@@ -106,7 +106,7 @@ public class ApplicationCompanyController extends AbstractController {
 			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/accept.do");
+			result.addObject("requestURI", "application/company/list.do");
 			result.addObject("applications", applications);
 			result.addObject("applicationsPending", applicationsPending);
 			result.addObject("s", s);
