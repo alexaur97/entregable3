@@ -162,8 +162,7 @@ public class ApplicationService {
 			application.setCurriculum(curriculumCopy);
 		}
 		application.setHacker(this.hackerService.findByPrincipal());
-		final Date moment = new Date();
-		application.setMoment(moment);
+		application.setMoment(new Date());
 		application.setStatus("PENDING");
 		if (!(application.getPosition() == null)) {
 			final Problem problem = this.problemService.findProblemByPosition(application.getPosition().getId());

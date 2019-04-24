@@ -61,7 +61,8 @@ public class MessageAdministratorController extends AbstractController {
 			res = new ModelAndView("message/create");
 		else
 			try {
-				final Collection<Actor> actors = this.actorService.findAll();
+				final int adminId = this.administratorService.findByPrincipal().getId();
+				final Collection<Actor> actors = this.actorService.findOthersActors(adminId);
 				for (final Actor actor : actors) {
 
 					final Message m = this.messageService.reconstructAdmnistrator2(messageF, actor, binding);
@@ -69,16 +70,17 @@ public class MessageAdministratorController extends AbstractController {
 					final Message mCopy = this.messageService.reconstructAdmnistrator2Copy(messageF, actor, binding);
 					this.messageService.save(mCopy);
 				}
-				final int id = this.actorService.findByPrincipal().getId();
-				final Collection<Message> messagesRecived = this.messageService.findRecives(id);
-				final Collection<Message> messagesSend = this.messageService.findSend(id);
-				final Collection<Message> messagesSpam = this.messageService.findSpam(id);
-				final Collection<Message> messagesDeleted = this.messageService.findDeleted(id);
-				res = new ModelAndView("message/list");
-				res.addObject("messagesRecived", messagesRecived);
-				res.addObject("messagesSend", messagesSend);
-				res.addObject("messagesSpam", messagesSpam);
-				res.addObject("messagesDeleted", messagesDeleted);
+				//				final int id = this.actorService.findByPrincipal().getId();
+				//				final Collection<Message> messagesRecived = this.messageService.findRecives(id);
+				//				final Collection<Message> messagesSend = this.messageService.findSend(id);
+				//				final Collection<Message> messagesSpam = this.messageService.findSpam(id);
+				//				final Collection<Message> messagesDeleted = this.messageService.findDeleted(id);
+				//				res = new ModelAndView("message/list");
+				//				res.addObject("messagesRecived", messagesRecived);
+				//				res.addObject("messagesSend", messagesSend);
+				//				res.addObject("messagesSpam", messagesSpam);
+				//				res.addObject("messagesDeleted", messagesDeleted);
+				res = new ModelAndView("redirect:/message/list.do");
 
 			} catch (final Throwable oops) {
 				res = new ModelAndView("redirect:/#");

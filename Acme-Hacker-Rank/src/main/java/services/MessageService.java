@@ -162,25 +162,27 @@ public class MessageService {
 	}
 
 	public Message reconstructAdmnistrator(final Message msg, final BindingResult binding) {
+		final Message res = msg;
 		final Administrator admin = this.administratorService.findByPrincipal();
-		msg.setDeleted(false);
+		res.setDeleted(false);
 		final Date moment = new Date();
-		msg.setMoment(moment);
-		msg.setSender(admin);
+		res.setMoment(moment);
+		res.setSender(admin);
 		final Collection<String> tags = new ArrayList<>();
 		tags.add("SYSTEM");
-		msg.setTags(tags);
-		this.isSpam(msg);
-		msg.setRecipient(admin);
-		msg.setOwner(admin);
-		msg.setCopy(false);
-		this.validator.validate(msg, binding);
+		res.setTags(tags);
+		this.isSpam(res);
+		res.setRecipient(admin);
+		res.setOwner(admin);
+		res.setCopy(false);
+		this.validator.validate(res, binding);
 
-		return msg;
+		return res;
 	}
 	public Message reconstructAdmnistrator2(final Message msg, final Actor actor, final BindingResult binding) {
 		msg.setRecipient(actor);
 		msg.setOwner(msg.getSender());
+		msg.setCopy(false);
 		return msg;
 	}
 	public Message reconstructAdmnistrator2Copy(final Message msg, final Actor actor, final BindingResult binding) {
