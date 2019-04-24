@@ -52,10 +52,13 @@ public class ApplicationCompanyController extends AbstractController {
 		try {
 			final Company company = this.companyService.findByPrincipal();
 			final Collection<Application> applications;
+			final Collection<Application> applicationsPending;
 			applications = this.applicationService.findApplicationsByCompany(company.getId());
+			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 			result = new ModelAndView("application/list");
 			result.addObject("requestURI", "application/company/list.do");
 			result.addObject("applications", applications);
+			result.addObject("applicationsPending", applicationsPending);
 			final String s = "SUBMITTED";
 			result.addObject("s", s);
 

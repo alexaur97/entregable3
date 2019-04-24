@@ -156,6 +156,11 @@ public class ApplicationService {
 		final Collection<Application> result = this.applicationRepository.findApplicationsByHacker(id);
 		return result;
 	}
+
+	public Collection<Application> findApplicationsPendingByCompany(final int id) {
+		final Collection<Application> result = this.applicationRepository.findApplicationsPendingByCompany(id);
+		return result;
+	}
 	public Application recostructionCreate(final Application application, final BindingResult binding) {
 		if (application.getCurriculum() != null) {
 			final Curriculum curriculumCopy = this.curriculumService.copyCurriculum(application.getCurriculum());
