@@ -105,7 +105,7 @@ public class EducationDataHackerController {
 
 				if (educationData.getId() == 0)
 					this.curriculumService.saveEducationData(educationData, c);
-				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
+				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);

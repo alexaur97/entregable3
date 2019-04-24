@@ -107,7 +107,7 @@ public class MiscellaneousDataHackerController {
 				if (miscellaniusData.getId() == 0)
 					this.curriculumService.saveMiscellaneousData(miscellaniusData, c);
 
-				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
+				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
 

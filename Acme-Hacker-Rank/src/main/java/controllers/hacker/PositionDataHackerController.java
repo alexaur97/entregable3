@@ -2,6 +2,7 @@
 package controllers.hacker;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -102,7 +103,7 @@ public class PositionDataHackerController {
 
 				if (positionData.getId() == 0)
 					this.curriculumService.savePositionData(positionData, c);
-				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
+				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
@@ -110,7 +111,10 @@ public class PositionDataHackerController {
 				if (positionData.getStartDate().after(positionData.getEndDate()))
 					res = this.createEditModelAndView(positionData, "positionData.error.date2", c);
 
-				res = this.createEditModelAndView(positionData, "positionData.commit.error", c);
+				else if (positionData.getStartDate().after(new Date()))
+					res = this.createEditModelAndView(positionData, "positionData.error.date", c);
+				else
+					res = this.createEditModelAndView(positionData, "positionData.commit.error", c);
 
 			}
 
