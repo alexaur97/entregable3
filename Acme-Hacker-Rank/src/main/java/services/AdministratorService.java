@@ -28,13 +28,10 @@ public class AdministratorService {
 
 	// Repositorios propios
 	@Autowired
-	private AdministratorRepository			administratorRepository;
+	private AdministratorRepository	administratorRepository;
 
 	@Autowired
-	private ActorService					actorService;
-
-	@Autowired
-	private ConfigurationParametersService	configurationParametersService;
+	private ActorService			actorService;
 
 
 	// Servicios ajenos

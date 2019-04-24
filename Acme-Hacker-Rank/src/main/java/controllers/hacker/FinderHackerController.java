@@ -1,3 +1,4 @@
+
 package controllers.hacker;
 
 import java.util.ArrayList;
@@ -26,17 +27,18 @@ public class FinderHackerController extends AbstractController {
 
 	@Autowired
 	PositionService	positionService;
-	
+
 	@Autowired
 	FinderService	finderService;
-	
+
+
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView search() {
 		ModelAndView result = new ModelAndView("finder/view");
 
 		try {
-			Finder finder = this.finderService.getFinderFromHacker(hackerService.findByPrincipal().getId());
-			Collection<Position> positions = finder.getPositions();
+			final Finder finder = this.finderService.getFinderFromHacker(this.hackerService.findByPrincipal().getId());
+			final Collection<Position> positions = finder.getPositions();
 
 			result.addObject("positions", positions);
 			result.addObject("finder", finder);
@@ -45,11 +47,11 @@ public class FinderHackerController extends AbstractController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/view", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Finder finder, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("finder/view");
-		Collection<Position> positions = finder.getPositions();
+		final Collection<Position> positions = finder.getPositions();
 		if (binding.hasErrors()) {
 			res.addObject("positions", positions);
 			res.addObject("finder", finder);
@@ -66,11 +68,11 @@ public class FinderHackerController extends AbstractController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/view", method = RequestMethod.POST, params = "clean")
 	public ModelAndView clean(Finder finder, final BindingResult binding) {
 		ModelAndView res = new ModelAndView("finder/view");
-		Collection<Position> positions = new ArrayList<Position>();
+		final Collection<Position> positions = new ArrayList<Position>();
 
 		if (binding.hasErrors()) {
 			res.addObject("positions", positions);
@@ -89,7 +91,4 @@ public class FinderHackerController extends AbstractController {
 		return res;
 	}
 
-	
 }
-
-

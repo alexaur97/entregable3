@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
 import services.CompanyService;
-import services.CurriculumService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.Company;
@@ -32,8 +31,6 @@ public class CurriculumCompanyController extends AbstractController {
 
 	//Servicios
 
-	@Autowired
-	private CurriculumService	curriculumService;
 	@Autowired
 	private ApplicationService	applicationService;
 

@@ -92,7 +92,7 @@ public class ApplicationHackerController extends AbstractController {
 
 			final Collection<Position> positions = this.positionService.findPositionsFinal();
 			final Collection<Curriculum> curriculums = this.curriculumService.findAllNotCopyByPrincipal();
-			final Hacker hacker = this.hackerService.findByPrincipal();
+			this.hackerService.findByPrincipal();
 			result = new ModelAndView("application/create");
 			result.addObject("application", application);
 			result.addObject("curriculums", curriculums);
@@ -110,8 +110,6 @@ public class ApplicationHackerController extends AbstractController {
 	public ModelAndView save(final Application application, final BindingResult binding) {
 		ModelAndView res;
 		final Application applicationFinal = this.applicationService.recostructionCreate(application, binding);
-		final Collection<Application> applications;
-		Collection<Application> applicationsPending;
 		if (binding.hasErrors()) {
 			final Collection<Position> positions = this.positionService.findPositionsFinal();
 			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipal();
@@ -120,8 +118,7 @@ public class ApplicationHackerController extends AbstractController {
 			res.addObject("positions", positions);
 		} else
 			try {
-				final Hacker hacker = this.hackerService.findByPrincipal();
-				final String p = "PENDING";
+				this.hackerService.findByPrincipal();
 				this.applicationService.saveHacker(applicationFinal);
 				res = new ModelAndView("redirect:/application/hacker/list.do");
 
@@ -159,7 +156,6 @@ public class ApplicationHackerController extends AbstractController {
 	public ModelAndView saveEdit(final Application application, final BindingResult binding) {
 		ModelAndView res;
 		final Application applicationFinal = this.applicationService.recostructionEdit(application, binding);
-		final Collection<Application> applications;
 		if (binding.hasErrors()) {
 			final Collection<Position> positions = this.positionService.findPositionsFinal();
 			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipal();
@@ -168,8 +164,7 @@ public class ApplicationHackerController extends AbstractController {
 			res.addObject("positions", positions);
 		} else
 			try {
-				final Hacker hacker = this.hackerService.findByPrincipal();
-				final String p = "PENDING";
+				this.hackerService.findByPrincipal();
 				this.applicationService.saveHacker(applicationFinal);
 				res = new ModelAndView("redirect:/application/hacker/list.do");
 

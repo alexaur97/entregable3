@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.CompanyService;
 import services.PositionService;
 import utilities.AbstractTest;
 import domain.Position;
@@ -27,9 +26,6 @@ public class PositionServiceTest extends AbstractTest {
 
 	@Autowired
 	private PositionService	positionService;
-
-	@Autowired
-	private CompanyService	companyService;
 
 
 	//Requisito 9.1 Un Actor autenticado como Empresa puede crear una posicion.
