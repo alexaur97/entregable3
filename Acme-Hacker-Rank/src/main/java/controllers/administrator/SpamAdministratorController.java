@@ -32,15 +32,11 @@ public class SpamAdministratorController extends AbstractController {
 			this.actorService.isSpammer();
 			msg = true;
 			result = new ModelAndView("actor/list");
+			result.addObject("msg", msg);
 			result.addObject("requestURI", "actor/administrator/list.do");
 			result.addObject("actors", actors);
-			result.addObject("msg", msg);
-		} catch (final Throwable oops) {
-			final Collection<Actor> actors = this.actorService.findAll();
-			result = new ModelAndView("msg.commit.error");
-			result.addObject("actors", actors);
-			result = new ModelAndView("actor/list");
-
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
 		}
 
 		return result;

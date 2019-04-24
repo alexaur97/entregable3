@@ -63,10 +63,13 @@ public class ApplicationHackerController extends AbstractController {
 		try {
 			final Hacker hacker = this.hackerService.findByPrincipal();
 			final Collection<Application> applications;
-			applications = this.applicationService.findApplicationsByHacker(hacker.getId());
+			Collection<Application> applicationsPending;
+			applicationsPending = this.applicationService.findApplicationsPendingByHacker(hacker.getId());
+			applications = this.applicationService.findApplicationsHacker(hacker.getId());
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/hacker/list.do");
 			result.addObject("applications", applications);
+			result.addObject("applicationsPending", applicationsPending);
+			result.addObject("requestURI", "application/hacker/list.do");
 			final String p = "PENDING";
 			result.addObject("p", p);
 
@@ -76,7 +79,6 @@ public class ApplicationHackerController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 
@@ -107,6 +109,7 @@ public class ApplicationHackerController extends AbstractController {
 		ModelAndView res;
 		final Application applicationFinal = this.applicationService.recostructionCreate(application, binding);
 		final Collection<Application> applications;
+		Collection<Application> applicationsPending;
 		if (binding.hasErrors()) {
 			final Collection<Position> positions = this.positionService.findPositionsFinal();
 			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipal();

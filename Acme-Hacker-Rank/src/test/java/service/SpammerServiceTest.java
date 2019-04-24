@@ -1,8 +1,6 @@
 
 package service;
 
-import java.text.ParseException;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -39,7 +37,7 @@ public class SpammerServiceTest extends AbstractTest {
 	// puede lanzar un proceso para clasificar a los actores como spammers o no spammers.
 
 	@Test
-	public void testIsSpammerGood() throws ParseException {
+	public void testIsSpammerGood() {
 
 		super.authenticate("admin");
 		this.actorService.isSpammer();
@@ -60,7 +58,7 @@ public class SpammerServiceTest extends AbstractTest {
 	// pueden ejecutar este proceso
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testIsSpammerError() throws ParseException {
+	public void testIsSpammerError() {
 
 		super.authenticate("company1");
 		this.actorService.isSpammer();

@@ -22,4 +22,16 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	Collection<Application> findApplicationsByCompany(int id);
 	@Query("select a from Application a where a.hacker.id=?1 order by status")
 	Collection<Application> findApplicationsByHacker(int id);
+
+	@Query("select a from Application a where a.status = 'PENDING' and a.position.company.id=?1")
+	Collection<Application> findApplicationsPendingByCompany(int id);
+
+	@Query("select a from Application a where a.status = 'PENDING' and a.hacker.id=?1")
+	Collection<Application> findApplicationsPendingByHacker(int id);
+
+	@Query("select a from Application a where a.status = 'ACCEPTED' or a.status = 'REJECTED' or a.status='SUBMITTED' and a.hacker.id=?1")
+	Collection<Application> findApplicationsHacker(int id);
+
+	@Query("select a from Application a where a.status = 'ACCEPTED' or a.status = 'REJECTED' or a.status='SUBMITTED' and a.position.company.id=?1")
+	Collection<Application> findApplicationsCompany(int id);
 }
