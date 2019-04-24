@@ -13,10 +13,10 @@ import domain.Position;
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Integer> {
 
-	@Query("select p from Position p where p.company.id=?1 and p.cancelled='0'")
+	@Query("select p from Position p where p.company.id=?1 and p.cancelled=false")
 	Collection<Position> findByCompany(Integer id);
 
-	@Query("select p from Position p where p.company.id=?1 and p.cancelled='1'")
+	@Query("select p from Position p where p.company.id=?1 and p.cancelled=true")
 	Collection<Position> findByCompanyCancelled(Integer id);
 
 	@Query("select avg(1.0*(select count(p) from Position p where p.company.id = c.id)),min(1.0*(select count(p) from Position p where p.company.id = c.id)),max(1.0*(select count(p) from Position p where p.company.id = c.id)),stddev(1.0*(select count(p) from Position p where p.company.id = c.id)) from Company c ")

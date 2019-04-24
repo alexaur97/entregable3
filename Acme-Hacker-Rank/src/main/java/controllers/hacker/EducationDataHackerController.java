@@ -98,8 +98,8 @@ public class EducationDataHackerController {
 				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 				Assert.isTrue(curriculums.contains(c));
 
-				if (educationData.getEndDate() != null)
-					Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
+				//				if (educationData.getEndDate() != null)
+				//					Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
 				this.educationDataService.save(educationData);
 

@@ -64,13 +64,13 @@ public class PositionCompanyController extends AbstractController {
 	public ModelAndView create() {
 
 		ModelAndView result;
-		Position position;
-		position = new Position();
 
 		try {
-			final Company c = this.companyService.findByPrincipal();
-			position.setId(0);
-			position.setCompany(c);
+			Position position;
+			position = new Position();
+
+			//			final Company c = this.companyService.findByPrincipal();
+			//			position.setCompany(c);
 
 			result = this.createEditModelAndView(position);
 

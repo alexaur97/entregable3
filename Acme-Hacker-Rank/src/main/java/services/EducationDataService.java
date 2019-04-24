@@ -19,6 +19,9 @@ public class EducationDataService {
 	@Autowired
 	private EducationDataRepository	educationDataRepository;
 
+	@Autowired
+	private HackerService			hackerService;
+
 
 	//Supporting Services ------------------
 
@@ -55,11 +58,14 @@ public class EducationDataService {
 
 	public void save(final EducationData educationData) {
 		Assert.notNull(educationData);
+		if (educationData.getEndDate() != null)
+			Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
 		this.educationDataRepository.save(educationData);
 	}
 
 	public void delete(final EducationData educationData) {
+		this.hackerService.findByPrincipal();
 		this.educationDataRepository.delete(educationData);
 	}
 
