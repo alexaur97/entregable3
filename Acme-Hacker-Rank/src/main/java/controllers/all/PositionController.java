@@ -99,8 +99,10 @@ public class PositionController {
 				auth.setAuthority(Authority.ADMINISTRATOR);
 				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
 			}
+			final Boolean b = position.getProblems().isEmpty();
 			result = new ModelAndView("position/show");
 			result.addObject("position", position);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

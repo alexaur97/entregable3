@@ -165,10 +165,11 @@ public class MiscellaneousDataHackerController {
 			final Integer idH = this.hackerService.findByPrincipal().getId();
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
 			Assert.isTrue(curriculums.contains(cu));
-
+			final Boolean b = miscellaneousData.getAttachments().isEmpty();
 			result = new ModelAndView("miscellaneousData/show");
 			result.addObject("miscellaniusData", miscellaneousData);
 			result.addObject("curriculum", cu);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

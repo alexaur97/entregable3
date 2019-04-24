@@ -157,6 +157,12 @@ public class MessageService {
 		msg.setSpam(false);
 		msg.setDeleted(false);
 		msg.setCopy(false);
+		final Collection<String> aux = msg.getTags();
+		final ArrayList<String> tags = new ArrayList<>();
+		for (final String t : aux)
+			if (!t.trim().isEmpty())
+				tags.add(t);
+		msg.setTags(tags);
 		this.validator.validate(res, binding);
 		return res;
 	}

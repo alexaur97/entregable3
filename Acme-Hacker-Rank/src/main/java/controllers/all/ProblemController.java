@@ -25,8 +25,10 @@ public class ProblemController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Problem problem = this.problemService.findOne(problemId);
+			final Boolean b = problem.getAttachments().isEmpty();
 			result = new ModelAndView("problem/display");
 			result.addObject("problem", problem);
+			result.addObject("b", b);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}

@@ -49,8 +49,10 @@ public class ApplicationHackerController extends AbstractController {
 			final Hacker hacker = this.hackerService.findByPrincipal();
 			final Application application = this.applicationService.findOne(applicationId);
 			Assert.isTrue(application.getHacker().equals(hacker));
+			final Boolean b = application.getProblem().getAttachments().isEmpty();
 			result = new ModelAndView("application/show");
 			result.addObject("application", application);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

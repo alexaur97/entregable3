@@ -23,12 +23,18 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <spring:message code="miscellaneousData.text"/>: <jstl:out value="${miscellaniusData.text}"></jstl:out>
 <br/>
-<spring:message code="miscellaneousData.attachments"/>:
+<jstl:if test="${b eq true}">
+<h2><spring:message code="miscellaneousData.noattachments"/></h2>
+</jstl:if>
+<jstl:if test="${b eq false}">
+<h2><spring:message code="miscellaneousData.attachments"/>:</h2>
 <ul>
-<jstl:forEach items="${miscellaniusData.attachments}" var="x">
-<li><a href="${x}"><jstl:out value="${x}"/></a></li>
-</jstl:forEach>
+	<jstl:forEach items="${miscellaniusData.attachments}" var="x">
+		<li><jstl:out value="${x}"></jstl:out></li>
+	</jstl:forEach>
 </ul>
+</jstl:if>
+<br/>
 
 <acme:button
 	url="miscellaneousData/hacker/edit.do?miscellaneousDataId=${miscellaniusData.id}"

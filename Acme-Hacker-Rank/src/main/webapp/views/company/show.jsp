@@ -49,12 +49,19 @@
 <br/>
 <spring:message code="company.address"/>: <jstl:out value="${company.address}"></jstl:out>
 <br/>
+<jstl:if test="${b eq true}">
+<h2><spring:message code="company.nopositions"/></h2>
+</jstl:if>
+<jstl:if test="${b eq false}">
 <h2><spring:message code="company.positions"/>:</h2>
 <ul>
 	<jstl:forEach items="${positions}" var="x">
 		<li><a href="position/show.do?positionId=${x.id}"><jstl:out value="${x.title}" /></a></li>
 	</jstl:forEach>
 </ul>
+</jstl:if>
+<br/>
+
 
 
 

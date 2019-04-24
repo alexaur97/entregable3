@@ -221,9 +221,10 @@ public class PositionCompanyController extends AbstractController {
 			this.companyService.findByPrincipal();
 			Assert.notNull(positionId);
 			position = this.positionService.findOne(positionId);
-
+			final Boolean b = position.getProblems().isEmpty();
 			result = new ModelAndView("position/show");
 			result.addObject("position", position);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

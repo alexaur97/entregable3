@@ -115,9 +115,11 @@ public class CompanyController {
 				auth.setAuthority(Authority.ADMINISTRATOR);
 				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
 			}
+			final Boolean b = positions.isEmpty();
 			result = new ModelAndView("company/show");
 			result.addObject("positions", positions);
 			result.addObject("company", company);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

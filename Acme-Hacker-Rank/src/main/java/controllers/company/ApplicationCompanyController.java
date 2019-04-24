@@ -38,8 +38,10 @@ public class ApplicationCompanyController extends AbstractController {
 			final Company company = this.companyService.findByPrincipal();
 			final Application application = this.applicationService.findOne(applicationId);
 			Assert.isTrue(company.equals(application.getPosition().getCompany()));
+			final Boolean b = application.getProblem().getAttachments().isEmpty();
 			result = new ModelAndView("application/show");
 			result.addObject("application", application);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
