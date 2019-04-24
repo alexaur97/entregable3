@@ -43,7 +43,7 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p join p.problems pr where pr.id=?1")
 	Collection<Position> findAllByProblem(Integer id);
 
-	@Query("select p from Position p where (p.title like %?1%)or (p.description like %?1%)or (p.profileRequired like %?1%) or (p.ticker like %?1%) or (p.techRequired like %?1%) or (p.skillRequired like %?1%)or(p.company.commercialName like  %?1%)and p.mode='FINAL' and p.cancelled is false and p.company.banned is false")
+	@Query("select p from Position p where ((p.title like %?1%)or (p.description like %?1%)or (p.profileRequired like %?1%) or (p.ticker like %?1%) or (p.techRequired like %?1%) or (p.skillRequired like %?1%)or(p.company.commercialName like  %?1%))and p.mode='FINAL' and p.cancelled is false and p.company.banned is false")
 	Collection<Position> searchPositionsKeyWord(String keyword);
 
 	@Query("select p from Position p where p.salaryOffered >= ?1 ")
