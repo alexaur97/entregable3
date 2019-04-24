@@ -20,4 +20,9 @@ Además lo que conlleva el marcar un mensaje como spam, es que su booleano "SPAM
 que un Actor reciba una notificación automática del sistema, en cuyo caso ese mensaje no lo ha enviado
 ningún Actor.
 
-#7
+#7 Las notificaciones automáticas para cuando se publica una nueva Position que coincide con 
+el criterio de búsqueda de un Hacker funcionan de la siguiente manera: cuando una Position es 
+publicada, es decir, pasa a modo FINAL, se recorren los Finders de cada Hacker. Por cada Finder cuyos
+campos de búsqueda coincidan con las características de la nueva Position, se enviará una notificación
+al Hacker propietario de ese Finder
+

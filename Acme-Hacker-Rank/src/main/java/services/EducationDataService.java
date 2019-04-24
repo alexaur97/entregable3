@@ -60,7 +60,7 @@ public class EducationDataService {
 		return result;
 	}
 
-	public void save(final EducationData educationData) {
+	public void save(final EducationData educationData, final Curriculum curriculum) {
 		Assert.notNull(educationData);
 		if (educationData.getEndDate() != null)
 			Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
@@ -68,6 +68,11 @@ public class EducationDataService {
 		if (educationData.getId() != 0) {
 			final Curriculum c = this.curriculumService.findByEducationData(educationData);
 			Assert.isTrue(c.getCopy() == false);
+		} else {
+			final Collection<EducationData> ed = curriculum.getEducationData();
+			ed.add(educationData);
+			curriculum.setEducationData(ed);
+			this.curriculumService.save(curriculum);
 		}
 		this.educationDataRepository.save(educationData);
 	}
@@ -76,6 +81,10 @@ public class EducationDataService {
 		this.hackerService.findByPrincipal();
 		final Curriculum c = this.curriculumService.findByEducationData(educationData);
 		Assert.isTrue(c.getCopy() == false);
+		final Collection<EducationData> pd = c.getEducationData();
+		pd.remove(educationData);
+		c.setEducationData(pd);
+		this.curriculumService.save(c);
 		this.educationDataRepository.delete(educationData);
 	}
 

@@ -89,19 +89,7 @@ public class MiscellaneousDataHackerController {
 		} else
 			try {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
-
-				final Integer idH = this.hackerService.findByPrincipal().getId();
-				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
-				Assert.isTrue(curriculums.contains(c));
-				//				final Collection<String> attach = miscellaniusData.getAttachments();
-
-				//Assert.isTrue(Utils.validateURL(attach));
-
-				this.miscellaneousDataService.save(miscellaniusData);
-
-				if (miscellaniusData.getId() == 0)
-					this.curriculumService.saveMiscellaneousData(miscellaniusData, c);
-
+				this.miscellaneousDataService.save(miscellaniusData, c);
 				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
@@ -123,23 +111,13 @@ public class MiscellaneousDataHackerController {
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final MiscellaniusData miscellaneousData, final BindingResult binding) {
 		ModelAndView result;
-		final MiscellaniusData misc = this.miscellaneousDataService.findOne(miscellaneousData.getId());
 		try {
-
-			this.curriculumService.deleteMiscellaneousData(misc);
-			this.miscellaneousDataService.delete(misc);
-
+			this.miscellaneousDataService.delete(miscellaneousData);
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(misc, oops.getMessage(), null);
+			result = new ModelAndView("redirect:/#");
 
-			final String msg = oops.getMessage();
-			if (msg.equals("miscellaneousDatacannotDelete")) {
-				final Boolean miscellaneousDatacannotDelete = true;
-				result.addObject("miscellaneousDatacannotDelete", miscellaneousDatacannotDelete);
-
-			}
 		}
 		return result;
 	}
@@ -156,6 +134,8 @@ public class MiscellaneousDataHackerController {
 			miscellaneousData = this.miscellaneousDataService.findOne(miscellaneousDataId);
 
 			final Curriculum cu = this.curriculumService.findByMiscellaneousData(miscellaneousData);
+
+			this.curriculumService.findOne(cu.getId()); //Esto es para comprobar que el curriculum no sea ajeno
 
 			final Integer idH = this.hackerService.findByPrincipal().getId();
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);

@@ -60,13 +60,18 @@ public class PositionDataService {
 		return result;
 	}
 
-	public void save(final PositionData positionData) {
+	public void save(final PositionData positionData, final Curriculum curriculum) {
 		Assert.notNull(positionData);
 		Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 		if (positionData.getId() != 0) {
 			final Curriculum c = this.curriculumService.findByPositionData(positionData.getId());
 			Assert.isTrue(c.getCopy() == false);
+		} else {
+			final Collection<PositionData> ed = curriculum.getPositionData();
+			ed.add(positionData);
+			curriculum.setPositionData(ed);
+			this.curriculumService.save(curriculum);
 		}
 		this.positionDataRepository.save(positionData);
 	}
@@ -75,6 +80,10 @@ public class PositionDataService {
 		this.hackerService.findByPrincipal();
 		final Curriculum c = this.curriculumService.findByPositionData(positionData.getId());
 		Assert.isTrue(c.getCopy() == false);
+		final Collection<PositionData> pd = c.getPositionData();
+		pd.remove(positionData);
+		c.setPositionData(pd);
+		this.curriculumService.save(c);
 		this.positionDataRepository.delete(positionData);
 	}
 

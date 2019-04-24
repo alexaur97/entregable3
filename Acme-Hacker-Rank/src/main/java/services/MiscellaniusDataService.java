@@ -25,7 +25,7 @@ public class MiscellaniusDataService {
 	@Autowired
 	private HackerService				hackerService;
 
-@Autowired
+	@Autowired
 	private CurriculumService			curriculumService;
 
 
@@ -62,14 +62,19 @@ public class MiscellaniusDataService {
 		return result;
 	}
 
-	public void save(final MiscellaniusData miscellaniusData) {
+	public void save(final MiscellaniusData miscellaniusData, final Curriculum curriculum) {
 		Assert.notNull(miscellaniusData);
 		final Collection<String> attach = miscellaniusData.getAttachments();
-
 		Assert.isTrue(Utils.validateURL(attach));
+
 		if (miscellaniusData.getId() != 0) {
 			final Curriculum c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
 			Assert.isTrue(c.getCopy() == false);
+		} else {
+			final Collection<MiscellaniusData> ed = curriculum.getMiscellaniusData();
+			ed.add(miscellaniusData);
+			curriculum.setMiscellaniusData(ed);
+			this.curriculumService.save(curriculum);
 		}
 		this.miscellaniusDataRepository.save(miscellaniusData);
 	}
@@ -78,6 +83,10 @@ public class MiscellaniusDataService {
 		this.hackerService.findByPrincipal();
 		final Curriculum c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
 		Assert.isTrue(c.getCopy() == false);
+		final Collection<MiscellaniusData> pd = c.getMiscellaniusData();
+		pd.remove(miscellaniusData);
+		c.setMiscellaniusData(pd);
+		this.curriculumService.save(c);
 		this.miscellaniusDataRepository.delete(miscellaniusData);
 	}
 
