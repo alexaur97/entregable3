@@ -40,10 +40,10 @@ public class PositionDataHackerController {
 
 		ModelAndView result;
 		PositionData positionData;
-		positionData = this.positionDataService.create();
-		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
+			positionData = this.positionDataService.create();
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
 			final Hacker h = this.hackerService.findByPrincipal();
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
 			Assert.isTrue(curriculums.contains(c));

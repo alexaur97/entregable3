@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MiscellaniusDataRepository;
+import domain.Curriculum;
 import domain.MiscellaniusData;
 
 @Service
@@ -18,6 +19,9 @@ public class MiscellaniusDataService {
 	//Managed repository -------------------
 	@Autowired
 	private MiscellaniusDataRepository	miscellaniusDataRepository;
+
+	@Autowired
+	private CurriculumService			curriculumService;
 
 
 	//Supporting Services ------------------
@@ -55,17 +59,17 @@ public class MiscellaniusDataService {
 
 	public void save(final MiscellaniusData miscellaniusData) {
 		Assert.notNull(miscellaniusData);
-
+		if (miscellaniusData.getId() != 0) {
+			final Curriculum c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
+			Assert.isTrue(c.getCopy() == false);
+		}
 		this.miscellaniusDataRepository.save(miscellaniusData);
 	}
 
 	public void delete(final MiscellaniusData miscellaniusData) {
+		final Curriculum c = this.curriculumService.findByMiscellaneousData(miscellaniusData);
+		Assert.isTrue(c.getCopy() == false);
 		this.miscellaniusDataRepository.delete(miscellaniusData);
-	}
-
-	public void delete(final Collection<MiscellaniusData> miscellaniusDatas) {
-		this.miscellaniusDataRepository.delete(miscellaniusDatas);
-
 	}
 
 	//Other Methods--------------------

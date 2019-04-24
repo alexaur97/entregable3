@@ -52,6 +52,7 @@ public class CurriculumCompanyController extends AbstractController {
 			final Collection<MiscellaniusData> miscellaniusData = curriculum.getMiscellaniusData();
 			final Collection<PositionData> positionData = curriculum.getPositionData();
 			result = new ModelAndView("curriculum/show");
+			result.addObject("application", application);
 			result.addObject("curriculum", curriculum);
 			result.addObject("educationDatas", educationData);
 			result.addObject("miscellaniusDatas", miscellaniusData);

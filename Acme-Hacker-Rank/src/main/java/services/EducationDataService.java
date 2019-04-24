@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.EducationDataRepository;
+import domain.Curriculum;
 import domain.EducationData;
 
 @Service
@@ -18,6 +19,9 @@ public class EducationDataService {
 	//Managed repository -------------------
 	@Autowired
 	private EducationDataRepository	educationDataRepository;
+
+	@Autowired
+	CurriculumService				curriculumService;
 
 
 	//Supporting Services ------------------
@@ -55,17 +59,17 @@ public class EducationDataService {
 
 	public void save(final EducationData educationData) {
 		Assert.notNull(educationData);
-
+		if (educationData.getId() != 0) {
+			final Curriculum c = this.curriculumService.findByEducationData(educationData);
+			Assert.isTrue(c.getCopy() == false);
+		}
 		this.educationDataRepository.save(educationData);
 	}
 
 	public void delete(final EducationData educationData) {
+		final Curriculum c = this.curriculumService.findByEducationData(educationData);
+		Assert.isTrue(c.getCopy() == false);
 		this.educationDataRepository.delete(educationData);
-	}
-
-	public void delete(final Collection<EducationData> educationDatas) {
-		this.educationDataRepository.delete(educationDatas);
-
 	}
 
 	//Other Methods--------------------

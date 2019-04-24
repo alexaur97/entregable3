@@ -40,11 +40,11 @@ public class EducationDataHackerController {
 
 		ModelAndView result;
 		EducationData educationData;
-		educationData = this.educationDataService.create();
-		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
 
+			educationData = this.educationDataService.create();
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
 			final Hacker h = this.hackerService.findByPrincipal();
 
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());

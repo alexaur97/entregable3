@@ -41,7 +41,7 @@ public class CurriculumHackerController {
 	public ModelAndView list() {
 		ModelAndView result;
 		try {
-			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipal();
+			final Collection<Curriculum> curriculums = this.curriculumService.findAllByPrincipalNoCopy();
 			result = new ModelAndView("curriculum/list");
 			result.addObject("curriculums", curriculums);
 			result.addObject("requestURI", "/curriculum/hacker/list.do");
