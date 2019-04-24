@@ -89,22 +89,30 @@ public class CurriculumService {
 		result = this.curriculumRepository.findOne(curriculumId);
 		final Authority auth = new Authority();
 		auth.setAuthority(Authority.HACKER);
-		if (principal.getUserAccount().getAuthorities().contains(auth))
+		if (principal.getUserAccount().getAuthorities().contains(auth)) {
+			final Hacker h = this.hackerService.findByPrincipal();
+			final Collection<Curriculum> curriculums = h.getCurriculums();
+			Assert.isTrue(curriculums.contains(result));
 			Assert.isTrue(result.getCopy() == false);
-
+		}
 		return result;
 	}
-
 	public Curriculum save(final Curriculum curriculum) {
-		if (curriculum.getId() != 0)
-			Assert.isTrue(curriculum.getCopy() == false);
-		final Hacker principal = this.hackerService.findByPrincipal();
 		Assert.notNull(curriculum);
-		final Curriculum result = this.curriculumRepository.save(curriculum);
+		final Hacker principal = this.hackerService.findByPrincipal();
 		final Collection<Curriculum> curriculums = principal.getCurriculums();
-		curriculums.add(result);
-		principal.setCurriculums(curriculums);
-		this.hackerService.save(principal);
+
+		if (curriculum.getId() != 0) {
+			Assert.isTrue(curriculum.getCopy() == false);
+			Assert.isTrue(curriculums.contains(curriculum));
+		}
+
+		final Curriculum result = this.curriculumRepository.save(curriculum);
+		if (curriculum.getId() == 0) {
+			curriculums.add(result);
+			principal.setCurriculums(curriculums);
+			this.hackerService.save(principal);
+		}
 		return result;
 	}
 
@@ -249,55 +257,16 @@ public class CurriculumService {
 		return res;
 	}
 
-	public void savePositionData(final PositionData positionData, final Curriculum c) {
-		final Hacker principal = this.hackerService.findByPrincipal();
-		final Collection<Curriculum> curriculums = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
-		Assert.isTrue(curriculums.contains(c));
-		c.getPositionData().add(positionData);
-
-	}
-
-	public Curriculum deletePositionData(final PositionData pos) {
-		final Curriculum res = this.findByPositionData(pos.getId());
-		res.getPositionData().remove(pos);
-		return res;
-	}
-
 	public Curriculum findByMiscellaneousData(final MiscellaniusData miscellaneousData) {
 		final Curriculum res = this.curriculumRepository.findByMiscellaneousData(miscellaneousData.getId());
 		Assert.isTrue(res.getCopy() == false);
 		return res;
 	}
 
-	public Curriculum deleteMiscellaneousData(final MiscellaniusData miscellaneousData) {
-		final Curriculum res = this.findByMiscellaneousData(miscellaneousData);
-		res.getMiscellaniusData().remove(miscellaneousData);
-		return res;
-	}
-	public void saveMiscellaneousData(final MiscellaniusData miscellaneousData, final Curriculum c) {
-		final Hacker principal = this.hackerService.findByPrincipal();
-		final Collection<Curriculum> curriculums = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
-		Assert.isTrue(curriculums.contains(c));
-		c.getMiscellaniusData().add(miscellaneousData);
-
-	}
-
 	public Curriculum findByEducationData(final EducationData educationData) {
 		final Curriculum res = this.curriculumRepository.findByEducationData(educationData.getId());
 		Assert.isTrue(res.getCopy() == false);
 		return res;
-	}
-	public Curriculum deleteEductationData(final EducationData educationData) {
-		final Curriculum res = this.findByEducationData(educationData);
-		res.getEducationData().remove(educationData);
-		return res;
-	}
-	public void saveEducationData(final EducationData educationData, final Curriculum c) {
-		final Hacker principal = this.hackerService.findByPrincipal();
-		final Collection<Curriculum> curriculums = this.curriculumRepository.findAllByPrincipalNoCopy(principal.getId());
-		Assert.isTrue(curriculums.contains(c));
-		c.getEducationData().add(educationData);
-
 	}
 
 	public Collection<Curriculum> findAllByPrincipalNoCopy() {

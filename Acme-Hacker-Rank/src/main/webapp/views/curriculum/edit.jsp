@@ -27,8 +27,8 @@
 			<button type="submit" name="save">
 				<spring:message code="curriculum.save" />
 			</button>
-				<button type="submit" name="delete">
-				<spring:message code="curriculum.delete" />
+				<acme:submitConfirmation name="delete" code="curriculum.delete"
+								onclick="curriculum.delete.confirmation" />
 			</button>
 			<acme:button url="curriculum/hacker/show.do?curriculumId=${curriculum.id}" code="curriculum.back"/>
 </form:form>
