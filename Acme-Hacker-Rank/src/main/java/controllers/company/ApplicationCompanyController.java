@@ -53,7 +53,7 @@ public class ApplicationCompanyController extends AbstractController {
 			final Company company = this.companyService.findByPrincipal();
 			final Collection<Application> applications;
 			final Collection<Application> applicationsPending;
-			applications = this.applicationService.findApplicationsByCompany(company.getId());
+			applications = this.applicationService.findApplicationsCompany(company.getId());
 			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 			result = new ModelAndView("application/list");
 			result.addObject("requestURI", "application/company/list.do");
@@ -72,16 +72,18 @@ public class ApplicationCompanyController extends AbstractController {
 	public ModelAndView accept(@RequestParam final int applicationId) {
 		ModelAndView result;
 		final Collection<Application> applications;
+		final Collection<Application> applicationsPending;
 		final String s = "SUBMITTED";
 		try {
 			final Application application = this.applicationService.acceptApplicationChanges(applicationId);
 			this.applicationService.saveCompany(application);
 			final Company company = this.companyService.findByPrincipal();
-			applications = this.applicationService.findApplicationsByCompany(company.getId());
-
+			applications = this.applicationService.findApplicationsCompany(company.getId());
+			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 			result = new ModelAndView("application/list");
 			result.addObject("requestURI", "application/accept.do");
 			result.addObject("applications", applications);
+			result.addObject("applicationsPending", applicationsPending);
 			result.addObject("s", s);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -92,16 +94,19 @@ public class ApplicationCompanyController extends AbstractController {
 	public ModelAndView reject(@RequestParam final int applicationId) {
 		ModelAndView result;
 		final Collection<Application> applications;
+		final Collection<Application> applicationsPending;
 		final String s = "SUBMITTED";
 		try {
 			final Application application = this.applicationService.rejectApplicationChanges(applicationId);
 			this.applicationService.saveCompany(application);
 			final Company company = this.companyService.findByPrincipal();
-			applications = this.applicationService.findApplicationsByCompany(company.getId());
+			applications = this.applicationService.findApplicationsCompany(company.getId());
+			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 
 			result = new ModelAndView("application/list");
 			result.addObject("requestURI", "application/accept.do");
 			result.addObject("applications", applications);
+			result.addObject("applicationsPending", applicationsPending);
 			result.addObject("s", s);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");

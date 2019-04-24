@@ -66,7 +66,28 @@
 				</security:authorize>
 				
 				<security:authorize access="hasRole('HACKER')">
+				
+	<h3> Applications </h3>
 <display:table name="applications" id="app" requestURI="${requestURI}"
+	pagesize="5" class="displaytag table">
+	<display:column property="moment" titleKey="application.moment" />
+	<display:column property="explanation" titleKey="application.explanation" />
+	<display:column property="codeLink" titleKey="application.codeLink" />
+	<display:column property="submitMoment" titleKey="application.submitMoment" />
+	<display:column property="status" titleKey="application.status" />
+	<display:column titleKey="problem.show">
+		<acme:button url="/application/hacker/show.do?applicationId=${app.id}"
+			code="application.show" />
+	</display:column>
+		<display:column titleKey="application.edit">
+			<jstl:if test="${app.status==p}">
+			<acme:button url="/application/hacker/edit.do?applicationId=${app.id}" code="application.edit" />
+		</jstl:if>
+	</display:column>
+</display:table>
+
+<h3> Applications Pending </h3>
+<display:table name="applicationsPending" id="app" requestURI="${requestURI}"
 	pagesize="5" class="displaytag table">
 	<display:column property="moment" titleKey="application.moment" />
 	<display:column property="explanation" titleKey="application.explanation" />
