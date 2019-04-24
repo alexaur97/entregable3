@@ -218,13 +218,17 @@ public class PositionCompanyController extends AbstractController {
 		final Position position;
 
 		try {
-			this.companyService.findByPrincipal();
+			final Company company = this.companyService.findByPrincipal();
 			Assert.notNull(positionId);
 			position = this.positionService.findOne(positionId);
+			final String mode = position.getMode();
+			if (mode.equals("DRAFT"))
+				Assert.isTrue(position.getCompany().equals(company));
 			final Boolean b = position.getProblems().isEmpty();
 			result = new ModelAndView("position/show");
 			result.addObject("position", position);
 			result.addObject("b", b);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

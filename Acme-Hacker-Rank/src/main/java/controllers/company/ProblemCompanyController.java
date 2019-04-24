@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CompanyService;
 import services.ProblemService;
 import controllers.AbstractController;
 import domain.Problem;
@@ -24,6 +25,9 @@ public class ProblemCompanyController extends AbstractController {
 
 	@Autowired
 	private ProblemService	problemService;
+
+	@Autowired
+	private CompanyService	companyService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -57,7 +61,9 @@ public class ProblemCompanyController extends AbstractController {
 	public ModelAndView show(@RequestParam final int problemId) {
 		ModelAndView result;
 		try {
+			//			final Company company = this.companyService.findByPrincipal();
 			final Problem problem = this.problemService.findOne(problemId);
+			//			Assert.isTrue(problem.getCompany().equals(company));
 			final Boolean b = problem.getAttachments().isEmpty();
 			result = new ModelAndView("problem/show");
 			result.addObject("problem", problem);
@@ -67,7 +73,6 @@ public class ProblemCompanyController extends AbstractController {
 		}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int problemId) {
 		ModelAndView result;
