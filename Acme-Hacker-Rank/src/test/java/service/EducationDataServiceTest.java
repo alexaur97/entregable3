@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import services.CurriculumService;
 import services.EducationDataService;
+import services.HackerService;
 import utilities.AbstractTest;
+import domain.Curriculum;
 import domain.EducationData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +30,12 @@ public class EducationDataServiceTest extends AbstractTest {
 	@Autowired
 	private EducationDataService	educationDataService;
 
+	@Autowired
+	private HackerService			hackerService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
+
 
 	//Requisito 17.1 Un hacker puede editar los Datos Academicos de su curriculum
 	@Test
@@ -36,8 +45,10 @@ public class EducationDataServiceTest extends AbstractTest {
 		final int IdEducationData = super.getEntityId("educationData1");
 		final EducationData edData = this.educationDataService.findOne(IdEducationData);
 
+		final Curriculum curriculum = this.curriculumService.findByEducationData(edData);
+
 		edData.setMark("10");
-		this.educationDataService.save(edData);
+		this.educationDataService.save(edData, curriculum);
 		super.unauthenticate();
 	}
 
@@ -53,13 +64,13 @@ public class EducationDataServiceTest extends AbstractTest {
 
 		final int IdEducationData = super.getEntityId("educationData1");
 		final EducationData edData = this.educationDataService.findOne(IdEducationData);
-
+		final Curriculum curriculum = this.curriculumService.findByEducationData(edData);
 		final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		final String stringFecha = "02/09/2026";
+		final String stringFecha = "02/09/1926";
 		final Date fecha = sdf.parse(stringFecha);
 
 		edData.setEndDate(fecha);
-		this.educationDataService.save(edData);
+		this.educationDataService.save(edData, curriculum);
 		super.unauthenticate();
 	}
 
@@ -71,11 +82,9 @@ public class EducationDataServiceTest extends AbstractTest {
 
 		final int IdEducationData = super.getEntityId("educationData1");
 		final EducationData edData = this.educationDataService.findOne(IdEducationData);
-
 		this.educationDataService.delete(edData);
 		super.unauthenticate();
 	}
-
 	//	Para el caso negativo estamos intentando que una Empresa elimine los datos academicos
 	// del curriculum de un Hacker, esto debe provocar un error porque solo esta autorizado
 	//para esta accion un Hacker.

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import services.CurriculumService;
 import services.PositionDataService;
 import utilities.AbstractTest;
+import domain.Curriculum;
 import domain.PositionData;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +30,9 @@ public class PositionDataServiceTest extends AbstractTest {
 	@Autowired
 	private PositionDataService	positionDataService;
 
+	@Autowired
+	private CurriculumService	curriculumService;
+
 
 	//Requisito 17.1 Un hacker puede editar los Datos Academicos de su curriculum
 	@Test
@@ -37,7 +43,8 @@ public class PositionDataServiceTest extends AbstractTest {
 		final PositionData posData = this.positionDataService.findOne(IdPositionData);
 
 		posData.setDescription("description");
-		this.positionDataService.save(posData);
+		final Curriculum curriculum = this.curriculumService.findByPositionData(posData.getId());
+		this.positionDataService.save(posData, curriculum);
 		super.unauthenticate();
 	}
 
@@ -47,7 +54,7 @@ public class PositionDataServiceTest extends AbstractTest {
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
 	// que las fechas tengan sentido logico.
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ConstraintViolationException.class)
 	public void testEditPositionDataError() throws ParseException {
 		super.authenticate("hacker1");
 
@@ -59,7 +66,8 @@ public class PositionDataServiceTest extends AbstractTest {
 		final Date fecha = sdf.parse(stringFecha);
 
 		posData.setStartDate(fecha);
-		this.positionDataService.save(posData);
+		final Curriculum curriculum = this.curriculumService.findByPositionData(posData.getId());
+		this.positionDataService.save(posData, curriculum);
 		super.unauthenticate();
 	}
 
