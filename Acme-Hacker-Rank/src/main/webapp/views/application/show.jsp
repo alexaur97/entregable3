@@ -23,9 +23,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-<br/><spring:message code="problem.title"/>: <jstl:out value="${application.moment}"></jstl:out>
-<br/><spring:message code="problem.statement"/>: <jstl:out value="${application.moment}"></jstl:out>
-<br/><spring:message code="problem.hint"/>: <jstl:out value="${application.moment}"></jstl:out>
+<p><spring:message code="problem" />:
+<br/><spring:message code="problem.title"/>: <jstl:out value="${application.problem.title}"></jstl:out>
+<br/><spring:message code="problem.statement"/>: <jstl:out value="${application.problem.statement}"></jstl:out>
+<br/><spring:message code="problem.hint"/>: <jstl:out value="${application.problem.hint}"></jstl:out>
 
 
 <jstl:if test="${b eq true}">
@@ -46,13 +47,13 @@
 <br/><spring:message code="application.submitMoment"/>: <jstl:out value="${application.submitMoment}"></jstl:out>
 <br/><spring:message code="application.hacker"/>: <jstl:out value="${application.hacker.name}"></jstl:out>
 <br/><spring:message code="application.curriculum"/>: <jstl:out value="${application.curriculum.idName}"></jstl:out>
-			<security:authorize access="hasRole('HACKER')">
+			<security:authorize access="hasRole('COMPANY')">
 
 <acme:button url="/curriculum/company/show.do?applicationId=${application.id}" code="application.show"/>
 </security:authorize>
 <br/><spring:message code="application.problem"/>: <jstl:out value="${application.problem.title}"></jstl:out>
 <br/><spring:message code="application.position"/>: <jstl:out value="${application.position.title}"></jstl:out>
-<br/><spring:message code="application.company"/>: <jstl:out value="${application.position.company.name}"></jstl:out>
+<br/><spring:message code="application.company"/>: <jstl:out value="${application.position.company.commercialName}"></jstl:out>
 <br/><spring:message code="application.explanation"/>: <jstl:out value="${application.explanation}"></jstl:out>
 <br/><spring:message code="application.codeLink"/>: <jstl:out value="${parade.moment}"></jstl:out>
 

@@ -88,8 +88,8 @@ public class ApplicationServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testEditApplicationGood() {
-		super.authenticate("hacker1");
-		final int applicationId = super.getEntityId("");
+		super.authenticate("hacker2");
+		final int applicationId = super.getEntityId("application5");
 		final Application application = this.applicationService.findOne(applicationId);
 		application.setExplanation("HOLA");
 		application.setCodeLink("HOLA");
@@ -97,10 +97,10 @@ public class ApplicationServiceTest extends AbstractTest {
 		this.applicationService.saveHacker(applicationFinal);
 
 	}
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testEditApplicationBad() {
-		super.authenticate("hacker1");
-		final int applicationId = super.getEntityId("");
+		super.authenticate("hacker2");
+		final int applicationId = super.getEntityId("application5");
 		final Application application = this.applicationService.findOne(applicationId);
 		application.setExplanation("");
 		application.setCodeLink("");

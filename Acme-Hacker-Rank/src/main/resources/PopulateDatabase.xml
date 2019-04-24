@@ -1148,7 +1148,14 @@
 		<property name="position" ref="position1" />
 		<property name="curriculum" ref="curriculum6" />
 	</bean>
-	
+	<bean id="application5" class="domain.Application">
+		<property name="moment" value="01/04/2023 20:20" />
+		<property name="status" value="PENDING" />
+		<property name="hacker" ref="actor6" />
+		<property name="problem" ref="problem3" />
+		<property name="position" ref="position1" />
+		<property name="curriculum" ref="curriculum5" />
+	</bean>
 	<!-- Messages -->
 	
 	<bean id="message1" class="domain.Message">

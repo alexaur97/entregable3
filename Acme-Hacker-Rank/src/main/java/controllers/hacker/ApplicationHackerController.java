@@ -123,14 +123,7 @@ public class ApplicationHackerController extends AbstractController {
 				final Hacker hacker = this.hackerService.findByPrincipal();
 				final String p = "PENDING";
 				this.applicationService.saveHacker(applicationFinal);
-				applications = this.applicationService.findApplicationsHacker(hacker.getId());
-				applicationsPending = this.applicationService.findApplicationsPendingByHacker(hacker.getId());
-				res = new ModelAndView("application/list");
-
-				res.addObject("applications", applications);
-				res.addObject("applicationsPending", applicationsPending);
-				res.addObject("requestURI", "application/list.do");
-				res.addObject("p", p);
+				res = new ModelAndView("redirect:/application/hacker/list.do");
 
 			} catch (final Throwable oops) {
 
@@ -177,20 +170,8 @@ public class ApplicationHackerController extends AbstractController {
 			try {
 				final Hacker hacker = this.hackerService.findByPrincipal();
 				final String p = "PENDING";
-				//				Assert.isTrue(!(applicationFinal.getExplanation() == null));
-				//				if (!(applicationFinal.getExplanation() == null))
-				//					Assert.isTrue(!(applicationFinal.getExplanation().isEmpty()));
-				//				Assert.isTrue(!(applicationFinal.getCodeLink() == null));
-				//				if (!(applicationFinal.getCodeLink() == null))
-				//					Assert.isTrue(!(applicationFinal.getCodeLink().isEmpty()));
-
 				this.applicationService.saveHacker(applicationFinal);
-				applications = this.applicationService.findApplicationsByHacker(hacker.getId());
-				res = new ModelAndView("application/list");
-
-				res.addObject("applications", applications);
-				res.addObject("requestURI", "application/list.do");
-				res.addObject("p", p);
+				res = new ModelAndView("redirect:/application/hacker/list.do");
 
 			} catch (final Throwable oops) {
 				if (application.getExplanation().isEmpty() || application.getCodeLink().isEmpty()) {
