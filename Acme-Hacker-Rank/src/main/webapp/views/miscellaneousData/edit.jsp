@@ -34,7 +34,7 @@
 						<form:hidden path="version"/>
 								
 						<acme:textbox code="miscellaneousData.text" path="text" />
-						<acme:textbox code="miscellaneousData.attachments" path="attachments" />
+						<acme:textarea code="miscellaneousData.attachments" path="attachments" />
 						<spring:message code = "miscellaneousData.message.comma"/>
 						
 						

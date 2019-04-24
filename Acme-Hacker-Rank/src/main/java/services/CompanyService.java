@@ -56,6 +56,7 @@ public class CompanyService {
 
 		final CreditCard creditCard = new CreditCard();
 		result.setCreditCard(creditCard);
+
 		return result;
 	}
 
@@ -79,7 +80,6 @@ public class CompanyService {
 		Assert.notNull(company);
 
 		final Company result = this.companyRepository.save(company);
-		System.out.println(result);
 		return result;
 	}
 

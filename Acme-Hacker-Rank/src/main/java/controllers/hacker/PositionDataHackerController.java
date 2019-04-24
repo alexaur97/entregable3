@@ -2,6 +2,7 @@
 package controllers.hacker;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -40,10 +41,10 @@ public class PositionDataHackerController {
 
 		ModelAndView result;
 		PositionData positionData;
-		positionData = this.positionDataService.create();
-		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
+			positionData = this.positionDataService.create();
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
 			final Hacker h = this.hackerService.findByPrincipal();
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
 			Assert.isTrue(curriculums.contains(c));
@@ -86,23 +87,13 @@ public class PositionDataHackerController {
 
 		if (binding.hasErrors()) {
 			final Curriculum c = this.curriculumService.findOne(curriculumId);
-
 			res = this.createEditModelAndView(positionData, c);
 		} else
 			try {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
-				final Integer idH = this.hackerService.findByPrincipal().getId();
+				this.positionDataService.save(positionData, c);
 
-				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
-				Assert.isTrue(curriculums.contains(c));
-
-				Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
-
-				this.positionDataService.save(positionData);
-
-				if (positionData.getId() == 0)
-					this.curriculumService.savePositionData(positionData, c);
-				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
+				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
@@ -110,7 +101,10 @@ public class PositionDataHackerController {
 				if (positionData.getStartDate().after(positionData.getEndDate()))
 					res = this.createEditModelAndView(positionData, "positionData.error.date2", c);
 
-				res = this.createEditModelAndView(positionData, "positionData.commit.error", c);
+				else if (positionData.getStartDate().after(new Date()))
+					res = this.createEditModelAndView(positionData, "positionData.error.date", c);
+				else
+					res = this.createEditModelAndView(positionData, "positionData.commit.error", c);
 
 			}
 
@@ -119,23 +113,13 @@ public class PositionDataHackerController {
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final PositionData positionData, final BindingResult binding) {
 		ModelAndView result;
-		final PositionData pos = this.positionDataService.findOne(positionData.getId());
 		try {
-
-			this.curriculumService.deletePositionData(pos);
-			this.positionDataService.delete(pos);
-
+			this.positionDataService.delete(positionData);
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(pos, oops.getMessage(), null);
+			result = new ModelAndView("redirect:/#");
 
-			final String msg = oops.getMessage();
-			if (msg.equals("positionDatacannotDelete")) {
-				final Boolean positionDatacannotDelete = true;
-				result.addObject("positionDatacannotDelete", positionDatacannotDelete);
-
-			}
 		}
 		return result;
 	}

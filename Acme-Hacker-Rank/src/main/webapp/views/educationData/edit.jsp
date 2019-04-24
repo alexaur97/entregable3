@@ -34,8 +34,8 @@
 						<form:hidden path="version"/>								
 							
 						<acme:textbox code="educationData.degree" path="degree" />
-						<acme:textarea code="educationData.institution" path="institution" />
-						<acme:textbox code="educationData.mark" path="mark" />					
+						<acme:textbox code="educationData.institution" path="institution" />
+						<acme:textbox placeholder ="[0-10]" code="educationData.mark" path="mark" />					
 						<acme:textbox placeholder="dd/MM/yyyy" code="educationData.startDate" path="startDate" />
 						<acme:textbox placeholder="dd/MM/yyyy" code="educationData.endDate" path="endDate" />
 					
