@@ -61,7 +61,11 @@ public class MessageController extends AbstractController {
 			Assert.notNull(messageId);
 			msg = this.messageService.findOne(messageId);
 			Assert.isTrue(msg.getOwner().getId() == id);
-			final Boolean b = msg.getTags().isEmpty();
+			Boolean b = true;
+			if (!msg.getTags().isEmpty())
+				for (final String t : msg.getTags())
+					if (!t.trim().isEmpty())
+						b = false;
 			result = new ModelAndView("message/show");
 			result.addObject("msg", msg);
 			result.addObject("b", b);

@@ -104,5 +104,7 @@
 		</jstl:if>
 	</display:column>
 </display:table>
+<br/>
+<br/>
 <acme:button url="/application/hacker/create.do" code="application.create"/>
 				</security:authorize>

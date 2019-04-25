@@ -21,19 +21,19 @@ public class FinderService {
 
 	//Managed repository -------------------
 	@Autowired
-	private FinderRepository	finderRepository;
-
+	private FinderRepository				finderRepository;
 
 	//Supporting Services ------------------
 	@Autowired
 	private ConfigurationParametersService	configParamsService;
-	
+
 	@Autowired
-	private PositionService	positionService;
-	
+	private PositionService					positionService;
+
 	@Autowired
-	private HackerService	hackerService;
-	
+	private HackerService					hackerService;
+
+
 	//COnstructors -------------------------
 	public FinderService() {
 		super();
@@ -74,14 +74,14 @@ public class FinderService {
 		Assert.notEmpty(result);
 		return result;
 	}
-	
-	public Finder getFinderFromHacker(int id) {
+
+	public Finder getFinderFromHacker(final int id) {
 		return this.finderRepository.getFinderFromHacker(id);
 	}
-	
-	public void createFinder(Hacker hackerCreated) {
-		Finder finder = new Finder();
-		Collection<Position> positions = new ArrayList<Position>();
+
+	public void createFinder(final Hacker hackerCreated) {
+		final Finder finder = new Finder();
+		final Collection<Position> positions = new ArrayList<Position>();
 		finder.setKeyword("");
 		finder.setHacker(hackerCreated);
 		finder.setLastSearch(new Date());
@@ -89,7 +89,7 @@ public class FinderService {
 		this.finderRepository.save(finder);
 	}
 
-	public void save(Finder finder) {
+	public void save(final Finder finder) {
 		Assert.notNull(finder);
 		finder.setLastSearch(new Date());
 		finder.setHacker(this.hackerService.findByPrincipal());
@@ -97,9 +97,9 @@ public class FinderService {
 		this.finderRepository.save(finder);
 	}
 
-	public Finder reconstruct(Finder finder) {
+	public Finder reconstruct(final Finder finder) {
 		Assert.notNull(finder);
-		Finder result = this.finderRepository.findOne(finder.getId());
+		final Finder result = this.finderRepository.findOne(finder.getId());
 		result.setDeadline(finder.getDeadline());
 		result.setKeyword(finder.getKeyword());
 		result.setMaxSalary(finder.getMaxSalary());
@@ -107,18 +107,18 @@ public class FinderService {
 		return result;
 	}
 
-	public void saveAfterClean(Finder finder) {
+	public void saveAfterClean(final Finder finder) {
 		Assert.notNull(finder);
-		Collection<Position> positions = new ArrayList<Position>();
+		final Collection<Position> positions = new ArrayList<Position>();
 		finder.setLastSearch(new Date());
 		finder.setHacker(this.hackerService.findByPrincipal());
 		finder.setPositions(positions);
 		this.finderRepository.save(finder);
 	}
-	
-	public void cleanFinder(Finder finder){
+
+	public void cleanFinder(final Finder finder) {
 		Assert.notNull(finder);
-		Collection<Position> positions = new ArrayList<Position>();
+		final Collection<Position> positions = new ArrayList<Position>();
 		finder.setDeadline(null);
 		finder.setKeyword("");
 		finder.setMaxSalary(null);
@@ -126,18 +126,16 @@ public class FinderService {
 		finder.setLastSearch(new Date());
 
 		finder.setPositions(positions);
-		this.finderRepository.save(finder);		
+		this.finderRepository.save(finder);
 	}
-	
+
 	public void cleanCacheIfNecessary() {
-		int cachedHours = this.configParamsService.find().getFinderCachedHours();
-		Collection<Finder> finders = finderRepository.findAll();
-		Date now = new Date();
-		for(Finder f: finders){
-			if((now.getTime()-f.getLastSearch().getTime())/3600000 >= cachedHours){
-				cleanFinder(f);
-			}
-		}
-		
+		final int cachedHours = this.configParamsService.find().getFinderCachedHours();
+		final Collection<Finder> finders = this.finderRepository.findAll();
+		final Date now = new Date();
+		for (final Finder f : finders)
+			if ((now.getTime() - f.getLastSearch().getTime()) / 3600000 >= cachedHours)
+				this.cleanFinder(f);
+
 	}
 }

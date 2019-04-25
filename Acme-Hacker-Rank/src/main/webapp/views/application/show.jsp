@@ -28,12 +28,19 @@
 <br/><spring:message code="problem.statement"/>: <jstl:out value="${application.problem.statement}"></jstl:out>
 <br/><spring:message code="problem.hint"/>: <jstl:out value="${application.problem.hint}"></jstl:out>
 
-<p><spring:message code="problem.attachments" />:
-</p>
+
+<jstl:if test="${b eq true}">
+<h2><spring:message code="problem.noattachments"/></h2>
+</jstl:if>
+<jstl:if test="${b eq false}">
+<h2><spring:message code="problem.attachments"/>:</h2>
 <ul>
-<jstl:forEach items="${application.problem.attachments}" var="x">
-<li><a href="${x}"><jstl:out value="${x}"/></a></li>
-</jstl:forEach>
+	<jstl:forEach items="${application.problem.attachments}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
+	</jstl:forEach>
+</ul>
+</jstl:if>
+<br/>
 
 <br/><spring:message code="application.moment"/>: <jstl:out value="${application.moment}"></jstl:out>
 <br/><spring:message code="application.status"/>: <jstl:out value="${application.status}"></jstl:out>

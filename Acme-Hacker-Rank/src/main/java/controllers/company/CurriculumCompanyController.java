@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
 import services.CompanyService;
-import services.CurriculumService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.Company;
@@ -33,8 +32,6 @@ public class CurriculumCompanyController extends AbstractController {
 	//Servicios
 
 	@Autowired
-	private CurriculumService	curriculumService;
-	@Autowired
 	private ApplicationService	applicationService;
 
 
@@ -52,6 +49,7 @@ public class CurriculumCompanyController extends AbstractController {
 			final Collection<MiscellaniusData> miscellaniusData = curriculum.getMiscellaniusData();
 			final Collection<PositionData> positionData = curriculum.getPositionData();
 			result = new ModelAndView("curriculum/show");
+			result.addObject("application", application);
 			result.addObject("curriculum", curriculum);
 			result.addObject("application", application);
 			result.addObject("educationDatas", educationData);

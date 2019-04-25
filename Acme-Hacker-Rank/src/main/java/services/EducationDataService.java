@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.EducationDataRepository;
+import domain.Curriculum;
 import domain.EducationData;
 
 @Service
@@ -18,6 +19,12 @@ public class EducationDataService {
 	//Managed repository -------------------
 	@Autowired
 	private EducationDataRepository	educationDataRepository;
+
+	@Autowired
+	private HackerService			hackerService;
+
+	@Autowired
+	CurriculumService				curriculumService;
 
 
 	//Supporting Services ------------------
@@ -53,19 +60,32 @@ public class EducationDataService {
 		return result;
 	}
 
-	public void save(final EducationData educationData) {
+	public void save(final EducationData educationData, final Curriculum curriculum) {
 		Assert.notNull(educationData);
+		if (educationData.getEndDate() != null)
+			Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
 
+		if (educationData.getId() != 0) {
+			final Curriculum c = this.curriculumService.findByEducationData(educationData);
+			Assert.isTrue(c.getCopy() == false);
+		} else {
+			final Collection<EducationData> ed = curriculum.getEducationData();
+			ed.add(educationData);
+			curriculum.setEducationData(ed);
+			this.curriculumService.save(curriculum);
+		}
 		this.educationDataRepository.save(educationData);
 	}
 
 	public void delete(final EducationData educationData) {
+		this.hackerService.findByPrincipal();
+		final Curriculum c = this.curriculumService.findByEducationData(educationData);
+		Assert.isTrue(c.getCopy() == false);
+		final Collection<EducationData> pd = c.getEducationData();
+		pd.remove(educationData);
+		c.setEducationData(pd);
+		this.curriculumService.save(c);
 		this.educationDataRepository.delete(educationData);
-	}
-
-	public void delete(final Collection<EducationData> educationDatas) {
-		this.educationDataRepository.delete(educationDatas);
-
 	}
 
 	//Other Methods--------------------

@@ -94,13 +94,18 @@ public class PositionController {
 		try {
 			Assert.notNull(positionId);
 			position = this.positionService.findOne(positionId);
+
+			Assert.isTrue(position.getMode().equals("FINAL"));
+
 			if (position.getCompany().getBanned()) {
 				final Authority auth = new Authority();
 				auth.setAuthority(Authority.ADMINISTRATOR);
 				Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(auth));
 			}
+			final Boolean b = position.getProblems().isEmpty();
 			result = new ModelAndView("position/show");
 			result.addObject("position", position);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}

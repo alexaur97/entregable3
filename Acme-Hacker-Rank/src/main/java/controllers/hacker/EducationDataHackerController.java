@@ -40,11 +40,11 @@ public class EducationDataHackerController {
 
 		ModelAndView result;
 		EducationData educationData;
-		educationData = this.educationDataService.create();
-		final Curriculum c = this.curriculumService.findOne(curriculumId);
 
 		try {
 
+			educationData = this.educationDataService.create();
+			final Curriculum c = this.curriculumService.findOne(curriculumId);
 			final Hacker h = this.hackerService.findByPrincipal();
 
 			final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(h.getId());
@@ -93,19 +93,9 @@ public class EducationDataHackerController {
 		} else
 			try {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
+				this.educationDataService.save(educationData, c);
 
-				final Integer idH = this.hackerService.findByPrincipal().getId();
-				final Collection<Curriculum> curriculums = this.curriculumService.findByHacker(idH);
-				Assert.isTrue(curriculums.contains(c));
-
-				if (educationData.getEndDate() != null)
-					Assert.isTrue(educationData.getStartDate().before(educationData.getEndDate()));
-
-				this.educationDataService.save(educationData);
-
-				if (educationData.getId() == 0)
-					this.curriculumService.saveEducationData(educationData, c);
-				res = new ModelAndView("redirect:/curriculum/hacker/list.do");
+				res = new ModelAndView("redirect:/curriculum/hacker/show.do?curriculumId=" + c.getId());
 
 			} catch (final Throwable oops) {
 				final Curriculum c = this.curriculumService.findOne(curriculumId);
@@ -123,23 +113,12 @@ public class EducationDataHackerController {
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final EducationData educationData, final BindingResult binding) {
 		ModelAndView result;
-		final EducationData ed = this.educationDataService.findOne(educationData.getId());
+
 		try {
-
-			this.curriculumService.deleteEductationData(ed);
-			this.educationDataService.delete(ed);
-
+			this.educationDataService.delete(educationData);
 			result = new ModelAndView("redirect:/curriculum/hacker/list.do");
-
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(ed, oops.getMessage(), null);
-
-			final String msg = oops.getMessage();
-			if (msg.equals("educationDatacannotDelete")) {
-				final Boolean educationDatacannotDelete = true;
-				result.addObject("educationDatacannotDelete", educationDatacannotDelete);
-
-			}
+			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}

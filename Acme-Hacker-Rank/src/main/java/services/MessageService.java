@@ -157,6 +157,12 @@ public class MessageService {
 		msg.setSpam(false);
 		msg.setDeleted(false);
 		msg.setCopy(false);
+		final Collection<String> aux = msg.getTags();
+		final ArrayList<String> tags = new ArrayList<>();
+		for (final String t : aux)
+			if (!t.trim().isEmpty())
+				tags.add(t);
+		msg.setTags(tags);
 		this.validator.validate(res, binding);
 		return res;
 	}
@@ -200,7 +206,7 @@ public class MessageService {
 		final List<String> res = new ArrayList<>();
 
 		for (int i = 0; i < list.size(); i++) {
-			final String palabra = list.get(i).getWord();
+			final String palabra = list.get(i).getWord().toUpperCase();
 			res.add(palabra);
 		}
 
@@ -212,22 +218,38 @@ public class MessageService {
 		Collection<SpamWord> spamwords = new ArrayList<>();
 		spamwords = this.spamWordService.findAll();
 		final String[] mensaje = message.getBody().trim().split(" ");
-		final List<String> lista = Arrays.asList(mensaje);
+		List<String> lista = new ArrayList<>();
+		lista = Arrays.asList(mensaje);
 
 		final String[] titulo = message.getSubject().trim().split(" ");
-		final List<String> list = Arrays.asList(titulo);
+		List<String> list = new ArrayList<>();
+		list = Arrays.asList(titulo);
+		Boolean isSpam = false;
 
 		final List<String> sw = this.spamwords(spamwords);
 
-		for (int j = 0; j < lista.size(); j++)
-			if (sw.contains(lista.get(j)) || sw.contains(list.get(j))) {
+		for (final String l : list)
+			if (sw.contains(l.toUpperCase())) {
+
 				message.setSpam(true);
 				final Collection<String> tags = message.getTags();
 				tags.add("SPAM");
 				message.setTags(tags);
+				isSpam = true;
 				break;
 			} else
 				message.setSpam(false);
+
+		if (isSpam == false)
+			for (final String j : lista)
+				if (sw.contains(j.toUpperCase())) {
+					message.setSpam(true);
+					final Collection<String> tags = message.getTags();
+					tags.add("SPAM");
+					message.setTags(tags);
+					break;
+				} else
+					message.setSpam(false);
 	}
 
 	public void changedStatus(final Actor actor) {

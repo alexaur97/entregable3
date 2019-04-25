@@ -230,7 +230,7 @@
 	<bean id="educationData1" class="domain.EducationData">
 		<property name="degree" value="-" />
 		<property name="institution" value="-" />
-		<property name="mark" value="-"/>
+		<property name="mark" value="5"/>
 		<property name="endDate" value="05/05/2014" />
 		<property name="startDate" value="05/05/2012" />
 	</bean>
@@ -280,7 +280,7 @@
 	<bean id="educationData2" class="domain.EducationData">
 		<property name="degree" value="-" />
 		<property name="institution" value="-" />
-		<property name="mark" value="-"/>
+		<property name="mark" value="2"/>
 		<property name="endDate" value="05/05/2014" />
 		<property name="startDate" value="05/05/2012" />
 	</bean>
@@ -330,7 +330,7 @@
 	<bean id="educationData3" class="domain.EducationData">
 		<property name="degree" value="-" />
 		<property name="institution" value="-" />
-		<property name="mark" value="-"/>
+		<property name="mark" value="2"/>
 		<property name="endDate" value="05/05/2014" />
 		<property name="startDate" value="05/05/2012" />
 	</bean>
@@ -380,7 +380,7 @@
 	<bean id="educationData4" class="domain.EducationData">
 		<property name="degree" value="-" />
 		<property name="institution" value="-" />
-		<property name="mark" value="-"/>
+		<property name="mark" value="6"/>
 		<property name="endDate" value="05/05/2014" />
 		<property name="startDate" value="05/05/2012" />
 	</bean>
@@ -430,7 +430,7 @@
 	<bean id="educationData5" class="domain.EducationData">
 		<property name="degree" value="-" />
 		<property name="institution" value="-" />
-		<property name="mark" value="-"/>
+		<property name="mark" value="9"/>
 		<property name="endDate" value="05/05/2014" />
 		<property name="startDate" value="05/05/2012" />
 	</bean>
@@ -480,7 +480,7 @@
 	<bean id="educationData6" class="domain.EducationData">
 		<property name="degree" value="-" />
 		<property name="institution" value="-" />
-		<property name="mark" value="-"/>
+		<property name="mark" value="10"/>
 		<property name="endDate" value="05/05/2014" />
 		<property name="startDate" value="05/05/2012" />
 	</bean>
@@ -1148,7 +1148,14 @@
 		<property name="position" ref="position1" />
 		<property name="curriculum" ref="curriculum6" />
 	</bean>
-	
+	<bean id="application5" class="domain.Application">
+		<property name="moment" value="01/04/2023 20:20" />
+		<property name="status" value="PENDING" />
+		<property name="hacker" ref="actor6" />
+		<property name="problem" ref="problem3" />
+		<property name="position" ref="position1" />
+		<property name="curriculum" ref="curriculum5" />
+	</bean>
 	<!-- Messages -->
 	
 	<bean id="message1" class="domain.Message">

@@ -72,11 +72,10 @@ public class ProblemService {
 
 	public Problem save(final Problem problem) {
 		Assert.notNull(problem);
-		this.companyService.findByPrincipal();
+		final Company principal = this.companyService.findByPrincipal();
 		if (problem.getId() != 0) {
-			final Collection<Problem> problems = this.findAllByPrincipalId();
 			final Problem retrieved = this.findOne(problem.getId());
-			Assert.isTrue(problems.contains(retrieved));
+			Assert.isTrue(problem.getCompany().equals(principal));
 			Assert.isTrue(retrieved.getMode().equals("DRAFT"));
 		}
 		final Problem saved = this.problemRepository.save(problem);
@@ -84,6 +83,7 @@ public class ProblemService {
 	}
 	public void delete(final Problem problem) {
 		Assert.notNull(problem);
+		Assert.isTrue(!problem.getMode().equals("FINAL"));
 		final Collection<Problem> problems = this.findAllByPrincipalId();
 		Assert.isTrue(problems.contains(problem));
 		final Collection<Application> applications = this.applicationService.findAllByProblem(problem.getId());
@@ -107,16 +107,13 @@ public class ProblemService {
 	}
 
 	public Problem reconstruct(final Problem problem, final BindingResult binding) {
-		if (problem.getId() != 0) {
-			final Problem retrieved = this.findOne(problem.getId());
-			Assert.isTrue(retrieved.getMode().equals("DRAFT"));
-		}
 		final Company principal = this.companyService.findByPrincipal();
 		final Problem result = problem;
 		result.setCompany(principal);
 		this.validator.validate(result, binding);
 		return result;
 	}
+
 	public Problem findProblemByPosition(final int positionId) {
 		final List<Problem> problems = new ArrayList<>(this.problemRepository.findProblemsByPosition(positionId));
 		final Problem problem = problems.get(0);

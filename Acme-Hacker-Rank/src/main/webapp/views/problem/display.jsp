@@ -23,11 +23,17 @@
 <acme:display code="problem.title" path="${problem.title}"/>
 <acme:display code="problem.statement" path="${problem.statement}"/>
 <acme:display code="problem.hint" path="${problem.hint}"/>
-<p><spring:message code="problem.attachments" />:
-</p>
+<br/>
+<jstl:if test="${b eq true}">
+<h2><spring:message code="problem.noattachments"/></h2>
+</jstl:if>
+<jstl:if test="${b eq false}">
+<h2><spring:message code="problem.attachments"/>:</h2>
 <ul>
-<jstl:forEach items="${problem.attachments}" var="x">
-<li><a href="${x}"><jstl:out value="${x}"/></a></li>
-</jstl:forEach>
+	<jstl:forEach items="${problem.attachments}" var="x">
+		<li><a href="${x}"><jstl:out value="${x}"/></a></li>
+	</jstl:forEach>
 </ul>
+</jstl:if>
+<br/>
 

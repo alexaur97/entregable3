@@ -32,7 +32,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<acme:textbox code="finder.keyword" path="keyword"/>
-	<acme:textbox type="date" code="finder.deadline" path="deadline"/>
+	<acme:textbox placeholder = "yyyy-MM-dd" type="date" code="finder.deadline" path="deadline"/>
 	<acme:textbox type="number" code="finder.minSalary" path="minSalary"/>
 	<acme:textbox type="number" code="finder.maxSalary" path="maxSalary"/>
 	<acme:submit name="save" code="finder.search"/>

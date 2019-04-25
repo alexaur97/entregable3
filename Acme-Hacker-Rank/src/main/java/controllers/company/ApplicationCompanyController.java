@@ -38,8 +38,10 @@ public class ApplicationCompanyController extends AbstractController {
 			final Company company = this.companyService.findByPrincipal();
 			final Application application = this.applicationService.findOne(applicationId);
 			Assert.isTrue(company.equals(application.getPosition().getCompany()));
+			final Boolean b = application.getProblem().getAttachments().isEmpty();
 			result = new ModelAndView("application/show");
 			result.addObject("application", application);
+			result.addObject("b", b);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
 		}
@@ -81,7 +83,7 @@ public class ApplicationCompanyController extends AbstractController {
 			applications = this.applicationService.findApplicationsCompany(company.getId());
 			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/accept.do");
+			result.addObject("requestURI", "application/company/list.do");
 			result.addObject("applications", applications);
 			result.addObject("applicationsPending", applicationsPending);
 			result.addObject("s", s);
@@ -104,7 +106,7 @@ public class ApplicationCompanyController extends AbstractController {
 			applicationsPending = this.applicationService.findApplicationsPendingByCompany(company.getId());
 
 			result = new ModelAndView("application/list");
-			result.addObject("requestURI", "application/accept.do");
+			result.addObject("requestURI", "application/company/list.do");
 			result.addObject("applications", applications);
 			result.addObject("applicationsPending", applicationsPending);
 			result.addObject("s", s);

@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -45,6 +46,7 @@ public class EducationData extends DomainEntity {
 		this.institution = institution;
 	}
 
+	@Pattern(regexp = "[0-9]{1}||10")
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getMark() {

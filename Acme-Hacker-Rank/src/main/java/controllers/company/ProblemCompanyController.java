@@ -7,6 +7,7 @@ import miscellaneous.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CompanyService;
 import services.ProblemService;
 import controllers.AbstractController;
 import domain.Problem;
@@ -24,6 +26,9 @@ public class ProblemCompanyController extends AbstractController {
 
 	@Autowired
 	private ProblemService	problemService;
+
+	@Autowired
+	private CompanyService	companyService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -57,20 +62,24 @@ public class ProblemCompanyController extends AbstractController {
 	public ModelAndView show(@RequestParam final int problemId) {
 		ModelAndView result;
 		try {
+			//			final Company company = this.companyService.findByPrincipal();
 			final Problem problem = this.problemService.findOne(problemId);
+			//			Assert.isTrue(problem.getCompany().equals(company));
+			final Boolean b = problem.getAttachments().isEmpty();
 			result = new ModelAndView("problem/show");
 			result.addObject("problem", problem);
+			result.addObject("b", b);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/#");
 		}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int problemId) {
 		ModelAndView result;
 		try {
 			final Problem problem = this.problemService.findOne(problemId);
+			Assert.isTrue(!problem.getMode().equals("FINAL"));
 			result = this.createEditModelAndView(problem);
 			result.addObject("problem", problem);
 		} catch (final Throwable oops) {
@@ -123,6 +132,7 @@ public class ProblemCompanyController extends AbstractController {
 			result = new ModelAndView("problem/create");
 		else
 			result = new ModelAndView("problem/edit");
+		problem.setMode("DRAFT");
 		result.addObject("problem", problem);
 		result.addObject("message", messageCode);
 		return result;
