@@ -28,7 +28,8 @@ public class SpamAdministratorController extends AbstractController {
 
 		try {
 
-			final Collection<Actor> actors = this.actorService.findAll();
+			final Actor actor = this.actorService.findByPrincipal();
+			final Collection<Actor> actors = this.actorService.findOthersActors(actor.getId());
 			this.actorService.isSpammer();
 			msg = true;
 			result = new ModelAndView("actor/list");
