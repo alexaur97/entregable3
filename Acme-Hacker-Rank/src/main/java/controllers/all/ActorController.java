@@ -63,6 +63,27 @@ public class ActorController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/editAdm", method = RequestMethod.GET)
+	public ModelAndView editAdm() {
+		ModelAndView result;
+
+		try {
+			final Actor actor = this.actorService.findByPrincipal();
+			result = new ModelAndView("actor/editAdm");
+
+			final AdministratorEditForm administratorEditForm = this.administratorService.toForm(actor);
+			result.addObject("administratorEditForm", administratorEditForm);
+			final Locale l = LocaleContextHolder.getLocale();
+			final String lang = l.getLanguage();
+			result.addObject("lang", lang);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/#");
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ActorEditForm actorEditForm, final BindingResult binding) {
 		ModelAndView res;
@@ -97,12 +118,12 @@ public class ActorController extends AbstractController {
 	}
 	//JAVI
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAdmin")
+	@RequestMapping(value = "/editAdm", method = RequestMethod.POST, params = "saveAdmin")
 	public ModelAndView saveAdmin(@Valid final AdministratorEditForm administratorEditForm, final BindingResult binding) {
 		ModelAndView res;
 		if (binding.hasErrors()) {
-			res = new ModelAndView("actor/edit");
-			res.addObject("actorEditForm", administratorEditForm);
+			res = new ModelAndView("actor/editAdm");
+			res.addObject("administratorEditForm", administratorEditForm);
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
 			res.addObject("lang", lang);
@@ -114,7 +135,7 @@ public class ActorController extends AbstractController {
 
 				res = new ModelAndView("redirect:/#");
 			} catch (final Throwable oops) {
-				res = new ModelAndView("actor/edit");
+				res = new ModelAndView("actor/editAdm");
 				final Locale l = LocaleContextHolder.getLocale();
 				final String lang = l.getLanguage();
 				res.addObject("lang", lang);
