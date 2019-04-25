@@ -188,6 +188,7 @@ public class ApplicationService {
 			final Problem problem = this.problemService.findProblemByPosition(application.getPosition().getId());
 			application.setProblem(problem);
 		}
+
 		this.validator.validate(application, binding);
 		return application;
 

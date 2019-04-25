@@ -34,7 +34,7 @@ public class PositionDataServiceTest extends AbstractTest {
 	private CurriculumService	curriculumService;
 
 
-	//Requisito 17.1 Un hacker puede editar los Datos Academicos de su curriculum
+	//Requisito 17.1 Un hacker puede editar los Datos de posición de su curriculum
 	@Test
 	public void testEditPositionDataGood() {
 		super.authenticate("hacker1");

@@ -87,7 +87,7 @@ public class PositionServiceTest extends AbstractTest {
 	//	Para el caso negativo estamos intentando que una Empresa modifique una posicion
 	// cambiando su modo a FINAL sin tener al menos dos problemas asociados
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "saveMode" comprueba
-	// que el la posicion tenga dos o mas problemas asociados.
+	// que la posicion tenga dos o mas problemas asociados.
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testEditModePositionError() {
@@ -116,7 +116,7 @@ public class PositionServiceTest extends AbstractTest {
 	// en modo FINAL , esto debe provocar un error porque en estado final solo se podria cancelar,
 	//pero no eliminar la posicion.
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "delete" comprueba
-	// que el la posicion esta en modo borrador.
+	// que la posicion está en modo FINAL y se produce un error.
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeletePositionError() {
@@ -144,7 +144,7 @@ public class PositionServiceTest extends AbstractTest {
 	//	Para el caso negativo estamos intentando que una Empresa cancele una posicion
 	// en modo borrador , esto debe provocar un error porque en estado borrador solo se podria eliminar.
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "cancel" comprueba
-	// que el la posicion esta en modo final.
+	// que la posicion está en modo borrador y se produce un error.
 	@Test(expected = IllegalArgumentException.class)
 	public void testCancelPositionError() {
 		super.authenticate("company1");
@@ -169,10 +169,10 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//	Para el caso negativo estamos intentando que una Empresa cancele una posicion
-	// en modo borrador , esto debe provocar un error porque en estado borrador solo se podria eliminar.
-	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "cancel" comprueba
-	// que el la posicion esta en modo final.
+	//	Para el caso negativo estamos intentando que una Empresa edite una posicion
+	// en modo FINAL , esto debe provocar un error porque en estado FINAL no se podria eliminar.
+	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "save" comprueba
+	// que la posicion está en modo final y se produce un error.
 	@Test(expected = IllegalArgumentException.class)
 	public void testEditPositionError() {
 		super.authenticate("company1");

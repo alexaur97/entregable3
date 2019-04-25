@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import services.CurriculumService;
 import services.PersonalDataService;
 import utilities.AbstractTest;
 import domain.PersonalData;
@@ -24,9 +23,6 @@ public class PersonalDataServiceTest extends AbstractTest {
 
 	@Autowired
 	private PersonalDataService	personalDataService;
-
-	@Autowired
-	private CurriculumService	curriculumService;
 
 
 	//Requisito 17.1 Un hacker puede editar los Datos personales de su curriculum

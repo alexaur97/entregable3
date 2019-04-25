@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.CompanyService;
 import services.ProblemService;
 import utilities.AbstractTest;
 import domain.Problem;
@@ -23,9 +22,6 @@ public class ProblemServiceTest extends AbstractTest {
 
 	@Autowired
 	private ProblemService	problemService;
-
-	@Autowired
-	private CompanyService	companyService;
 
 
 	//Este test testea el requisito 9.2 Un Actor autenticado como Company debe
