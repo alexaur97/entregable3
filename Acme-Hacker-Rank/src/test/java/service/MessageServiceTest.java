@@ -45,7 +45,7 @@ public class MessageServiceTest extends AbstractTest {
 	// Estamos verificando en nuestro modelo de datos que un usuario puede
 	// enviar un mensaje
 	@Test
-	public void testCreateMessageGood() throws ParseException {
+	public void testCreateMessageGood() {
 		super.authenticate("company1");
 		final Actor recipient = this.actorService.findByPrincipal();
 		final Message msg = this.messageService.create();
@@ -76,7 +76,7 @@ public class MessageServiceTest extends AbstractTest {
 	// Estamos verificando en nuestro sistema que no se puede enviar un mensaje sin estar logueado
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testCreateMessageError() throws ParseException {
+	public void testCreateMessageError() {
 		super.authenticate(null);
 		final Actor recipient = this.actorService.findByPrincipal();
 		final Message msg = this.messageService.create();
@@ -92,7 +92,7 @@ public class MessageServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//Este test testea el requisito 23.2 n Actor autenticado puede eliminar definitivamente uno de sus mensajes
+	//Este test testea el requisito 23.2 Un Actor autenticado puede eliminar definitivamente uno de sus mensajes
 
 	// Análisis del sentence coverage (Pasos que sigue el test en nuestro código): 
 	// 1. El cliente se loguea

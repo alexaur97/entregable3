@@ -28,11 +28,11 @@ public class HackerServiceTest extends AbstractTest {
 	//Este test testea el requisito 7.1  Un actor no autenticado 
 	//puede registrarse en el sistema como HACKER
 
-	// Análisis del sentence coverage (Pasos que sigue el test en nuestro código): 
+	// Análisis del sentence coverage: 
 	// 1. El usuario rellena los datos obligatorios para crear su cuenta.
 	// 2. El hacker se crea correctamente
 
-	// Análisis del data coverage (¿Que y como estamos verificando en nuestro modelo de datos?):
+	// Análisis del data coverage:
 
 	// Estamos verificando en nuestro modelo de datos que un usuario puede registrarse como Hacker en el sistema
 

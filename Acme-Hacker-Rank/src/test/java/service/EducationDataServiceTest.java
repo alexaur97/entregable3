@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import services.CurriculumService;
 import services.EducationDataService;
-import services.HackerService;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.EducationData;
@@ -29,9 +28,6 @@ public class EducationDataServiceTest extends AbstractTest {
 
 	@Autowired
 	private EducationDataService	educationDataService;
-
-	@Autowired
-	private HackerService			hackerService;
 
 	@Autowired
 	private CurriculumService		curriculumService;

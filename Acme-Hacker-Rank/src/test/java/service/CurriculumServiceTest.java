@@ -97,7 +97,7 @@ public class CurriculumServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//	Para el caso negativo estamos intentando que un Hacker cree la copiia de un currículum ajeno
+	//	Para el caso negativo estamos intentando que un Hacker cree la copia de un currículum ajeno
 	//esto debe provocar un error.
 	//Análisis del sentence coverage: el sistema al llamar al metodo del servicio "copyCurriculum" comprueba
 	// que el currículum a copiar no pertenece a la lista de currículums del hacker logueado.

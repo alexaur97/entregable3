@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import services.ApplicationService;
 import services.CurriculumService;
@@ -31,15 +32,37 @@ public class ApplicationServiceTest extends AbstractTest {
 	private CurriculumService	curriculumService;
 
 
-	//REQUISITO 9.3 SOLO COGER UN COMPANY CON UNA APPLICATION SUBMITTED  Y ACEPTARLA
+	//Este test testea el requisito 9.3  Un actor autenticado como Company
+	//puede aceptar una Application submitted
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario acepta la Application
+	// 2. La Application se guarda correctamente
+
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que una Company puede aceptar una Application submitted
+
 	@Test
 	public void testAcceptApplicationGood() {
 		super.authenticate("company1");
 		final int applicationId = super.getEntityId("application3");
 		final Application application = this.applicationService.acceptApplicationChanges(applicationId);
-		this.applicationService.saveCompany(application);
+		final Application a = this.applicationService.saveCompany(application);
+		Assert.isTrue(a.getStatus().equals("ACCEPTED"));
 	}
-	//REQUISITO 9.3 SOLO COGER UN COMPANY CON UNA APPLICATION RECHAZADA E INTENTAR ACEPTARLA
+
+	//Este test testea el requisito 9.3  Un actor autenticado como Company
+	// no puede aceptar una Application rechazada
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario intenta aceptar la Application
+	// 2. Se produce un error al intentar sobreescribir la Application
+
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que un usuario no puede aceptar una 
+	//Application rechazada
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testAcceptApplicationError() {
@@ -48,16 +71,37 @@ public class ApplicationServiceTest extends AbstractTest {
 		final Application application = this.applicationService.acceptApplicationChanges(applicationId);
 		this.applicationService.saveCompany(application);
 	}
-	//REQUISITO 9.3 SOLO COGER UN COMPANY CON UNA APPLICATION SUBMITTED  Y RECHAZARLA
+	//Este test testea el requisito 9.3  Un actor autenticado como Company
+	//  puede rechazar una Application submitted
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario intenta rechazar la Application
+	// 2. La Application se rechaza y se guarda correctamente
+
+	// Análisis del data coverage:
+	// Estamos verificando en nuestro modelo de datos que un usuario puede rechazar una 
+	//Application submitted
 
 	@Test
 	public void testRejectApplicationGood() {
 		super.authenticate("company1");
 		final int applicationId = super.getEntityId("application3");
 		final Application application = this.applicationService.rejectApplicationChanges(applicationId);
-		this.applicationService.saveCompany(application);
+		final Application a = this.applicationService.saveCompany(application);
+		Assert.isTrue(a.getStatus().equals("REJECTED"));
 	}
-	//REQUISITO 9.3 SOLO COGER UN COMPANY CON UNA APPLICATION ACEPTADA E INTENTAR RECHAZARLA
+
+	//Este test testea el requisito 9.3  Un actor autenticado como Company
+	// no puede rechazar una Application aceptada
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario intenta rechazar la Application
+	// 2. Se produce un error al intentar sobreescribir la Application
+
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que un usuario no puede rechazar una 
+	//Application aceptada
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testRejectApplicationError() {
@@ -66,6 +110,19 @@ public class ApplicationServiceTest extends AbstractTest {
 		final Application application = this.applicationService.acceptApplicationChanges(applicationId);
 		this.applicationService.saveCompany(application);
 	}
+
+	//Este test testea el requisito 9.3  Un actor autenticado como Hacker
+	// puede crear una Application
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario rellena los datos de la Application
+	// 2. La Application se crea correctamente
+
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que un usuario autenticado como Hacker
+	// puede crear una Application
+
 	@Test
 	public void testCreateApplicationGood() {
 		super.authenticate("hacker1");
@@ -79,6 +136,18 @@ public class ApplicationServiceTest extends AbstractTest {
 		final Application applicationFinal = this.applicationService.recostructionCreate(application, null);
 		this.applicationService.saveHacker(applicationFinal);
 	}
+
+	//Este test testea el requisito 9.3  Un actor autenticado como Hacker
+	// no puede crear una Application sin Currículum ni Position
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario intenta crear la Application
+	// 2. Se produce un error al validar la Application
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que un usuario no puede crear una 
+	//Application si Currículum ni Position
+
 	@Test(expected = NullPointerException.class)
 	public void testCreateApplicationBad() {
 		super.authenticate("hacker1");
@@ -86,6 +155,19 @@ public class ApplicationServiceTest extends AbstractTest {
 		final Application applicationFinal = this.applicationService.recostructionCreate(application, null);
 		this.applicationService.saveHacker(applicationFinal);
 	}
+
+	//Este test testea el requisito 9.3  Un actor autenticado como Hacker
+	// puede editar una Application
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario edita la Application
+	// 2. La Application se guarda correctamente
+
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que un usuario puede editar una 
+	//Application
+
 	@Test
 	public void testEditApplicationGood() {
 		super.authenticate("hacker2");
@@ -97,6 +179,19 @@ public class ApplicationServiceTest extends AbstractTest {
 		this.applicationService.saveHacker(applicationFinal);
 
 	}
+
+	//Este test testea el requisito 9.3  Un actor autenticado como Hacker
+	// no puede editar una Application con Explanation y CodeLink vacíos
+
+	// Análisis del sentence coverage: 
+	// 1. El usuario intenta editar la Application
+	// 2. Se produce un error al validar la Application
+
+	// Análisis del data coverage:
+
+	// Estamos verificando en nuestro modelo de datos que un usuario puede editar una 
+	// Application
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testEditApplicationBad() {
 		super.authenticate("hacker2");
