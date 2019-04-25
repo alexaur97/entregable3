@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.CompanyService;
 import services.ProblemService;
 import controllers.AbstractController;
+import domain.Company;
 import domain.Problem;
 
 @Controller
@@ -78,8 +79,10 @@ public class ProblemCompanyController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int problemId) {
 		ModelAndView result;
 		try {
+			final Company company = this.companyService.findByPrincipal();
 			final Problem problem = this.problemService.findOne(problemId);
 			Assert.isTrue(!problem.getMode().equals("FINAL"));
+			Assert.isTrue(problem.getCompany().equals(company));
 			result = this.createEditModelAndView(problem);
 			result.addObject("problem", problem);
 		} catch (final Throwable oops) {

@@ -72,30 +72,6 @@ public class ProblemServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//Este test testea el requisito 9.2 Un Actor autenticado como Company no debe
-	// poder editar problemas de otra Company.
-
-	// Análisis del sentence coverage (Pasos que sigue el test en nuestro código): 
-	// 1. La empresa se loguea
-	// 2. La empresa elije un problema que no es suyo
-	// 3. La empresa edita el problema pero no puede guardarlo
-
-	// Análisis del data coverage (¿Que y como estamos verificando en nuestro modelo de datos?):
-
-	// Estamos verificando en nuestro modelo de datos que una empresa no puede
-	// editar un problema que no es suyo
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testEditProblemWithOtherCompany() {
-		super.authenticate("company2");
-		final int id = super.getEntityId("problem1");
-		Problem p = this.problemService.findOne(id);
-		p.setHint("setting hint");
-		p = this.problemService.reconstruct(p, null);
-		this.problemService.save(p);
-		super.unauthenticate();
-	}
-
 	//Este test testea el requisito 9.2 Un Actor autenticado como Company debe
 	// poder eliminar sus problemas.
 

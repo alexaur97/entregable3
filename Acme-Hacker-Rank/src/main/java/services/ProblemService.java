@@ -108,8 +108,8 @@ public class ProblemService {
 
 	public Problem reconstruct(final Problem problem, final BindingResult binding) {
 		final Company principal = this.companyService.findByPrincipal();
-		if (problem.getId() != 0)
-			Assert.isTrue(problem.getCompany().equals(principal));
+		//		if (problem.getId() != 0)
+		//			Assert.isTrue(problem.getCompany().equals(principal));
 		final Problem result = problem;
 		result.setCompany(principal);
 		this.validator.validate(result, binding);
