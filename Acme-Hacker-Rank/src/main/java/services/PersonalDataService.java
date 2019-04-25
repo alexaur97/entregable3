@@ -61,7 +61,9 @@ public class PersonalDataService {
 		Assert.notNull(personalData);
 		if (personalData.getId() != 0) {
 			final Curriculum c = this.curriculumService.findByPersonalData(personalData.getId());
+			final Collection<Curriculum> allPrincipal = this.curriculumService.findAllByPrincipal();
 			Assert.isTrue(c.getCopy() == false);
+			Assert.isTrue(allPrincipal.contains(c));
 		}
 		final PersonalData result = this.personalDataRepository.save(personalData);
 		return result;
