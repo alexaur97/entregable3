@@ -74,6 +74,7 @@ public class ActorController extends AbstractController {
 
 			final AdministratorEditForm administratorEditForm = this.administratorService.toForm(actor);
 			result.addObject("administratorEditForm", administratorEditForm);
+
 			final Locale l = LocaleContextHolder.getLocale();
 			final String lang = l.getLanguage();
 			result.addObject("lang", lang);
