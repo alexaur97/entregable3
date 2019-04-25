@@ -35,5 +35,6 @@
 	</jstl:forEach>
 </ul>
 </jstl:if>
+<acme:button url="/position/list.do" code="problem.back"/>
 <br/>
 

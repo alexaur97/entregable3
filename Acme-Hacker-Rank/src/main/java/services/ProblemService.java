@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +73,9 @@ public class ProblemService {
 
 	public Problem save(final Problem problem) {
 		Assert.notNull(problem);
-		final Company principal = this.companyService.findByPrincipal();
+		this.companyService.findByPrincipal();
 		if (problem.getId() != 0) {
 			final Problem retrieved = this.findOne(problem.getId());
-			Assert.isTrue(problem.getCompany().equals(principal));
 			Assert.isTrue(retrieved.getMode().equals("DRAFT"));
 		}
 		final Problem saved = this.problemRepository.save(problem);
@@ -108,6 +108,8 @@ public class ProblemService {
 
 	public Problem reconstruct(final Problem problem, final BindingResult binding) {
 		final Company principal = this.companyService.findByPrincipal();
+		if (problem.getId() != 0)
+			Assert.isTrue(problem.getCompany().equals(principal));
 		final Problem result = problem;
 		result.setCompany(principal);
 		this.validator.validate(result, binding);
@@ -116,6 +118,7 @@ public class ProblemService {
 
 	public Problem findProblemByPosition(final int positionId) {
 		final List<Problem> problems = new ArrayList<>(this.problemRepository.findProblemsByPosition(positionId));
+		Collections.shuffle(problems);
 		final Problem problem = problems.get(0);
 		return problem;
 	}
