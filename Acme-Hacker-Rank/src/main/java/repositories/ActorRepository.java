@@ -23,4 +23,6 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 
 	@Query("select a from Actor a where a.id != ?1")
 	Collection<Actor> findOthersActor(int id);
+	@Query("select a from Actor a where a.userAccount.username=?1")
+	Actor findByUserName(String name);
 }

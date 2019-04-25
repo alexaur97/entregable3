@@ -37,6 +37,7 @@
 			<spring:message code="security.login.failed" />
 		</div>
 	</jstl:if>
+		
 	
 	<input type="submit" value="<spring:message code="security.login" />" />
 	

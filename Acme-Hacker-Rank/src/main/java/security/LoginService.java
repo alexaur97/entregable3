@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import services.ActorService;
+
 @Service
 @Transactional
 public class LoginService implements UserDetailsService {
@@ -29,6 +31,8 @@ public class LoginService implements UserDetailsService {
 
 	@Autowired
 	UserAccountRepository	userRepository;
+	@Autowired
+	ActorService			actorService;
 
 
 	// Business methods -------------------------------------------------------
@@ -36,18 +40,17 @@ public class LoginService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 		Assert.notNull(username);
-
 		UserDetails result;
 
 		result = this.userRepository.findByUsername(username);
 		Assert.notNull(result);
+		Assert.isTrue(this.actorService.findByUserName(username).getBanned() == false, "Banned");
 		// WARNING: The following sentences prevent lazy initialisation problems!
 		Assert.notNull(result.getAuthorities());
 		result.getAuthorities().size();
 
 		return result;
 	}
-
 	public static UserAccount getPrincipal() {
 		UserAccount result;
 		SecurityContext context;

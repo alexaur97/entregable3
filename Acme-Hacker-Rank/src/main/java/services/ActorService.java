@@ -147,5 +147,7 @@ public class ActorService {
 		}
 		return phoneNumber;
 	}
-
+	public Actor findByUserName(final String name) {
+		return this.actorRepository.findByUserName(name);
+	}
 }

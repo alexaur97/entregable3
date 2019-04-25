@@ -55,5 +55,11 @@
 <br/><spring:message code="application.position"/>: <jstl:out value="${application.position.title}"></jstl:out>
 <br/><spring:message code="application.company"/>: <jstl:out value="${application.position.company.commercialName}"></jstl:out>
 <br/><spring:message code="application.explanation"/>: <jstl:out value="${application.explanation}"></jstl:out>
-<br/><spring:message code="application.codeLink"/>: <jstl:out value="${parade.moment}"></jstl:out>
+<br/><spring:message code="application.codeLink"/>: <jstl:out value="${application.codeLink}"></jstl:out>
 
+			<security:authorize access="hasRole('COMPANY')">
+<br/><acme:button url="application/company/list.do" code="curriculum.back" />
+				</security:authorize>
+							<security:authorize access="hasRole('HACKER')">			
+				<br/><acme:button url="application/hacker/list.do" code="curriculum.back" />
+				</security:authorize>

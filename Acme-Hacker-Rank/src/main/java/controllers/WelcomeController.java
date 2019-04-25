@@ -99,8 +99,6 @@ public class WelcomeController extends AbstractController {
 		try {
 			final Hacker hacker = this.hackerService.findByPrincipal();
 			result.addObject("hacker", hacker);
-			if (hacker.getBanned() == true)
-				result = new ModelAndView("redirect:/j_spring_security_logout");
 
 		} catch (final Exception e) {
 			System.out.println(e);
@@ -109,8 +107,6 @@ public class WelcomeController extends AbstractController {
 		try {
 			final Company company = this.companyService.findByPrincipal();
 			result.addObject("company", company);
-			if (company.getBanned() == true)
-				result = new ModelAndView("redirect:/j_spring_security_logout");
 
 		} catch (final Exception e) {
 		}
