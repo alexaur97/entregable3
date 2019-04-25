@@ -121,11 +121,12 @@
 		property="startDate" />
 	<display:column titleKey="curriculum.positionData.endDate"
 		property="endDate" />
-
+<security:authorize access="hasRole('HACKER')">
 		<display:column titleKey="curriculum.show">
 		<acme:button url="/positionData/hacker/show.do?positionDataId=${positionData.id}"
 			code="curriculum.show" />
 	</display:column>
+	</security:authorize>
 </display:table>
 
 	<security:authorize access="hasRole('HACKER')">

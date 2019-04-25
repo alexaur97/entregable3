@@ -109,11 +109,7 @@ public class ProblemService {
 	public Problem reconstruct(final Problem problem, final BindingResult binding) {
 		final Company principal = this.companyService.findByPrincipal();
 		final Problem result = problem;
-		if (problem.getId() != 0) {
-			final Problem retrieved = this.findOne(problem.getId());
-			Assert.isTrue(retrieved.getMode().equals("DRAFT"));
-		} else
-			result.setCompany(principal);
+		result.setCompany(principal);
 		this.validator.validate(result, binding);
 		return result;
 	}
