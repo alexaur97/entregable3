@@ -7,6 +7,7 @@ import miscellaneous.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,7 @@ public class ProblemCompanyController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Problem problem = this.problemService.findOne(problemId);
+			Assert.isTrue(!problem.getMode().equals("FINAL"));
 			result = this.createEditModelAndView(problem);
 			result.addObject("problem", problem);
 		} catch (final Throwable oops) {
@@ -130,6 +132,7 @@ public class ProblemCompanyController extends AbstractController {
 			result = new ModelAndView("problem/create");
 		else
 			result = new ModelAndView("problem/edit");
+		problem.setMode("DRAFT");
 		result.addObject("problem", problem);
 		result.addObject("message", messageCode);
 		return result;
