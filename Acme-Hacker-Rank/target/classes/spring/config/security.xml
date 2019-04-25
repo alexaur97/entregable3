@@ -48,6 +48,7 @@
 			access="permitAll" />
 
 
+
 		<security:intercept-url pattern="/stats/administrator/display.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/create.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/administrator/administrator/edit.do" access="hasRole('ADMINISTRATOR')" />
@@ -112,6 +113,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/actor/editAdm.do"
+			access="hasRole('ADMINISTRATOR')"  />
+
 
 		<security:intercept-url pattern="/socialprofile/list.do"
 			access="isAuthenticated()" />

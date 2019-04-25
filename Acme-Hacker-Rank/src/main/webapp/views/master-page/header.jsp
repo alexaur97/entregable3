@@ -73,7 +73,7 @@
 		                    <security:authorize access="hasRole('ADMINISTRATOR')">
 		            <li><a href="administrator/administrator/create.do"><spring:message code="master.page.signup.admin" /></a></li>
 		                    </security:authorize>
-		            <li><a href="actor/edit.do"><spring:message
+		            <li><a href="actor/editAdm.do"><spring:message
 								code="master.page.editProfile" /></a></li>
 					<security:authorize access="hasRole('ADMINISTRATOR')">
 					

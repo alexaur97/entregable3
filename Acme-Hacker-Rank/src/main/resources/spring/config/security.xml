@@ -23,6 +23,7 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
 
+
 		<security:intercept-url pattern="/favicon.ico" access="permitAll" />
 		<security:intercept-url pattern="/images/**" access="permitAll" />
 		<security:intercept-url pattern="/scripts/**" access="permitAll" />
@@ -88,6 +89,11 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/actor/editAdm.do"
+			access="hasRole('ADMINISTRATOR')"  />
+
+
 		<security:intercept-url pattern="/socialprofile/list.do"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialprofile/edit.do"
