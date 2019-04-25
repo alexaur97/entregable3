@@ -62,7 +62,8 @@ public class PositionDataService {
 
 	public void save(final PositionData positionData, final Curriculum curriculum) {
 		Assert.notNull(positionData);
-		Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
+		if (positionData.getEndDate() != null)
+			Assert.isTrue(positionData.getStartDate().before(positionData.getEndDate()));
 
 		if (positionData.getId() != 0) {
 			final Curriculum c = this.curriculumService.findByPositionData(positionData.getId());
