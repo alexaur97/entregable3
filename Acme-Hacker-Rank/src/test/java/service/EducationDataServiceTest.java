@@ -38,6 +38,7 @@ public class EducationDataServiceTest extends AbstractTest {
 
 
 	//Requisito 17.1 Un hacker puede editar los Datos Academicos de su curriculum
+
 	@Test
 	public void testEditEducationDataGood() {
 		super.authenticate("hacker1");

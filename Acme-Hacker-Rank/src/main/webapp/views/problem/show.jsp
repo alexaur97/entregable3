@@ -40,7 +40,7 @@
 <jstl:if test="${problem.mode ne 'FINAL'}">
 <acme:button url="/problem/company/edit.do?problemId=${problem.id}" code="problem.edit"/>
 </jstl:if>
-<acme:button url="/problem/company/list.do" code="problem.cancel"/>
+
 <jstl:if test="${problem.mode ne 'FINAL'}">
 <acme:button url="/problem/company/delete.do?problemId=${problem.id}" code="problem.delete"/>
 </jstl:if>
