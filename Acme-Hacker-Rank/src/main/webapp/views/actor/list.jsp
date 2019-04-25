@@ -25,7 +25,8 @@
 	<display:column property="name" titleKey="actor.name" />
 	<display:column property="surnames" titleKey="actor.surnames" />
 	<display:column titleKey="actor.ban">
-		<jstl:if test="${!ac.banned}">
+		<%-- <jstl:if test="${!ac.banned}"> --%>
+		<jstl:if test="${ac.spammer && !ac.banned}">
 			<acme:cancel url="/actor/administrator/banned.do?actorId=${ac.id}"
 				code="actor.ban" />
 		</jstl:if>

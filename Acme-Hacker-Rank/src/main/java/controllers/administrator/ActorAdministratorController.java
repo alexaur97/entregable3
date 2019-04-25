@@ -52,11 +52,12 @@ public class ActorAdministratorController extends AbstractController {
 			final Administrator admin = this.administratorService.findByPrincipal();
 			Assert.isTrue(!(admin.getId() == actorId));
 			final Actor actor = this.actorService.findOne(actorId);
+			Assert.isTrue(actor.getSpammer().equals(true));
 			actor.setBanned(true);
 			this.actorService.save(actor);
 			actors = this.actorService.findAll();
 			result = new ModelAndView("actor/list");
-			result.addObject("requestURI", "actor/administrator/ban.do");
+			result.addObject("requestURI", "actor/administrator/list.do");
 			result.addObject("actors", actors);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
@@ -75,7 +76,7 @@ public class ActorAdministratorController extends AbstractController {
 			this.actorService.save(actor);
 			actors = this.actorService.findAll();
 			result = new ModelAndView("actor/list");
-			result.addObject("requestURI", "actor/administrator/ban.do");
+			result.addObject("requestURI", "actor/administrator/list.do");
 			result.addObject("actors", actors);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:/#");
