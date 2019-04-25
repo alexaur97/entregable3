@@ -1,6 +1,7 @@
 
 package controllers.all;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,13 @@ public class MessageController extends AbstractController {
 			msg = this.messageService.findOne(messageId);
 			Assert.isTrue(msg.getOwner().getId() == id);
 			Boolean b = true;
+			final Collection<String> aux = msg.getTags();
+			final ArrayList<String> tags = new ArrayList<>();
+			for (final String t : aux)
+				if (!t.trim().isEmpty())
+					tags.add(t);
+			msg.setTags(tags);
+			this.messageService.save(msg);
 			if (!msg.getTags().isEmpty())
 				for (final String t : msg.getTags())
 					if (!t.trim().isEmpty())
@@ -87,7 +95,9 @@ public class MessageController extends AbstractController {
 			Assert.isTrue(msg.getOwner().getId() == id);
 			if (!msg.getDeleted()) {
 				final String tag = "DELETED";
-				msg.getTags().add(tag);
+				final Collection<String> tags = msg.getTags();
+				tags.add(tag);
+				msg.setTags(tags);
 				msg.setDeleted(true);
 				this.messageService.save(msg);
 			} else

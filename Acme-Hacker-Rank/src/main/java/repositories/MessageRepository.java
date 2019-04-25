@@ -24,7 +24,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where m.recipient.id=?1 and m.spam=true and m.deleted=false and m.owner.id=?1")
 	Collection<Message> findSpam(int id);
 
-	@Query("select m from Message m where m.recipient.id=?1 and m.deleted=true and m.owner.id=?1")
+	@Query("select m from Message m where m.deleted=true and m.owner.id=?1")
 	Collection<Message> findDeleted(int id);
 
 	@Query("select m from Message m where m.sender.id=?1")
