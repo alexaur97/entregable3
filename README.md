@@ -24,5 +24,7 @@ ningún Actor.
 el criterio de búsqueda de un Hacker funcionan de la siguiente manera: cuando una Position es 
 publicada, es decir, pasa a modo FINAL, se recorren los Finders de cada Hacker. Por cada Finder cuyos
 campos de búsqueda coincidan con las características de la nueva Position, se enviará una notificación
-al Hacker propietario de ese Finder
+al Hacker propietario de ese Finder.
+
+#8 Un actor baneado no podrá loguearse en el sistema.
 
